@@ -4,8 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        "pink-light": "#FFF7F3",
-      }
+        gray: {
+          light: "#F5F5F5",
+          medium: "#666666",
+          dark: "#333333",
+        },
+      },
+      borderColor: {
+        "gray-light": "#E0E0E0"
+      },
     },
   },
   plugins: [],
