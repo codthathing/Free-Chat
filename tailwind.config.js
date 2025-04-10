@@ -11,8 +11,17 @@ export default {
         },
       },
       borderColor: {
-        "gray-light": "#E0E0E0"
+        "gray-light": "#E0E0E0",
       },
+      fontSize: {
+        "[8px]": "0.5rem",
+      },
+      borderWidth: {
+        "0.5px": "0.5px"
+      },
+      gap: {
+        "0.15px": "0.15px"
+      }
     },
   },
   plugins: [],
