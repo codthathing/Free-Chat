@@ -554,6 +554,10 @@ video {
   display: none;
 }
 
+.relative {
+  position: relative;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }
@@ -754,6 +758,55 @@ video {
 .outline-none {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.after\:absolute::after {
+  content: var(--tw-content);
+  position: absolute;
+}
+
+.after\:left-0::after {
+  content: var(--tw-content);
+  left: 0px;
+}
+
+.after\:top-\[3\.25rem\]::after {
+  content: var(--tw-content);
+  top: 3.25rem;
+}
+
+.after\:top-\[3\.15rem\]::after {
+  content: var(--tw-content);
+  top: 3.15rem;
+}
+
+.after\:text-sm::after {
+  content: var(--tw-content);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.after\:text-lg::after {
+  content: var(--tw-content);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.after\:text-base::after {
+  content: var(--tw-content);
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.after\:text-xs::after {
+  content: var(--tw-content);
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.after\:content-\[\'hello_world\'\]::after {
+  --tw-content: 'hello world';
+  content: var(--tw-content);
 }
 
 @media (min-width: 768px) {

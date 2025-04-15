@@ -21,7 +21,7 @@ export default {
       },
       gap: {
         "0.15px": "0.15px"
-      }
+      },
     },
   },
   plugins: [],

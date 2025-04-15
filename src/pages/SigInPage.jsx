@@ -5,6 +5,8 @@ import AuthSignInOpt from "../components/auth/AuthSignInOpt";
 import AuthDivider from "../components/auth/AuthDivider";
 import AuthForm from "../components/auth/AuthForm";
 import AuthInput from "../components/auth/AuthInput";
+import AuthNavText from "../components/auth/AuthNavText";
+import { useNavigate } from "react-router-dom";
 
 const SigInPage = () => {
   const [ signInForm, setSignInForm ] = useState({ email: "", password: "" });
@@ -13,6 +15,7 @@ const SigInPage = () => {
     const value = e.target.value;
     setSignInForm({ ...signInForm, [name]: value });
   };
+  const navigate = useNavigate();
 
   return (
     <AuthSection>
@@ -21,8 +24,8 @@ const SigInPage = () => {
       <AuthDivider text={"Or sign in with"} />
       <AuthForm buttonText={"Sign in"}>
         <AuthInput type={"email"} placeholder={"Enter your email"} name={"email"} value={signInForm.email} onChange={handleSignInForm} />
-        <AuthInput type={"password"} name={"password"} value={signInForm.password} onChange={handleSignInForm} />
-        <p className="text-xs md:text-xl lg:text-sm underline font-semibold self-end w-fit cursor-pointer">Forgot password</p>
+        <AuthInput type={"password"} placeholder={"Password"} name={"password"} value={signInForm.password} onChange={handleSignInForm} />
+        <AuthNavText onClick={() => navigate("password")} text={"Forgot password"} />
       </AuthForm>
     </AuthSection>
   );
