@@ -1,3 +1,5 @@
+import google from "../assets/google.svg";
+import apple from "../assets/apple.svg";
 import AuthSection from "../components/auth/AuthSection";
 import AuthHeadText from "../components/auth/AuthHeadText";
 import AuthSignInOpt from "../components/auth/AuthSignInOpt";
@@ -7,6 +9,11 @@ import AuthInput from "../components/auth/AuthInput";
 import AuthNavText from "../components/auth/AuthNavText";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+const optArray = [
+  { id: 0, icon: google, text: "Sign up with Google" },
+  { id: 1, icon: apple, text: "Sign up with Apple" },
+];
 
 const SignUpPage = () => {
   const [signUpForm, setSignUpForm] = useState({ name: "", email: "", password: "" });
@@ -20,8 +27,8 @@ const SignUpPage = () => {
   return (
     <AuthSection className={"mt-8"}>
       <AuthHeadText head={"Create an Account"} />
-      <AuthSignInOpt />
-      <AuthDivider />
+      <AuthSignInOpt array={optArray} />
+      <AuthDivider text={"Or sign up with"} />
       <AuthForm buttonText={"Sign Up"}>
         <AuthInput type={"text"} placeholder={"Full Name"} name={"name"} value={signUpForm.name} onChange={handleSignUpForm} />
         <AuthInput type={"email"} placeholder={"Email"} name={"email"} value={signUpForm.email} onChange={handleSignUpForm} />

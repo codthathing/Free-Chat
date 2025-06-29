@@ -1,4 +1,6 @@
 import { useState } from "react";
+import google from "../assets/google.svg";
+import apple from "../assets/apple.svg";
 import AuthSection from "../components/auth/AuthSection";
 import AuthHeadText from "../components/auth/AuthHeadText";
 import AuthSignInOpt from "../components/auth/AuthSignInOpt";
@@ -7,6 +9,11 @@ import AuthForm from "../components/auth/AuthForm";
 import AuthInput from "../components/auth/AuthInput";
 import AuthNavText from "../components/auth/AuthNavText";
 import { useNavigate } from "react-router-dom";
+
+const optArray = [
+  { id: 0, icon: google, text: "Sign in with Google" },
+  { id: 1, icon: apple, text: "Sign in with Apple" },
+];
 
 const SigInPage = () => {
   const [signInForm, setSignInForm] = useState({ email: "", password: "" });
@@ -20,7 +27,7 @@ const SigInPage = () => {
   return (
     <AuthSection className={"mt-24"} navigateLink={"/"} showBackIcon={true}>
       <AuthHeadText head={"Welcome back!"} text={"To get started, sign in to your account"} />
-      <AuthSignInOpt />
+      <AuthSignInOpt array={optArray} />
       <AuthDivider text={"Or sign in with"} />
       <AuthForm buttonText={"Sign in"}>
         <AuthInput type={"email"} placeholder={"Enter your email"} name={"email"} value={signInForm.email} onChange={handleSignInForm} />
