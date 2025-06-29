@@ -9,13 +9,13 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" exact element={<PageLayout />}>
-          <Route index element={<SignInPage />} />
-          <Route path="sign-up" element={<SignUpPage />} />
+          <Route index element={<SignUpPage />} />
+          <Route path="sign-in" element={<SignInPage />} />
           <Route path="password" element={<PasswordPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
   );
-};
+}
 
 export default App;

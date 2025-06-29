@@ -18,16 +18,16 @@ const SignUpPage = () => {
   const navigate = useNavigate();
 
   return (
-    <AuthSection>
+    <AuthSection className={"mt-8"}>
       <AuthHeadText head={"Create an Account"} />
       <AuthSignInOpt />
       <AuthDivider />
       <AuthForm buttonText={"Sign Up"}>
         <AuthInput type={"text"} placeholder={"Full Name"} name={"name"} value={signUpForm.name} onChange={handleSignUpForm} />
-        <AuthInput type={"email"} placeholder={"Email"} name={"name"} value={signUpForm.email} onChange={handleSignUpForm} />
+        <AuthInput type={"email"} placeholder={"Email"} name={"email"} value={signUpForm.email} onChange={handleSignUpForm} />
         <AuthInput type={"password"} placeholder={"Password"} name={"password"} value={signUpForm.password} onChange={handleSignUpForm} />
       </AuthForm>
-      <AuthNavText onClick={() => navigate("/")} text={"Already have an account? Sign In"} />
+      <AuthNavText onClick={() => navigate("/sign-in")} text={"Already have an account? Sign In"} />
     </AuthSection>
   );
 };

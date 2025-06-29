@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{js,jsx,ts,tsx,html}'],
+  content: ["./src/**/*.{js,jsx,ts,tsx,html}"],
   theme: {
     extend: {
       colors: {
@@ -17,10 +17,13 @@ export default {
         "[8px]": "0.5rem",
       },
       borderWidth: {
-        "0.5px": "0.5px"
+        "0.5px": "0.5px",
       },
       gap: {
-        "0.15px": "0.15px"
+        "0.15px": "0.15px",
+      },
+      boxShadow: {
+        inset: "0 0 0px 1000px #F5F5F5 inset",
       },
     },
   },
