@@ -1,3 +1,5 @@
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { useState } from "react";
 import google from "../assets/google.svg";
 import apple from "../assets/apple.svg";
@@ -8,6 +10,7 @@ import AuthDivider from "../components/auth/AuthDivider";
 import AuthForm from "../components/auth/AuthForm";
 import AuthInput from "../components/auth/AuthInput";
 import AuthNavText from "../components/auth/AuthNavText";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const optArray = [
@@ -15,13 +18,13 @@ const optArray = [
   { id: 1, icon: apple, text: "Sign in with Apple" },
 ];
 
+const validationSchema = Yup.object({
+  email: Yup.string().email("Kindly enter the correct email format").required("Kindly enter your email"),
+  password: Yup.string().required("Kindly enter your password"),
+});
+
 const SigInPage = () => {
-  const [signInForm, setSignInForm] = useState({ email: "", password: "" });
-  const handleSignInForm = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setSignInForm({ ...signInForm, [name]: value });
-  };
+  const [signInDetails, setSignInDetails] = useState({ values: {}, errors: {} });
   const navigate = useNavigate();
 
   return (
@@ -29,11 +32,33 @@ const SigInPage = () => {
       <AuthHeadText head={"Welcome back!"} text={"To get started, sign in to your account"} />
       <AuthSignInOpt array={optArray} />
       <AuthDivider text={"Or sign in with"} />
-      <AuthForm buttonText={"Sign in"}>
-        <AuthInput type={"email"} placeholder={"Enter your email"} name={"email"} value={signInForm.email} onChange={handleSignInForm} />
-        <AuthInput type={"password"} placeholder={"Password"} name={"password"} value={signInForm.password} onChange={handleSignInForm} />
-        <AuthNavText onClick={() => navigate("/password")} text={"Forgot password"} />
-      </AuthForm>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          setSignInDetails((prevState) => ({ ...prevState, values: values }));
+          setSubmitting(false);
+          resetForm();
+        }}
+        validationSchema={validationSchema}
+        enableReinitialize={false}
+        validateOnChange={false}
+        validateOnBlur={false}
+        validateOnMount={false}
+      >
+        {(formik) => {
+          useEffect(() => {
+            if (Object.keys(formik.errors).length) setSignInDetails((prevState) => ({ ...prevState, errors: formik.errors }));
+          }, [formik.errors]);
+
+          return (
+            <AuthForm buttonText={"Sign in"}>
+              <AuthInput type={"email"} placeholder={"Enter your email"} name={"email"} />
+              <AuthInput type={"password"} placeholder={"Password"} name={"password"} />
+              <AuthNavText onClick={() => navigate("/password")} text={"Forgot password"} />
+            </AuthForm>
+          );
+        }}
+      </Formik>
     </AuthSection>
   );
 };
