@@ -11,9 +11,9 @@ function App() {
       <Routes>
         <Route path="/" exact element={<PageLayout />}>
           <Route index element={<SignUpPage />} />
-          <Route path="sign-in" element={<SignInPage />} />
-          <Route path="password" element={<PasswordPage />} />
-          <Route path="messages" element={<MessagePage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/password" element={<PasswordPage />} />
+          <Route path="/messages" element={<MessagePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
