@@ -642,13 +642,13 @@ video {
   height: 1.25rem;
 }
 
-.h-full {
-  height: 100%;
-}
-
 .h-fit {
   height: -moz-fit-content;
   height: fit-content;
+}
+
+.h-full {
+  height: 100%;
 }
 
 .w-10 {
@@ -690,6 +690,10 @@ video {
 
 .flex-col {
   flex-direction: column;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
 }
 
 .items-end {
@@ -736,6 +740,10 @@ video {
   row-gap: 0.15px;
 }
 
+.gap-y-0\.5 {
+  row-gap: 0.125rem;
+}
+
 .gap-y-1 {
   row-gap: 0.25rem;
 }
@@ -760,16 +768,8 @@ video {
   row-gap: 1.25rem;
 }
 
-.gap-y-0\.5 {
-  row-gap: 0.125rem;
-}
-
 .self-end {
   align-self: flex-end;
-}
-
-.self-center {
-  align-self: center;
 }
 
 .text-nowrap {
@@ -852,9 +852,9 @@ video {
   border-color: rgb(224 224 224 / var(--tw-border-opacity, 1));
 }
 
-.border-red-400 {
+.border-red-500 {
   --tw-border-opacity: 1;
-  border-color: rgb(248 113 113 / var(--tw-border-opacity, 1));
+  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
 }
 
 .bg-\[\#6664FE\] {
@@ -917,6 +917,11 @@ video {
   padding-right: 1rem;
 }
 
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -935,11 +940,6 @@ video {
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-}
-
-.px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
 }
 
 .pb-4 {

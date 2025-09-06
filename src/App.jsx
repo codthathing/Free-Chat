@@ -10,10 +10,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" exact element={<PageLayout />}>
-          <Route path="/messages" element={<SignUpPage />} />
+          <Route index element={<SignUpPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/password" element={<PasswordPage />} />
-          <Route index element={<MessagePage />} />
+          <Route path="/messages" element={<MessagePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
