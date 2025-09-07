@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 function MessageProfileSection({ mutualsMessageDetails }) {
   return (
-    <section className="flex flex-col py-1.5 gap-y-2.5">
+    <section className="flex flex-col flex-1 pt-1 mt-1 pb-16 gap-y-2.5 overflow-y-auto">
       {mutualsMessageDetails.map(
         ({
           id,

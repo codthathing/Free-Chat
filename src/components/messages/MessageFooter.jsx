@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 export default function MessageFooter({ footerIcons }) {
   return (
-    <footer className="border-t border-[#F8F8F8] fixed bottom-0 w-full py-3 px-5 flex justify-between">
+    <footer className="border-t border-[#F8F8F8] bg-white/70 backdrop-blur-md fixed bottom-0 w-full py-3 px-5 flex justify-between">
       {footerIcons.map(({ id, Icon, iconText }) => {
         return (
           <div

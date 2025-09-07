@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const optArray = [
-  { id: 0, icon: google, text: "Sign in with Google" },
+  { id: 0, icon: google, text: "Sign in with Google", navigate: "/messages" },
   { id: 1, icon: apple, text: "Sign in with Apple" },
 ];
 
