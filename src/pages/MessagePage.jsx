@@ -22,8 +22,7 @@ const mutaualsMessages = [
     id: 0,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -31,8 +30,7 @@ const mutaualsMessages = [
     id: 1,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -40,8 +38,7 @@ const mutaualsMessages = [
     id: 2,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -49,8 +46,7 @@ const mutaualsMessages = [
     id: 3,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -58,8 +54,7 @@ const mutaualsMessages = [
     id: 4,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -67,8 +62,7 @@ const mutaualsMessages = [
     id: 5,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -76,8 +70,7 @@ const mutaualsMessages = [
     id: 6,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -85,8 +78,7 @@ const mutaualsMessages = [
     id: 7,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -94,8 +86,7 @@ const mutaualsMessages = [
     id: 8,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -103,8 +94,7 @@ const mutaualsMessages = [
     id: 9,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -112,8 +102,7 @@ const mutaualsMessages = [
     id: 10,
     displayPicture: display_picture,
     userName: { firstName: "John", lastName: "Doe" },
-    message:
-      "I have been texting you, thanks alot for the money I really appreciate...",
+    message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
   },
@@ -131,14 +120,15 @@ function MessagePage() {
     <section className="h-[100dvh] flex flex-col">
       <header className="grid gap-y-3.5 px-3 pt-4 pb-5 w-full">
         <div className="flex justify-between items-center w-full">
-          <h1 className="text-xl font-bold tracking-wider text-[#2B2B2B]">
-            Messages
-          </h1>
+          <h1 className="text-xl font-bold tracking-wider text-[#2B2B2B]">Messages</h1>
           <MessageIcons messageIconDetails={messageIconDetails} />
         </div>
         <form className="flex items-center gap-x-4 py-2 px-4 rounded-2xl bg-[#F8F8F8]">
           <MessageChatSearch />
-          <SlidersHorizontal size={16} className="text-[#5F5F5F]" />
+          <SlidersHorizontal
+            size={16}
+            className="text-[#5F5F5F]"
+          />
         </form>
       </header>
       <main className="px-3 flex flex-col flex-1 overflow-y-hidden">
