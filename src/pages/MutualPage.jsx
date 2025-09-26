@@ -11,7 +11,7 @@ export default function ComponentName() {
             alt=""
           />
           <div>
-            <h3></h3>
+            <h3>Helen Paul</h3>
             <p></p>
           </div>
         </nav>
