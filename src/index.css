@@ -906,11 +906,6 @@ video {
   border-color: rgb(224 224 224 / var(--tw-border-opacity, 1));
 }
 
-.border-red-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
-}
-
 .bg-\[\#6664FE\] {
   --tw-bg-opacity: 1;
   background-color: rgb(102 100 254 / var(--tw-bg-opacity, 1));
@@ -1490,10 +1485,6 @@ video {
 .\[\&\>\[data-status\=\'mutual\'\]\>li\>span\]\:bg-white>[data-status='mutual']>li>span {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-}
-
-.\[\&\>\[data-status\=\'user\'\]\&\>li\]\:self-end>[data-status='user'].\[\&\>\[data-status\=\'user\'\]\&\>li\]\:self-end>li {
-  align-self: flex-end;
 }
 
 .\[\&\>\[data-status\=\'user\'\]\>li\>span\]\:bg-\[\#6664FE\]>[data-status='user']>li>span {
