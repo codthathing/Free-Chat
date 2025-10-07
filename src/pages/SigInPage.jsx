@@ -54,7 +54,7 @@ const SigInPage = () => {
             <AuthForm buttonText={"Sign in"}>
               <AuthInput type={"email"} placeholder={"Enter your email"} name={"email"} />
               <AuthInput type={"password"} placeholder={"Password"} name={"password"} />
-              <AuthNavText onClick={() => navigate("/password")} text={"Forgot password"} />
+              <AuthNavText onClick={() => navigate("/password")} className={"-mt-2 md:-mt-2.5 lg:-mt-2"} text={"Forgot password"} />
             </AuthForm>
           );
         }}

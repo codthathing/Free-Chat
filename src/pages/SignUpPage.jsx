@@ -65,14 +65,14 @@ const SignUpPage = () => {
           return (
             <AuthForm buttonText={"Sign Up"}>
               <AuthInput type={"text"} placeholder={"Full Name"} name={"name"} />
-              <AuthInput type={"email"} placeholder={"Email"} name={"email"} />
+              <AuthInput type={"text"} placeholder={"Email"} name={"email"} />
               <AuthInput type={"password"} placeholder={"Password"} name={"auth.password"} />
               <AuthInput type={"password"} placeholder={"Confirm Password"} name={"auth.confirmPassword"} />
             </AuthForm>
           );
         }}
       </Formik>
-      <AuthNavText onClick={() => navigate("/sign-in")} text={"Already have an account? Sign In"} />
+      <AuthNavText onClick={() => navigate("/sign-in")} className={"-mt-3 md:-mt-6 lg:-mt-5"} text={"Already have an account? Sign In"} />
     </AuthSection>
   );
 };

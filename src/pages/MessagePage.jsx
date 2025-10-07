@@ -1,20 +1,19 @@
-import { Bell, Camera, Edit, MessageCircle, PhoneCall, SlidersHorizontal, User } from "lucide-react";
+import { Bell, MessageCircle, PhoneCall, Target, User } from "lucide-react";
 import display_picture from "../assets/display-picture.jpg";
 import MessageProfileSection from "../components/messages/MessageProfileSection";
 import MessageStatus from "../components/messages/MessageStatus";
 import MessageChatSearch from "../components/messages/MessageChatSearch";
-import MessageUserStatus from "../components/messages/MessageUserStatus";
-import MessageIcons from "../components/messages/MessageIcons";
 import MessageFooter from "../components/messages/MessageFooter";
-
-const messageIconDetails = [
-  { id: 0, Icon: Camera },
-  { id: 1, Icon: Edit },
-];
+import MessageUserProfile from "../components/messages/MessageUserProfile";
+import MessageDesktopNavigation from "../components/messages/MessageDesktopNavigation";
+import MessageDesktopHeader from "../components/messages/MessageDesktopHeader";
+import { Route, Routes } from "react-router-dom";
+import MutualPage from "./MutualPage";
 
 const mutualsStatus = [
   { id: 0, displayPicture: display_picture, userName: "Adio" },
   { id: "1", displayPicture: display_picture, userName: "James Milner" },
+  { id: 2, displayPicture: display_picture, userName: "James Milner" },
 ];
 
 const mutaualsMessages = [
@@ -29,79 +28,7 @@ const mutaualsMessages = [
   {
     id: 1,
     displayPicture: display_picture,
-    userName: { firstName: "John", lastName: "Doe" },
-    message: "I have been texting you, thanks alot for the money I really appreciate...",
-    timeOfMessage: "19:30 PM",
-    amountOfUnreadMessages: 3,
-  },
-  {
-    id: 2,
-    displayPicture: display_picture,
-    userName: { firstName: "John", lastName: "Doe" },
-    message: "I have been texting you, thanks alot for the money I really appreciate...",
-    timeOfMessage: "19:30 PM",
-    amountOfUnreadMessages: 3,
-  },
-  {
-    id: 3,
-    displayPicture: display_picture,
-    userName: { firstName: "John", lastName: "Doe" },
-    message: "I have been texting you, thanks alot for the money I really appreciate...",
-    timeOfMessage: "19:30 PM",
-    amountOfUnreadMessages: 3,
-  },
-  {
-    id: 4,
-    displayPicture: display_picture,
-    userName: { firstName: "John", lastName: "Doe" },
-    message: "I have been texting you, thanks alot for the money I really appreciate...",
-    timeOfMessage: "19:30 PM",
-    amountOfUnreadMessages: 3,
-  },
-  {
-    id: 5,
-    displayPicture: display_picture,
-    userName: { firstName: "John", lastName: "Doe" },
-    message: "I have been texting you, thanks alot for the money I really appreciate...",
-    timeOfMessage: "19:30 PM",
-    amountOfUnreadMessages: 3,
-  },
-  {
-    id: 6,
-    displayPicture: display_picture,
-    userName: { firstName: "John", lastName: "Doe" },
-    message: "I have been texting you, thanks alot for the money I really appreciate...",
-    timeOfMessage: "19:30 PM",
-    amountOfUnreadMessages: 3,
-  },
-  {
-    id: 7,
-    displayPicture: display_picture,
-    userName: { firstName: "John", lastName: "Doe" },
-    message: "I have been texting you, thanks alot for the money I really appreciate...",
-    timeOfMessage: "19:30 PM",
-    amountOfUnreadMessages: 3,
-  },
-  {
-    id: 8,
-    displayPicture: display_picture,
-    userName: { firstName: "John", lastName: "Doe" },
-    message: "I have been texting you, thanks alot for the money I really appreciate...",
-    timeOfMessage: "19:30 PM",
-    amountOfUnreadMessages: 3,
-  },
-  {
-    id: 9,
-    displayPicture: display_picture,
-    userName: { firstName: "John", lastName: "Doe" },
-    message: "I have been texting you, thanks alot for the money I really appreciate...",
-    timeOfMessage: "19:30 PM",
-    amountOfUnreadMessages: 3,
-  },
-  {
-    id: 10,
-    displayPicture: display_picture,
-    userName: { firstName: "John", lastName: "Doe" },
+    userName: { firstName: "alex", lastName: "kirk" },
     message: "I have been texting you, thanks alot for the money I really appreciate...",
     timeOfMessage: "19:30 PM",
     amountOfUnreadMessages: 3,
@@ -110,37 +37,41 @@ const mutaualsMessages = [
 
 const footerIconDetails = [
   { id: 0, Icon: MessageCircle, iconText: "messages" },
-  { id: 2, Icon: PhoneCall, iconText: "call" },
-  { id: 1, Icon: Bell, iconText: "notifications" },
-  { id: 3, Icon: User, iconText: "profile" },
+  { id: 1, Icon: PhoneCall, iconText: "calls" },
+  { id: 2, Icon: Target, iconText: "status" },
+  { id: 3, Icon: Bell, iconText: "notifications" },
+  { id: 4, Icon: User, iconText: "profile" },
 ];
 
-function MessagePage() {
+function MessagePage({ showMutualPage }) {
   return (
-    <section className="h-[100dvh] flex flex-col">
-      <header className="grid gap-y-3.5 px-3 pt-4 pb-5 w-full">
-        <div className="flex justify-between items-center w-full">
-          <h1 className="text-xl font-bold tracking-wider text-[#2B2B2B]">Messages</h1>
-          <MessageIcons messageIconDetails={messageIconDetails} />
-        </div>
-        <form className="flex items-center gap-x-4 py-2 px-4 rounded-2xl bg-[#F8F8F8]">
-          <MessageChatSearch />
-          <SlidersHorizontal
-            size={16}
-            className="text-[#5F5F5F]"
-          />
-        </form>
+    <section className="h-[100dvh] flex flex-col md:gap-y-0.5 md:bg-[#F2F2F2] md:p-1">
+      <header className="flex gap-x-10 justify-between px-3 pt-4 pb-5 w-full md:p-6 bg-white">
+        <h1 className="text-xl font-bold tracking-wider text-[#2B2B2B]">FreeChat</h1>
+        <MessageChatSearch className={"md:hidden"} />
+        <MessageUserProfile />
       </header>
-      <main className="px-3 flex flex-col flex-1 overflow-y-hidden">
-        <section className="border-b border-[#F8F8F8] pb-4">
-          <h3 className="text-[#C2C2C2] text-sm mb-3">Recent Update</h3>
-          <main className="flex gap-x-3">
-            <MessageUserStatus />
+      <section className="flex-1 overflow-hidden md:flex md:gap-x-0.5">
+        <MessageDesktopNavigation navigationIcon={footerIconDetails.slice(0, 3)} />
+        <div className="h-full md:w-full md:flex md:gap-x-0.5">
+          <main className="px-3 md:bg-white h-full flex flex-col md:p-4 md:gap-y-4 md:w-2/5 lg:w-[30%] md:flex-shrink-0 overflow-y-hidden">
             <MessageStatus mutualsStatus={mutualsStatus} />
+            <MessageDesktopHeader />
+            <MessageProfileSection mutualsMessageDetails={mutaualsMessages} />
           </main>
-        </section>
-        <MessageProfileSection mutualsMessageDetails={mutaualsMessages} />
-      </main>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div className="hidden md:flex text-4xl items-center justify-center w-full h-full">
+                  <p>Hello, welcome to FreeChat</p>
+                </div>
+              }
+            />
+            {!showMutualPage && <Route path=":mutual" element={<MutualPage />} />}
+          </Routes>
+        </div>
+      </section>
       <MessageFooter footerIcons={footerIconDetails} />
     </section>
   );
