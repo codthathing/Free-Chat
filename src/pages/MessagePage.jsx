@@ -46,10 +46,12 @@ const footerIconDetails = [
 function MessagePage({ showMutualPage }) {
   return (
     <section className="h-[100dvh] flex flex-col md:gap-y-0.5 md:bg-[#F2F2F2] md:p-1">
-      <header className="flex gap-x-10 justify-between px-3 pt-4 pb-5 w-full md:p-6 bg-white">
-        <h1 className="text-xl font-bold tracking-wider text-[#2B2B2B]">FreeChat</h1>
+      <header className="flex flex-col gap-y-4 px-3 py-5 w-full md:p-6 md:bg-white">
+        <div className="flex md:gap-x-10 justify-between items-center">
+          <h1 className="text-xl font-bold tracking-wider text-[#2B2B2B]">FreeChat</h1>
+          <MessageUserProfile />
+        </div>
         <MessageChatSearch className={"md:hidden"} />
-        <MessageUserProfile />
       </header>
       <section className="flex-1 overflow-hidden md:flex md:gap-x-0.5">
         <MessageDesktopNavigation navigationIcon={footerIconDetails.slice(0, 3)} />
