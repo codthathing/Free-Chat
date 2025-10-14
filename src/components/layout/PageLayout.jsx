@@ -5,7 +5,9 @@ const PageLayout = () => {
   return (
     <>
       <PageUpdate />
-      <Outlet />
+      <div className="h-[100dvh]">
+        <Outlet />
+      </div>
     </>
   );
 };
