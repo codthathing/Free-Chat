@@ -1,9 +1,20 @@
 import PropTypes from "prop-types";
 import { CheckCheck } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 export default function MutualMessageSection({ messageDetailsArray: array }) {
+  const messagesContainerRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      setTimeout(() => setIsScrolled(true), 0);
+    }
+  }, [array]);
+
   return (
-    <div className="p-4 flex flex-col gap-y-1 [&>[data-status='mutual']>li>span]:bg-white [&>[data-status='user']]:self-end [&>[data-status='user']>li]:self-end [&>[data-status='user']>li>span]:bg-[#6664FE] [&>[data-status='user']>li>span]:text-white">
+    <div ref={messagesContainerRef} className={`${isScrolled ? "visible" : "invisible"} p-4 flex flex-col gap-y-1 h-full overflow-y-auto custom-scrollbar [&>[data-status='mutual']>li>span]:bg-white [&>[data-status='user']]:self-end [&>[data-status='user']>li]:self-end [&>[data-status='user']>li>span]:bg-[#6664FE] [&>[data-status='user']>li>span]:text-white`}>
       {array.map(({ id, status, array }) => {
         return (
           <ul key={id} data-status={status} className="flex flex-col gap-y-1 w-fit max-w-[90%]">

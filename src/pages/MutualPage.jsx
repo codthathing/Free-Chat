@@ -1,4 +1,4 @@
-import { ArrowLeft, Mic, PhoneCall, Plus, Video, SendHorizonal } from "lucide-react";
+import { ArrowLeft, PhoneCall, Video } from "lucide-react";
 import MessageIcons from "../components/messages/MessageIcons";
 import MutualProfile from "../components/mutuals/MutualProfile";
 import MutualMessagesDate from "../components/mutuals/MutualMessagesDate";
@@ -6,21 +6,17 @@ import { useModifiedMessageObjects } from "../hooks/useModifiedMessageObjects";
 import MutualMessageSection from "../components/mutuals/MutualMessageSection";
 import MutualFooter from "../components/mutuals/MutualFooter";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const mutualIcons = [
   { id: 0, Icon: Video },
   { id: 1, Icon: PhoneCall },
 ];
 
-const messageDetails = [
-  { id: 0, type: "mutual", text: "Wassup segun", time: "7:20pm" },
-  { id: 1, type: "user", text: "Wagwan dude what have you been upto \n\nHow have you been", time: "7:20pm" },
-  { id: 2, type: "mutual", text: "Mehn I'm just there, nothing much!", time: "7:20pm" },
-  { id: 3, type: "mutual", text: "I'm good too", time: "7:20pm" },
-];
-
 export default function MutualPage({ className }) {
-  const { array } = useModifiedMessageObjects(messageDetails);
+  const messageState = useSelector((state) => state.messages);
+
+  const { array } = useModifiedMessageObjects(messageState);
   const navigate = useNavigate();
 
   return (
@@ -32,7 +28,7 @@ export default function MutualPage({ className }) {
         </div>
         <MessageIcons messageIconDetails={mutualIcons} />
       </header>
-      <main className="bg-[#F2F2F2] flex-1 relative">
+      <main className="bg-[#F2F2F2] flex-1 relative overflow-hidden">
         <MutualMessagesDate />
         <MutualMessageSection messageDetailsArray={array} />
       </main>
