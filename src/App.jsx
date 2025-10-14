@@ -23,7 +23,7 @@ function App() {
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/password" element={<PasswordPage />} />
           <Route path="/messages/*" element={<MessagePage showMutualPage={windowWidth} />} />
-          {windowWidth && <Route path="/messages/:mutual" element={<MutualPage className={"h-full"} />} />}
+          {windowWidth && <Route path="/messages/:mutual" element={<MutualPage className={"h-[100dvh]"} />} />}
         </Route>
       </Routes>
     </BrowserRouter>
