@@ -16,12 +16,17 @@ export default function MutualFooter() {
     setMessageInput("");
   };
 
+  const isMobile = navigator.userAgentData ? navigator.userAgentData.mobile : /Mobi|Android/i.test(navigator.userAgent);
   const keyDownEnter = (event) => {
     if (event.shiftKey && event.key === "Enter") {
       return;
     } else if (event.key === "Enter") {
-      event.preventDefault();
-      messageSendButton();
+      if (isMobile) {
+        return;
+      } else {
+        event.preventDefault();
+        messageSendButton();
+      }
     }
   };
 
