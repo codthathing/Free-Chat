@@ -27,7 +27,7 @@ export default function MutualFooter() {
   };
 
   return (
-    <footer className="px-4 h-[6.5rem] md:h-36 flex items-center bg-red-500 md:bg-white">
+    <footer className="px-4 h-[6.5rem] md:h-36 flex items-center md:bg-white">
       <div className="flex gap-x-3 w-full">
         <div className="h-10 w-10 rounded-full bg-[#6664FE] flex items-center justify-center cursor-pointer flex-shrink-0">
           <Plus className="text-white" size={20} />

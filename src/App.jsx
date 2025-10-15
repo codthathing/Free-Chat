@@ -17,7 +17,7 @@ function App() {
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/password" element={<PasswordPage />} />
           <Route path="/messages/*" element={<MessagePage showMutualPage={mobile} />} />
-          {mobile && <Route path="/messages/:mutual" element={<MutualPage className={"h-[100dvh] custom-element"} />} />}
+          {mobile && <Route path="/messages/:mutual" element={<MutualPage className={"h-[100dvh]"} />} />}
         </Route>
       </Routes>
     </BrowserRouter>
