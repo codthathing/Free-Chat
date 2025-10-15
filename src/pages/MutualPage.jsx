@@ -20,7 +20,7 @@ export default function MutualPage({ className }) {
   const navigate = useNavigate();
 
   return (
-    <section className={`${className} max-md:has-[&footer>div>form>textarea:focus]:h-full flex flex-col md:w-full`}>
+    <section className={`${className} flex flex-col md:w-full`}>
       <header className="flex justify-between items-center p-4 md:bg-white">
         <div className="flex gap-x-5 items-center">
           <ArrowLeft size={20} className="text-[#2B2B2B] md:hidden cursor-pointer" onClick={() => navigate("/messages")} />
