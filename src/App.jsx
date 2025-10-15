@@ -7,7 +7,7 @@ import MessagePage from "./pages/MessagePage";
 import MutualPage from "./pages/MutualPage";
 
 function App() {
-  const isMobile = navigator.userAgentData ? navigator.userAgentData.mobile : /Mobi|Android/i.test(navigator.userAgent);
+  const mobile = navigator.userAgentData ? navigator.userAgentData.mobile : /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
   return (
     <BrowserRouter>
@@ -16,8 +16,8 @@ function App() {
           <Route index element={<SignUpPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/password" element={<PasswordPage />} />
-          <Route path="/messages/*" element={<MessagePage showMutualPage={isMobile} />} />
-          {isMobile && <Route path="/messages/:mutual" element={<MutualPage className={"h-[100dvh] max-md:has-[&footer>div>form>textarea:focus]:h-full"} />} />}
+          <Route path="/messages/*" element={<MessagePage showMutualPage={mobile} />} />
+          {mobile && <Route path="/messages/:mutual" element={<MutualPage className={"h-[100dvh] custom-element"} />} />}
         </Route>
       </Routes>
     </BrowserRouter>

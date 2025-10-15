@@ -715,6 +715,11 @@ video {
   height: 100%;
 }
 
+.max-h-fit {
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -774,10 +779,6 @@ video {
 
 .resize-none {
   resize: none;
-}
-
-.resize {
-  resize: both;
 }
 
 .flex-col {
@@ -1039,6 +1040,11 @@ video {
   background-color: rgb(255 255 255 / 0.7);
 }
 
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+}
+
 .bg-none {
   background-image: none;
 }
@@ -1276,6 +1282,11 @@ video {
   color: rgb(212 212 212 / var(--tw-text-opacity, 1));
 }
 
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
 .text-gray-dark {
   --tw-text-opacity: 1;
   color: rgb(51 51 51 / var(--tw-text-opacity, 1));
@@ -1335,6 +1346,10 @@ video {
   background-color: #9B9B9B;
 }
 
+.custom-element:has(footer > div > form > textarea:focus) {
+  height: 100%;
+}
+
 .placeholder\:text-\[\#B7B7B7\]::-moz-placeholder {
   --tw-text-opacity: 1;
   color: rgb(183 183 183 / var(--tw-text-opacity, 1));
@@ -1353,6 +1368,14 @@ video {
 .placeholder\:text-\[\#C8C8C8\]::placeholder {
   --tw-text-opacity: 1;
   color: rgb(200 200 200 / var(--tw-text-opacity, 1));
+}
+
+.valid\:caret-black:valid {
+  caret-color: #000;
+}
+
+.empty\:caret-\[\#B7B7B7\]:empty {
+  caret-color: #B7B7B7;
 }
 
 .has-\[input\:focus\]\:border-black:has(input:focus) {
