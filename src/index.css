@@ -1360,6 +1360,12 @@ video {
   border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
 }
 
+@media not all and (min-width: 768px) {
+  .max-md\:has-\[\&footer\>div\>form\>textarea\:focus\]\:h-full:has(.max-md\:has-\[\&footer\>div\>form\>textarea\:focus\]\:h-fullfooter>div>form>textarea:focus) {
+    height: 100%;
+  }
+}
+
 @media (min-width: 768px) {
   .md\:left-8 {
     left: 2rem;
