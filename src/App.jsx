@@ -5,6 +5,7 @@ import SignUpPage from "./pages/SignUpPage";
 import PasswordPage from "./pages/PasswordPage";
 import MessagePage from "./pages/MessagePage";
 import MutualPage from "./pages/MutualPage";
+import SplashPage from "./pages/SplashPage";
 
 function App() {
   const mobile = navigator.userAgentData ? navigator.userAgentData.mobile : /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
@@ -13,11 +14,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" exact element={<PageLayout />}>
-          <Route index element={<SignUpPage />} />
-          <Route path="/sign-in" element={<SignInPage />} />
+          <Route index element={<SplashPage />} />
+          <Route path="/log-in" element={<SignInPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/password" element={<PasswordPage />} />
           <Route path="/messages/*" element={<MessagePage showMutualPage={mobile} />} />
-          {mobile && <Route path="/messages/:mutual" element={<MutualPage className={"h-[100dvh]"} />} />}
+          {mobile && <Route path="/messages/:mutual" element={<MutualPage className={"h-dvh"} />} />}
         </Route>
       </Routes>
     </BrowserRouter>

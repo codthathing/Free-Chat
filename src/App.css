@@ -1,25 +1,35 @@
-/* index.css */
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-gray-light: #f5f5f5;
+  --color-gray-medium: #666666;
+  --color-gray-dark: #333333;
+  --color-border-gray-light: #e0e0e0;
+  --font-size-xs-custom: 0.5rem;
+  --border-width-thin: 0.5px;
+  --spacing-tiny: 0.15px;
+}
 
-@layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
+@utility shadow-inset {
+  box-shadow: 0 0 0px 1000px #f5f5f5 inset;
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
     display: none;
   }
+}
 
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar {
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
     width: 2px;
   }
 
-  .custom-scrollbar::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     border-radius: 1rem;
-    background-color: #9B9B9B;
+    background-color: #9b9b9b;
   }
 }
