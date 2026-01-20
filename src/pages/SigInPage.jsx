@@ -3,19 +3,17 @@ import * as Yup from "yup";
 import { useState } from "react";
 import google from "../assets/google.svg";
 import apple from "../assets/apple.svg";
-import AuthSection from "../components/auth/AuthSection";
 import AuthHeadText from "../components/auth/AuthHeadText";
-import AuthSignInOpt from "../components/auth/AuthSignInOpt";
 import AuthDivider from "../components/auth/AuthDivider";
 import AuthForm from "../components/auth/AuthForm";
 import AuthInput from "../components/auth/AuthInput";
-import AuthNavText from "../components/auth/AuthNavText";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Lock, Mail } from "lucide-react";
 
 const optArray = [
-  { id: 0, icon: google, text: "Sign in with Google", navigate: "/messages" },
-  { id: 1, icon: apple, text: "Sign in with Apple" },
+  { id: 0, icon: google },
+  { id: 1, icon: apple },
 ];
 
 const validationSchema = Yup.object({
@@ -28,10 +26,8 @@ const SigInPage = () => {
   const navigate = useNavigate();
 
   return (
-    <AuthSection className={"mt-24"} navigateLink={"/"} showBackIcon={true}>
-      <AuthHeadText head={"Welcome back!"} text={"To get started, sign in to your account"} />
-      <AuthSignInOpt array={optArray} />
-      <AuthDivider text={"Or sign in with"} />
+    <section className="h-[65vh] rounded-tl-4xl rounded-tr-4xl bg-white w-full p-8 flex flex-col items-center gap-y-4.5">
+      <AuthHeadText head={"Sign in Your Account"} />
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -51,15 +47,28 @@ const SigInPage = () => {
           }, [formik.errors]);
 
           return (
-            <AuthForm buttonText={"Sign in"}>
-              <AuthInput type={"email"} placeholder={"Enter your email"} name={"email"} />
-              <AuthInput type={"password"} placeholder={"Password"} name={"password"} />
-              <AuthNavText onClick={() => navigate("/password")} className={"-mt-2 md:-mt-2.5 lg:-mt-2"} text={"Forgot password"} />
+            <AuthForm buttonText={"Sign In"}>
+              <AuthInput Icon={Mail} iconClass={"w-5.5 h-5.5 shrink-0 border-r border-black pr-2"} type={"email"} placeholder={"Enter your Email"} name={"email"} />
+              <AuthInput Icon={Lock} iconClass={"w-5.5 h-5.5 shrink-0 border-r border-black pr-2"} type={"password"} placeholder={"Enter Your Password"} name={"password"} />
+              <div className="flex justify-between items-center">
+                <div className="flex gap-x-2 items-center">
+                  <input type="checkbox" name="remember" className="w-3 h-3 accent-black" />
+                  <span className="text-xs md:text-xl lg:text-sm">Remember me</span>
+                </div>
+                <p onClick={() => navigate("/password")} className={`text-xs md:text-xl lg:text-sm font-semibold w-fit cursor-pointer`}>Forgot Password?</p>
+              </div>
             </AuthForm>
           );
         }}
       </Formik>
-    </AuthSection>
+      <AuthDivider text={"Or sign in with"} array={optArray} />
+      <p className="text-sm">
+        Don't have an account?{" "}
+        <span className="text-green-500 cursor-pointer" onClick={() => navigate("/sign-up")}>
+          Sign Up
+        </span>
+      </p>
+    </section>
   );
 };
 
