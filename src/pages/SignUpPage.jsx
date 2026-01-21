@@ -31,7 +31,7 @@ const SignUpPage = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="h-[80vh] rounded-tl-4xl rounded-tr-4xl bg-white w-full p-8 flex flex-col items-center gap-y-4.5">
+    <>
       <AuthHeadText head={"Create An Account"} />
       <Formik
         initialValues={{
@@ -60,8 +60,8 @@ const SignUpPage = () => {
 
           return (
             <AuthForm buttonText={"Sign Up"}>
-              <AuthInput Icon={User} type={"text"} placeholder={"Full Name"} name={"name"} />
-              <AuthInput Icon={Mail} type={"text"} placeholder={"Email"} name={"email"} />
+              <AuthInput Icon={User} type={"text"} placeholder={"Username"} name={"name"} />
+              <AuthInput Icon={Mail} type={"text"} placeholder={"Enter Your Email"} name={"email"} />
               <AuthInput Icon={Lock} type={"password"} placeholder={"Password"} name={"auth.password"} />
               <AuthInput Icon={Lock} type={"password"} placeholder={"Confirm Password"} name={"auth.confirmPassword"} />
               <div className="flex gap-x-2 items-center">
@@ -79,7 +79,7 @@ const SignUpPage = () => {
           Sign In
         </span>
       </p>
-    </section>
+    </>
   );
 };
 

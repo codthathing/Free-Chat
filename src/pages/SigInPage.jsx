@@ -26,7 +26,7 @@ const SigInPage = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="h-[65vh] rounded-tl-4xl rounded-tr-4xl bg-white w-full p-8 flex flex-col items-center gap-y-4.5">
+    <>
       <AuthHeadText head={"Sign in Your Account"} />
       <Formik
         initialValues={{ email: "", password: "" }}
@@ -47,7 +47,7 @@ const SigInPage = () => {
           }, [formik.errors]);
 
           return (
-            <AuthForm buttonText={"Sign In"}>
+            <AuthForm buttonText={"Sign In"} onClick={() => navigate("/messages")}>
               <AuthInput Icon={Mail} iconClass={"w-5.5 h-5.5 shrink-0 border-r border-black pr-2"} type={"email"} placeholder={"Enter your Email"} name={"email"} />
               <AuthInput Icon={Lock} iconClass={"w-5.5 h-5.5 shrink-0 border-r border-black pr-2"} type={"password"} placeholder={"Enter Your Password"} name={"password"} />
               <div className="flex justify-between items-center">
@@ -55,7 +55,7 @@ const SigInPage = () => {
                   <input type="checkbox" name="remember" className="w-3 h-3 accent-black" />
                   <span className="text-xs md:text-xl lg:text-sm">Remember me</span>
                 </div>
-                <p onClick={() => navigate("/password")} className={`text-xs md:text-xl lg:text-sm font-semibold w-fit cursor-pointer`}>Forgot Password?</p>
+                <p onClick={() => navigate("/forgot-password")} className={`text-xs md:text-xl lg:text-sm font-semibold w-fit cursor-pointer`}>Forgot Password?</p>
               </div>
             </AuthForm>
           );
@@ -68,7 +68,7 @@ const SigInPage = () => {
           Sign Up
         </span>
       </p>
-    </section>
+    </>
   );
 };
 
