@@ -6,6 +6,7 @@ import AuthInput from "../components/auth/AuthInput";
 import { useEffect } from "react";
 import { Formik } from "formik";
 import { Lock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   auth: Yup.object().shape({
@@ -17,6 +18,7 @@ const validationSchema = Yup.object({
 });
 
 export default function PasswordResetPage() {
+  const navigate = useNavigate();
   const [resetDetails, setResetDetails] = useState({ values: {}, errors: {} });
 
   return (
@@ -47,7 +49,7 @@ export default function PasswordResetPage() {
           }, [formik.errors]);
 
           return (
-            <AuthForm buttonText={"Reset Password"}>
+            <AuthForm buttonText={"Reset Password"} onClick={() => navigate("/sign-in")}>
               <AuthInput Icon={Lock} placeholder={"Enter New Password"} type={"password"} name={"auth.password"} />
               <AuthInput Icon={Lock} placeholder={"Enter Confirm Password"} type={"password"} name={"auth.confirmPassword"} />
             </AuthForm>
