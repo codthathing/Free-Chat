@@ -9,7 +9,7 @@ import { Mail } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
-  email: Yup.string().email("Kindly enter the correct email format").required("Kindly enter your email"),
+  email: Yup.string().email("Kindly enter correct email format.").required("Kindly enter your email."),
 });
 
 const PasswordPage = () => {
@@ -19,11 +19,12 @@ const PasswordPage = () => {
   return (
     <>
       <AuthHeadText head={"Verification Code"} />
-      <p className="text-xs text-center">We sent 6 digit code to your email address please check & enter your code</p>
+      <p className="text-xs text-center text-charcoal-black">We sent 6 digit code to your email address please check & enter your code</p>
       <Formik
         initialValues={{ email: "" }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setEmailDetails((prevState) => ({ ...prevState, values: values }));
+          navigate("/otp-verification");
           setSubmitting(false);
           resetForm();
         }}
@@ -39,7 +40,7 @@ const PasswordPage = () => {
           }, [formik.errors]);
 
           return (
-            <AuthForm buttonText={"Send OTP"} onClick={() => navigate("/otp-verification")}>
+            <AuthForm buttonText={"Send OTP"}>
               <AuthInput Icon={Mail} type={"email"} placeholder={"Enter Your Email"} name={"email"} />
             </AuthForm>
           );

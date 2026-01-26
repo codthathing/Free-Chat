@@ -16,13 +16,15 @@ const optArray = [
 ];
 
 const validationSchema = Yup.object({
-  name: Yup.string().required("Kindly input your name"),
-  email: Yup.string().email("Kindly enter the correct email format").required("Kindly input your email"),
+  name: Yup.string().required("Kindly enter your name."),
+  email: Yup.string().email("Kindly enter correct email format.").required("Kindly enter your email."),
   auth: Yup.object().shape({
-    password: Yup.string().required("Kindly input your preferred password").min(8, "Kindly enter at least 8 characters"),
-    confirmPassword: Yup.string()
-      .required("Kindly confirm your password")
-      .oneOf([Yup.ref("password"), null], "Password must match"),
+    password: Yup.string().required("Kindly enter a password.").min(8, "Password must be at least 8 characters."),
+    confirmPassword: Yup.string().when("password", {
+      is: (val) => val && val.length > 0,
+      then: (schema) => schema.required("Kindly confirm your password.").oneOf([Yup.ref("password")], "Passwords must match."),
+      otherwise: (schema) => schema.notRequired(),
+    }),
   }),
 });
 
@@ -66,19 +68,16 @@ const SignUpPage = () => {
               <AuthInput Icon={Lock} type={"password"} placeholder={"Confirm Password"} name={"auth.confirmPassword"} />
               <div className="flex gap-x-2 items-center">
                 <input type="checkbox" name="remember" className="w-3 h-3 accent-black" />
-                <span className="text-xs md:text-xl lg:text-sm">I agree to the <span className="text-green-500">Terms & Condition</span> and <span className="text-green-500">Privacy Policy</span></span>
+                <span className="text-xs md:text-xl lg:text-sm text-charcoal-black">
+                  I agree to the <span className="font-bold cursor-pointer">Terms & Condition</span> and <span className="font-bold cursor-pointer">Privacy Policy</span>
+                </span>
               </div>
             </AuthForm>
           );
         }}
       </Formik>
       <AuthDivider text={"Or sign up with"} array={optArray} />
-      <p className="text-sm">
-        Already have an account?{" "}
-        <span className="text-green-500 cursor-pointer" onClick={() => navigate("/sign-in")}>
-          Sign In
-        </span>
-      </p>
+      <p className="text-sm text-charcoal-black">Already have an account? <span className="font-bold cursor-pointer" onClick={() => navigate("/sign-in")}>Sign In</span></p>
     </>
   );
 };

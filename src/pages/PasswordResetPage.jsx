@@ -10,10 +10,12 @@ import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   auth: Yup.object().shape({
-    password: Yup.string().required("Kindly input your preferred password").min(8, "Kindly enter at least 8 characters"),
-    confirmPassword: Yup.string()
-      .required("Kindly confirm your password")
-      .oneOf([Yup.ref("password")], "Passwords must match"),
+    password: Yup.string().required("Kindly enter a new password.").min(8, "Password must be at least 8 characters."),
+    confirmPassword: Yup.string().when("password", {
+      is: (val) => val && val.length > 0,
+      then: (schema) => schema.required("Kindly confirm your new password.").oneOf([Yup.ref("password")], "Passwords must match."),
+      otherwise: (schema) => schema.notRequired(),
+    })
   }),
 });
 
@@ -24,7 +26,7 @@ export default function PasswordResetPage() {
   return (
     <>
       <AuthHeadText head={"Reset Password"} />
-      <p className="text-xs text-center">At least 8 characters with uppercase and lowercase letters</p>
+      <p className="text-xs text-center text-charcoal-black">At least 8 characters with uppercase and lowercase letters</p>
       <Formik
         initialValues={{
           auth: {
@@ -34,6 +36,7 @@ export default function PasswordResetPage() {
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setResetDetails((prevState) => ({ ...prevState, values: values }));
+          navigate("/sign-in");
           setSubmitting(false);
           resetForm();
         }}
@@ -49,7 +52,7 @@ export default function PasswordResetPage() {
           }, [formik.errors]);
 
           return (
-            <AuthForm buttonText={"Reset Password"} onClick={() => navigate("/sign-in")}>
+            <AuthForm buttonText={"Reset Password"}>
               <AuthInput Icon={Lock} placeholder={"Enter New Password"} type={"password"} name={"auth.password"} />
               <AuthInput Icon={Lock} placeholder={"Enter Confirm Password"} type={"password"} name={"auth.confirmPassword"} />
             </AuthForm>
