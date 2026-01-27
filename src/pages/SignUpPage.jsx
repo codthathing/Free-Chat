@@ -18,14 +18,7 @@ const optArray = [
 const validationSchema = Yup.object({
   name: Yup.string().required("Kindly enter your name."),
   email: Yup.string().email("Kindly enter correct email format.").required("Kindly enter your email."),
-  auth: Yup.object().shape({
-    password: Yup.string().required("Kindly enter a password.").min(8, "Password must be at least 8 characters."),
-    confirmPassword: Yup.string().when("password", {
-      is: (val) => val && val.length > 0,
-      then: (schema) => schema.required("Kindly confirm your password.").oneOf([Yup.ref("password")], "Passwords must match."),
-      otherwise: (schema) => schema.notRequired(),
-    }),
-  }),
+  password: Yup.string().required("Kindly enter a password.").min(8, "Password must be at least 8 characters."),
 });
 
 const SignUpPage = () => {
@@ -39,10 +32,7 @@ const SignUpPage = () => {
         initialValues={{
           name: "",
           email: "",
-          auth: {
-            password: "",
-            confirmPassword: "",
-          },
+          password: "",
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSignUpDetails((prevState) => ({ ...prevState, values: values }));
@@ -64,8 +54,7 @@ const SignUpPage = () => {
             <AuthForm buttonText={"Sign Up"}>
               <AuthInput Icon={User} type={"text"} placeholder={"Username"} name={"name"} />
               <AuthInput Icon={Mail} type={"text"} placeholder={"Enter Your Email"} name={"email"} />
-              <AuthInput Icon={Lock} type={"password"} placeholder={"Password"} name={"auth.password"} />
-              <AuthInput Icon={Lock} type={"password"} placeholder={"Confirm Password"} name={"auth.confirmPassword"} />
+              <AuthInput Icon={Lock} type={"password"} placeholder={"Password"} name={"password"} />
               <div className="flex gap-x-2 items-center">
                 <input type="checkbox" name="remember" className="w-3 h-3 accent-black" />
                 <span className="text-xs md:text-xl lg:text-sm text-charcoal-black">
