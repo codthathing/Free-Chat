@@ -9,6 +9,7 @@ import MessageDesktopNavigation from "../components/messages/MessageDesktopNavig
 import MessageDesktopHeader from "../components/messages/MessageDesktopHeader";
 import { Route, Routes } from "react-router-dom";
 import MutualPage from "./MutualPage";
+import { useState } from "react";
 
 const mutualsStatus = [
   { id: 0, displayPicture: display_picture, userName: "Adio" },
@@ -44,19 +45,21 @@ const footerIconDetails = [
 ];
 
 function MessagePage({ showMutualPage }) {
+  const [showProfile, setShowProfile] = useState(false);
+
   return (
-    <section className="h-[100dvh] flex flex-col md:gap-y-0.5 md:bg-[#F2F2F2] md:p-1">
-      <header className="flex flex-col gap-y-4 px-3 py-5 w-full md:p-6 md:bg-white">
+    <section className="h-dvh flex flex-col md:gap-y-0.5 md:bg-[#F2F2F2] md:p-1">
+      <header className="relative flex flex-col gap-y-4 px-3 py-5 w-full md:p-6 md:bg-white">
         <div className="flex md:gap-x-10 justify-between items-center">
           <h1 className="text-xl font-bold tracking-wider text-[#2B2B2B]">FreeChat</h1>
-          <MessageUserProfile />
+          <MessageUserProfile profile={showProfile} setProfile={setShowProfile} />
         </div>
         <MessageChatSearch className={"md:hidden"} />
       </header>
       <section className="flex-1 overflow-hidden md:flex md:gap-x-0.5">
         <MessageDesktopNavigation navigationIcon={footerIconDetails.slice(0, 3)} />
         <div className="h-full md:w-full md:flex md:gap-x-0.5">
-          <main className="px-3 md:bg-white h-full flex flex-col md:p-4 md:gap-y-4 md:w-2/5 lg:w-[30%] md:flex-shrink-0 overflow-y-hidden">
+          <main className="px-3 md:bg-white h-full flex flex-col md:p-4 md:gap-y-4 md:w-2/5 lg:w-[30%] md:shrink-0 overflow-y-hidden">
             <MessageStatus mutualsStatus={mutualsStatus} />
             <MessageDesktopHeader />
             <MessageProfileSection mutualsMessageDetails={mutaualsMessages} />
@@ -74,7 +77,7 @@ function MessagePage({ showMutualPage }) {
           </Routes>
         </div>
       </section>
-      <MessageFooter footerIcons={footerIconDetails} />
+      <MessageFooter footerIcons={footerIconDetails} profile={showProfile} setProfile={setShowProfile} />
     </section>
   );
 }

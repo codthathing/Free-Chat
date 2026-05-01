@@ -1,11 +1,27 @@
+import { PanelLeft, PanelRight } from "lucide-react";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 export default function MessageDesktopNavigation({ navigationIcon }) {
+  const [showPanel, setShowPanel] = useState(false);
+
   return (
-    <div className="hidden md:flex flex-col gap-y-5 bg-white py-6 px-6">
-      {navigationIcon.map(({ id, Icon, iconText }) => {
-        return <Icon key={id} size={14} className={`${"messages" === iconText ? "text-[#6664FE]" : "text-[#5B5B5B]"} cursor-pointer`} />
-      })}
+    <div className="hidden md:block bg-white py-6">
+      <div className="border-b-2 border-[#F2F2F2] px-6 pb-3">
+        <span className="cursor-pointer" onClick={() => setShowPanel((prev) => !prev)}>
+          {showPanel ? <PanelLeft size={14} /> : <PanelRight size={14} />}
+        </span>
+      </div>
+      <main className="flex flex-col gap-y-6 px-6 mt-3">
+        {navigationIcon.map(({ id, Icon, iconText }) => {
+          return (
+            <div key={id} className={`${"messages" === iconText ? "text-[#6664FE]" : "text-[#5B5B5B]"} cursor-pointer flex items-center gap-x-1.5`}>
+              <Icon size={14} />
+              {showPanel && <span className="text-[10px] leading-none">{iconText}</span>}
+            </div>
+          );
+        })}
+      </main>
     </div>
   );
 }
@@ -16,6 +32,6 @@ MessageDesktopNavigation.propTypes = {
       id: PropTypes.number.isRequired,
       Icon: PropTypes.elementType.isRequired,
       iconText: PropTypes.string.isRequired,
-    })
+    }),
   ),
 };
