@@ -48,10 +48,10 @@ function MessagePage({ showMutualPage }) {
   const [showProfile, setShowProfile] = useState(false);
 
   return (
-    <section className="h-dvh flex flex-col md:gap-y-0.5 md:bg-[#F2F2F2] md:p-1">
+    <section className="h-dvh flex flex-col md:gap-y-0.5 md:bg-background-gray md:p-1">
       <header className="relative flex flex-col gap-y-4 px-3 py-5 w-full md:p-6 md:bg-white">
         <div className="flex md:gap-x-10 justify-between items-center">
-          <h1 className="text-xl font-bold tracking-wider text-[#2B2B2B]">FreeChat</h1>
+          <h1 className="text-xl font-bold tracking-wider text-heading-black">FreeChat</h1>
           <MessageUserProfile profile={showProfile} setProfile={setShowProfile} />
         </div>
         <MessageChatSearch className={"md:hidden"} />
@@ -69,7 +69,7 @@ function MessagePage({ showMutualPage }) {
               path="/"
               element={
                 <div className="hidden md:flex text-4xl items-center justify-center w-full h-full">
-                  <p>Hello, welcome to FreeChat</p>
+                  <p className="text-charcoal-black">Hello, welcome to FreeChat</p>
                 </div>
               }
             />

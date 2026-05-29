@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-gray-light: #f5f5f5;
-  --color-gray-medium: #666666;
-  --color-gray-dark: #333333;
-  --color-border-gray-light: #e0e0e0;
-  --font-size-xs-custom: 0.5rem;
-  --border-width-thin: 0.5px;
-  --spacing-tiny: 0.15px;
   --color-deep-blue: #1E3A8A; /* conveys reliability and security */
   --color-light-gray: #F3F4F6; /* clean, minimal background */
   --color-emerald-green: #10B981; /* highlights success actions like “Save” or “Share" */
   --color-indigo: #4B0082; /* bold, tech-forward */
-  --color-soft-lavender: #E6E6FA; /* approachable and calming */
   --color-bright-orange: #FF6B35; /* energizes “Organize” and “Archive” actions */
-  --color-charcoal-black: #2C2C2C; /* sleek, timeless */
   --color-sky-blue: #3B82F6; /* openness and communication */
   --color-coral: #F87171; /* warm, inviting touch for user interactions */
   --color-soft-mint: #A7F3D0; /* fresh, calming */
+
+  --color-light-gray: #D4D4D4;
+  --color-medium-gray: #5F5F5F;
+  --color-input-gray: #F8F8F8;
+  --color-background-gray: #F2F2F2;
+  --color-heading-black: #2B2B2B;
+  --color-charcoal-black: #2C2C2C;
+  --color-soft-lavender: #E6E6FA;
+  --color-periwinkle-purple: #6664FE;
 }
 
 @utility shadow-inset {

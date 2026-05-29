@@ -56,14 +56,14 @@ const SigInPage = () => {
                   <input type="checkbox" name="remember" className="w-3 h-3 accent-charcoal-black" />
                   <span className="text-xs md:text-xl lg:text-sm text-charcoal-black">Remember me</span>
                 </div>
-                <p onClick={() => navigate("/forgot-password")} className={`text-xs md:text-xl lg:text-sm font-semibold w-fit cursor-pointer`}>Forgot Password?</p>
+                <p onClick={() => navigate("/forgot-password")} className="text-xs md:text-xl lg:text-sm text-heading-black font-semibold w-fit cursor-pointer">Forgot Password?</p>
               </div>
             </AuthForm>
           );
         }}
       </Formik>
       <AuthDivider text={"Or sign in with"} array={optArray} />
-      <p className="text-sm text-charcoal-black">Don't have an account? <span className="font-bold cursor-pointer" onClick={() => navigate("/sign-up")}>Sign Up</span></p>
+      <p className="text-sm text-charcoal-black">Don't have an account? <span className="font-bold text-heading-black cursor-pointer" onClick={() => navigate("/sign-up")}>Sign Up</span></p>
     </>
   );
 };

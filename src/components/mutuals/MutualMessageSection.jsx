@@ -14,23 +14,23 @@ export default function MutualMessageSection({ messageDetailsArray: array }) {
   }, [array]);
 
   return (
-    <div ref={messagesContainerRef} className={`${isScrolled ? "visible" : "invisible"} p-4 flex flex-col gap-y-1 h-full overflow-y-auto custom-scrollbar [&>[data-status='mutual']>li>span]:bg-white [&>[data-status='user']]:self-end [&>[data-status='user']>li]:self-end [&>[data-status='user']>li>span]:bg-[#6664FE] [&>[data-status='user']>li>span]:text-white`}>
+    <div ref={messagesContainerRef} className={`${isScrolled ? "visible" : "invisible"} p-4 flex flex-col gap-y-1 h-full overflow-y-auto custom-scrollbar [&>[data-status='mutual']>li>span]:bg-white *:data-[status='user']:self-end [&>[data-status='user']>li]:self-end [&>[data-status='user']>li>span]:bg-periwinkle-purple [&>[data-status='user']>li>span]:text-white`}>
       {array.map(({ id, status, array }) => {
         return (
           <ul key={id} data-status={status} className="flex flex-col gap-y-1 w-fit max-w-[90%]">
             {array.map(({ id, type, text, time }) => {
               return (
                 <li key={id} className="flex flex-col gap-y-0.5 w-fit">
-                  <span className="whitespace-pre-wrap leading-none rounded-lg p-2.5 w-fit max-w-full text-xs">{text}</span>
+                  <span className="whitespace-pre-wrap leading-none rounded-lg p-2.5 w-fit max-w-full text-xs text-charcoal-black">{text}</span>
                   {type === "user" ? (
                     <div className="self-end w-fit flex gap-x-1 items-center">
-                      <time dateTime="" className="leading-none uppercase text-[8px] text-[#BFBFBF]">
+                      <time dateTime="" className="leading-none uppercase text-[8px] text-light-gray">
                         {time}
                       </time>
                       <CheckCheck size={8} color="#A4CBEB" />
                     </div>
                   ) : (
-                    <time dateTime="" className="leading-none uppercase text-[8px] text-[#BFBFBF]">
+                    <time dateTime="" className="leading-none uppercase text-[8px] text-light-gray">
                       {time}
                     </time>
                   )}

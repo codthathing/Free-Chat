@@ -23,12 +23,12 @@ export default function MutualPage({ className }) {
     <section className={`${className} flex flex-col md:w-full`}>
       <header className="flex justify-between items-center p-4 md:bg-white">
         <div className="flex gap-x-5 items-center">
-          <ArrowLeft size={20} className="text-[#2B2B2B] md:hidden cursor-pointer" onClick={() => navigate("/messages")} />
+          <ArrowLeft size={20} className="text-heading-black md:hidden cursor-pointer" onClick={() => navigate("/messages")} />
           <MutualProfile />
         </div>
         <MessageIcons messageIconDetails={mutualIcons} />
       </header>
-      <main className="bg-[#F2F2F2] flex-1 relative overflow-hidden">
+      <main className="bg-background-gray flex-1 relative overflow-hidden">
         <MutualMessagesDate />
         <MutualMessageSection messageDetailsArray={array} />
       </main>

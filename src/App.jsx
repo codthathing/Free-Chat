@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageLayout from "./components/layout/PageLayout";
-import SignInPage from "./pages/SigInPage";
+import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import PasswordPage from "./pages/PasswordPage";
 import MessagePage from "./pages/MessagePage";
@@ -10,7 +10,7 @@ import AuthLayout from "./components/layout/AuthLayout";
 import PasswordCodeVerificationPage from "./pages/PasswordCodeVerificationPage";
 import PasswordResetPage from "./pages/PasswordResetPage";
 
-function App() {
+export default function App() {
   const mobile = navigator.userAgentData ? navigator.userAgentData.mobile : /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
   return (
@@ -32,5 +32,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;

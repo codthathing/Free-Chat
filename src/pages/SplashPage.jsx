@@ -14,7 +14,7 @@ export default function SplashPage() {
 
   return (
     <div className="h-dvh bg-gray-light flex items-center justify-center">
-      <h1 className="font-mono text-3xl">FreeChat</h1>
+      <h1 className="font-mono text-3xl text-heading-dark">FreeChat</h1>
     </div>
   );
 }
