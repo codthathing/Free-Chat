@@ -7,6 +7,7 @@ import MutualMessageSection from "../components/mutuals/MutualMessageSection";
 import MutualFooter from "../components/mutuals/MutualFooter";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 const mutualIcons = [
   { id: 0, Icon: Video },
@@ -35,4 +36,8 @@ export default function MutualPage({ className }) {
       <MutualFooter />
     </section>
   );
+}
+
+MutualPage.propTypes = {
+    className: PropTypes.string,
 }

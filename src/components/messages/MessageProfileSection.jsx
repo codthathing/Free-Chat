@@ -5,7 +5,7 @@ function MessageProfileSection({ mutualsMessageDetails }) {
   const navigate = useNavigate();
 
   return (
-    <section className="flex flex-col flex-1 pt-1 mt-1 pb-16 md:mt-0 md:p-0 gap-y-2.5 md:gap-y-4 overflow-y-auto no-scrollbar">
+    <section className="flex flex-col pt-1 mt-1 pb-16 md:mt-0 md:p-0 gap-y-2.5 md:gap-y-4 overflow-y-auto no-scrollbar">
       {mutualsMessageDetails.map(({ id, displayPicture, userName: { firstName, lastName }, message, timeOfMessage, amountOfUnreadMessages }) => {
         return (
           <div key={id} className="flex gap-x-2 justify-between cursor-pointer" onClick={() => navigate(`/messages/${firstName.toLowerCase()}-${lastName.toLowerCase()}`)}>
