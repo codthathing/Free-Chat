@@ -2,7 +2,6 @@
 
 @theme {
   --color-deep-blue: #1E3A8A; /* conveys reliability and security */
-  --color-light-gray: #F3F4F6; /* clean, minimal background */
   --color-emerald-green: #10B981; /* highlights success actions like “Save” or “Share" */
   --color-indigo: #4B0082; /* bold, tech-forward */
   --color-bright-orange: #FF6B35; /* energizes “Organize” and “Archive” actions */
@@ -21,7 +20,7 @@
 }
 
 @utility shadow-inset {
-  box-shadow: 0 0 0px 1000px #F8F8F8 inset;
+  box-shadow: 0 0 0 1000px #F8F8F8 inset;
 }
 
 @utility no-scrollbar {
