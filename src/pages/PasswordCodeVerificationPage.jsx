@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import AuthHeadText from "../components/auth/AuthHeadText";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Form, Formik } from "formik";
+import { Formik } from "formik";
+import AuthPasswordOTPForm from "../components/auth/AuthPasswordOTPForm.jsx";
 
 
 const validationSchema = Yup.object().shape({
@@ -14,7 +15,6 @@ const validationSchema = Yup.object().shape({
 
 export default function PasswordCodeVerification() {
   const navigate = useNavigate();
-  const [otpDetails, setOtpDetails] = useState({ values: {}, errors: {} });
   const [confirmInput, setConfirmInput] = useState(Array(6).fill(""));
   const confirmRefs = useRef([]);
 
@@ -76,12 +76,12 @@ export default function PasswordCodeVerification() {
 
   return (
     <>
-      <AuthHeadText head={"Verification Code"} />
+      <AuthHeadText text={"Verification Code"} />
       <p className="text-xs text-center text-charcoal-black">We sent 6 digit code to your email address please check & enter your code</p>
       <Formik 
         initialValues={{ otp: "" }} 
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          setOtpDetails((prevState) => ({ ...prevState, values: values }));
+          console.log(values);
           navigate("/reset-password");
           setSubmitting(false);
           resetForm();
@@ -92,26 +92,20 @@ export default function PasswordCodeVerification() {
         validateOnBlur={false}
         validateOnMount={false}
       >
-        {({ setFieldValue, setFieldTouched, errors, touched }) => {
-          useEffect(() => {
-            if (Object.keys(errors).length) setOtpDetails((prevState) => ({ ...prevState, errors: errors }));
-          }, [errors]);
+        {({ setFieldValue, setFieldTouched, errors, touched }) => (
+          <AuthPasswordOTPForm errors={errors} touched={touched} confirmInput={confirmInput}>
+            <div className="flex flex-col w-full gap-y-0.5">
+              <main className="flex justify-center items-center gap-x-3">
+                {confirmInput.map((value, index) => <input key={index} name={`otp-${index}`} type="text" inputMode="numeric" pattern="\d*" value={value} onInput={(e) => (e.currentTarget.value = e.currentTarget.value.slice(0, 1))} onChange={(e) => handleConfirmInput(e, index, setFieldValue, setFieldTouched)} onKeyDown={(e) => handleKeyDown(e, index, setFieldValue)} onPaste={(e) => handlePaste(e, setFieldValue, setFieldTouched)} ref={(el) => el && (confirmRefs.current[index] = el)} className="text-center bg-light-gray text-sm rounded-sm outline-none border-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 w-10 h-10 md:w-14 md:h-14 lg:w-12 lg:h-12 md:text-base" maxLength={1} autoComplete="off" /> )}
+              </main>
+              {errors.otp && touched.otp && <p className="text-xs text-red-500 self-center">{errors.otp}</p>}
+            </div>
 
-          return (
-            <Form className="flex flex-col gap-y-6 md:gap-y-10 lg:gap-y-8 w-full">
-              <div className="flex flex-col w-full gap-y-0.5">
-                <main className="flex justify-center items-center gap-x-3">
-                  {confirmInput.map((value, index) => <input key={index} name={`otp-${index}`} type="text" inputMode="numeric" pattern="\d*" value={value} onInput={(e) => (e.target.value = e.target.value.slice(0, 1))} onChange={(e) => handleConfirmInput(e, index, setFieldValue, setFieldTouched)} onKeyDown={(e) => handleKeyDown(e, index, setFieldValue)} onPaste={(e) => handlePaste(e, setFieldValue, setFieldTouched)} ref={(el) => el && (confirmRefs.current[index] = el)} className="text-center bg-light-gray text-sm rounded-sm outline-none border-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 w-10 h-10 md:w-14 md:h-14 lg:w-12 lg:h-12 md:text-base" maxLength={1} autoComplete="off" /> )}
-                </main>
-                {errors.otp && touched.otp && <p className="text-xs text-red-500 self-center">{errors.otp}</p>}
-              </div>
-
-              <input type="submit" value={"Verify"} className="border-none outline-none bg-black text-white rounded-md md:rounded-xl lg:rounded-lg py-3 md:py-4 lg:py-3 text-xs md:text-xl lg:text-sm cursor-pointer" />
-            </Form>
-          );
-        }}
+            <input type="submit" value={"Verify"} className="border-none outline-none bg-black text-white rounded-md md:rounded-xl lg:rounded-lg py-3 md:py-4 lg:py-3 text-xs md:text-xl lg:text-sm cursor-pointer" />
+          </AuthPasswordOTPForm>
+        )}
       </Formik>
-      <p className="text-sm text-charcoal-black">Didn't receive the code? <span className="font-bold cursor-pointer" onClick={() => navigate("/sign-in")}>Resend</span></p>
+      <p className="text-sm text-charcoal-black">Didn&#39;t receive the code? <span className="font-bold cursor-pointer" onClick={() => navigate("/sign-in")}>Resend</span></p>
     </>
   );
 }

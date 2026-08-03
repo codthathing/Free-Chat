@@ -10,14 +10,15 @@ import MessageDesktopHeader from "../components/messages/MessageDesktopHeader";
 import { Route, Routes } from "react-router-dom";
 import MutualPage from "./MutualPage";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-const mutualsStatus = [
+const mutualStatus = [
   { id: 0, displayPicture: display_picture, userName: "Adio" },
-  { id: "1", displayPicture: display_picture, userName: "James Milner" },
+  { id: 1, displayPicture: display_picture, userName: "James Milner" },
   { id: 2, displayPicture: display_picture, userName: "James Milner" },
 ];
 
-const mutaualsMessages = [
+const mutualMessages = [
   {
     id: 0,
     displayPicture: display_picture,
@@ -50,7 +51,7 @@ const tabList = [
   { id: 2, text: "groups" },
 ];
 
-function MessagePage({ showMutualPage }) {
+export default function MessagePage({ showMutualPage }) {
   const [showProfile, setShowProfile] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
   const [currentTabId, setCurrentTabId] = useState(0);
@@ -74,9 +75,9 @@ function MessagePage({ showMutualPage }) {
         <MessageDesktopNavigation navigationIcon={footerIconDetails.slice(0, 3)} />
         <div className="h-full md:w-full md:flex md:gap-x-0.5">
           <main className="relative px-3 md:bg-white h-full flex flex-col md:p-4 md:gap-y-4 md:w-2/5 lg:w-[30%] md:shrink-0 overflow-y-hidden">
-            <MessageStatus mutualsStatus={mutualsStatus} />
+            <MessageStatus mutualStatus={mutualStatus} />
             <MessageDesktopHeader tab={currentTabId} setTab={setCurrentTabId} />
-            <MessageProfileSection mutualsMessageDetails={mutaualsMessages} />
+            <MessageProfileSection mutualMessageDetails={mutualMessages} />
             {currentTabId === 2 && <div className={"absolute bottom-4 right-4 cursor-pointer shadow-lg p-4 bg-periwinkle-purple rounded-full w-16 h-16 flex justify-center items-center"}><Users size={24} className={"text-white"}/></div>}
           </main>
           <Routes>
@@ -97,4 +98,6 @@ function MessagePage({ showMutualPage }) {
   );
 }
 
-export default MessagePage;
+MessagePage.propTypes = {
+  showMutualPage: PropTypes.bool.isRequired,
+}

@@ -1,5 +1,6 @@
 import { Search, SlidersHorizontal } from "lucide-react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 export default function MessageChatSearch({ setFilter }) {
   const [searchText, setSearchText] = useState("");
@@ -13,4 +14,8 @@ export default function MessageChatSearch({ setFilter }) {
       <SlidersHorizontal onClick={() => setFilter(prev => !prev)} size={16} className="text-medium-gray md:hidden" />
     </form>
   );
+}
+
+MessageChatSearch.propTypes = {
+  setFilter: PropTypes.func,
 }

@@ -10,7 +10,7 @@ export default function SplashPage() {
     }, 3000);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="h-dvh bg-gray-light flex items-center justify-center">

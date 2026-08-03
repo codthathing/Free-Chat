@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 
+/*** @param {{ messageIconDetails: { id: number, Icon: $ElementType }[], className: string }} props */
+
 export default function MessageIcons({ messageIconDetails, className }) {
   return (
     <div className={`flex gap-x-4 ${className}`}>
@@ -16,9 +18,10 @@ export default function MessageIcons({ messageIconDetails, className }) {
 
 MessageIcons.propTypes = {
   messageIconDetails: PropTypes.arrayOf(
-    PropTypes.exact({
+    PropTypes.shape({
       id: PropTypes.number.isRequired,
       Icon: PropTypes.elementType.isRequired,
     })
-  ),
+  ).isRequired,
+  className: PropTypes.string,
 };

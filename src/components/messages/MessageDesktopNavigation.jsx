@@ -2,6 +2,8 @@ import { PanelLeft, PanelRight } from "lucide-react";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
+/*** @param {{ navigationIcon: { id: number, Icon: $ElementType, iconText: string }[] }} props */
+
 export default function MessageDesktopNavigation({ navigationIcon }) {
   const [showPanel, setShowPanel] = useState(false);
 
@@ -27,11 +29,11 @@ export default function MessageDesktopNavigation({ navigationIcon }) {
 }
 
 MessageDesktopNavigation.propTypes = {
-  footerIcons: PropTypes.arrayOf(
-    PropTypes.exact({
+  navigationIcon: PropTypes.arrayOf(
+    PropTypes.shape({
       id: PropTypes.number.isRequired,
       Icon: PropTypes.elementType.isRequired,
       iconText: PropTypes.string.isRequired,
     }),
-  ),
+  ).isRequired,
 };

@@ -1,4 +1,8 @@
-const AuthDivider = ({ text, array }) => {
+import PropTypes from "prop-types";
+
+/*** @param {{ text: string, array: { id: number, icon: string }[] }} props */
+
+export default function AuthDivider({ text, array }) {
   return (
     <>
       <span className="text-xs md:text-base lg:text-xs text-nowrap text-charcoal-black">{text}</span>
@@ -16,4 +20,10 @@ const AuthDivider = ({ text, array }) => {
   );
 };
 
-export default AuthDivider;
+AuthDivider.propTypes = {
+  text: PropTypes.string.isRequired,
+  array: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    icon: PropTypes.string.isRequired,
+  })).isRequired,
+}

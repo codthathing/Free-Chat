@@ -1,16 +1,18 @@
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-function MessageProfileSection({ mutualsMessageDetails }) {
+/*** @param {{ mutualMessageDetails: { id: number, displayPicture: string, userName: { firstName: string, lastName: String }, message: string, timeOfMessage: string, amountOfUnreadMessage: number }[] }} props */
+
+export default function MessageProfileSection({ mutualMessageDetails }) {
   const navigate = useNavigate();
 
   return (
     <section className="flex flex-col pt-1 mt-1 pb-16 md:mt-0 md:p-0 gap-y-2.5 md:gap-y-4 overflow-y-auto no-scrollbar">
-      {mutualsMessageDetails.map(({ id, displayPicture, userName: { firstName, lastName }, message, timeOfMessage, amountOfUnreadMessages }) => {
+      {mutualMessageDetails.map(({ id, displayPicture, userName: { firstName, lastName }, message, timeOfMessage, amountOfUnreadMessages }) => {
         return (
           <div key={id} className="flex gap-x-2 justify-between cursor-pointer" onClick={() => navigate(`/messages/${firstName.toLowerCase()}-${lastName.toLowerCase()}`)}>
             <main className="flex gap-x-2 items-center">
-              <img src={displayPicture} className="w-10 h-10 rounded-full" alt="User Profile" />
+              <img src={`${displayPicture}`} className="w-10 h-10 rounded-full" alt="User Profile" />
               <div className="flex flex-col gap-y-1">
                 <h3 className="capitalize font-medium text-charcoal-black text-xs">
                   {firstName} {lastName}
@@ -33,19 +35,17 @@ function MessageProfileSection({ mutualsMessageDetails }) {
 }
 
 MessageProfileSection.propTypes = {
-  mutualsMessageDetails: PropTypes.arrayOf(
+  mutualMessageDetails: PropTypes.arrayOf(
     PropTypes.exact({
       id: PropTypes.number.isRequired,
       displayPicture: PropTypes.string.isRequired,
-      userName: PropTypes.exact({
+      userName: PropTypes.shape({
         firstName: PropTypes.string.isRequired,
-        lastName: PropTypes.string,
+        lastName: PropTypes.string.isRequired,
       }).isRequired,
       message: PropTypes.string,
-      timeOfMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      timeOfMessage: PropTypes.string.isRequired,
       amountOfUnreadMessages: PropTypes.number,
     })
-  ),
+  ).isRequired,
 };
-
-export default MessageProfileSection;

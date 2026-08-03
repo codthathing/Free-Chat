@@ -1,5 +1,6 @@
 import MessageChatSearch from "./MessageChatSearch";
 import {Plus} from "lucide-react";
+import PropTypes from "prop-types";
 
 const tabList = [
   { id: 0, text: "inbox" },
@@ -20,4 +21,9 @@ export default function MessageDesktopHeader({ tab, setTab }) {
       </section>
     </div>
   );
+}
+
+MessageDesktopHeader.propTypes = {
+  setTab: PropTypes.func.isRequired,
+  tab: PropTypes.number.isRequired,
 }

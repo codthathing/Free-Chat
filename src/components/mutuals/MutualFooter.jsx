@@ -1,7 +1,7 @@
 import { Plus, SendHorizonal, Mic } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addMessage } from "../../store/messageSlice";
+import { addMessage } from "../../store/store.js";
 
 export default function MutualFooter() {
   const [messageInput, setMessageInput] = useState("");

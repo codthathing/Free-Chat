@@ -2,6 +2,15 @@ import PropTypes from "prop-types";
 import { CheckCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+/**
+ * @param {Object} props
+ * @param {{
+ *   id: number,
+ *   status: string,
+ *   array: { id: number, type: string, text: string, time: string }[]
+ * }[]} props.messageDetailsArray
+ */
+
 export default function MutualMessageSection({ messageDetailsArray: array }) {
   const messagesContainerRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -46,17 +55,17 @@ export default function MutualMessageSection({ messageDetailsArray: array }) {
 
 MutualMessageSection.propTypes = {
   messageDetailsArray: PropTypes.arrayOf(
-    PropTypes.exact({
+    PropTypes.shape({
       id: PropTypes.number.isRequired,
       status: PropTypes.string.isRequired,
       array: PropTypes.arrayOf(
-        PropTypes.exact({
+        PropTypes.shape({
           id: PropTypes.number.isRequired,
           type: PropTypes.string.isRequired,
           text: PropTypes.string.isRequired,
           time: PropTypes.string.isRequired,
-        }).isRequired
-      ),
-    }).isRequired
-  ),
+        })
+      ).isRequired,
+    })
+  ).isRequired,
 };

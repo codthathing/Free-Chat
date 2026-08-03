@@ -1,9 +1,7 @@
 import * as Yup from "yup";
-import { useState } from "react";
 import AuthForm from "../components/auth/AuthForm";
 import AuthHeadText from "../components/auth/AuthHeadText";
 import AuthInput from "../components/auth/AuthInput";
-import { useEffect } from "react";
 import { Formik } from "formik";
 import { Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -21,11 +19,10 @@ const validationSchema = Yup.object({
 
 export default function PasswordResetPage() {
   const navigate = useNavigate();
-  const [resetDetails, setResetDetails] = useState({ values: {}, errors: {} });
 
   return (
     <>
-      <AuthHeadText head={"Reset Password"} />
+      <AuthHeadText text={"Reset Password"} />
       <p className="text-xs text-center text-charcoal-black">At least 8 characters with uppercase and lowercase letters</p>
       <Formik
         initialValues={{
@@ -35,7 +32,7 @@ export default function PasswordResetPage() {
           },
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          setResetDetails((prevState) => ({ ...prevState, values: values }));
+          console.log(values)
           navigate("/sign-in");
           setSubmitting(false);
           resetForm();
@@ -46,18 +43,12 @@ export default function PasswordResetPage() {
         validateOnBlur={false}
         validateOnMount={false}
       >
-        {(formik) => {
-          useEffect(() => {
-            if (Object.keys(formik.errors).length) setResetDetails((prevState) => ({ ...prevState, errors: formik.errors }));
-          }, [formik.errors]);
-
-          return (
-            <AuthForm buttonText={"Reset Password"}>
-              <AuthInput Icon={Lock} placeholder={"Enter New Password"} type={"password"} name={"auth.password"} />
-              <AuthInput Icon={Lock} placeholder={"Enter Confirm Password"} type={"password"} name={"auth.confirmPassword"} />
-            </AuthForm>
-          );
-        }}
+        {(formik) => (
+          <AuthForm formik={formik} buttonText={"Reset Password"}>
+            <AuthInput Icon={Lock} placeholder={"Enter New Password"} type={"password"} name={"auth.password"} />
+            <AuthInput Icon={Lock} placeholder={"Enter Confirm Password"} type={"password"} name={"auth.confirmPassword"} />
+          </AuthForm>
+        )}
       </Formik>
     </>
   );

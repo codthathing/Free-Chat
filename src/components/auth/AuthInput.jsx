@@ -1,8 +1,9 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { ErrorMessage, Field } from "formik";
+import PropTypes from "prop-types";
 
-const AuthInput = ({ type, name, placeholder, Icon }) => {
+export default function AuthInput({ type, name, placeholder, Icon }) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -17,4 +18,9 @@ const AuthInput = ({ type, name, placeholder, Icon }) => {
   );
 };
 
-export default AuthInput;
+AuthInput.propTypes = {
+  type: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  Icon: PropTypes.elementType.isRequired,
+}
