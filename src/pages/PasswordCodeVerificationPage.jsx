@@ -77,7 +77,7 @@ export default function PasswordCodeVerification() {
   return (
     <>
       <AuthHeadText text={"Verification Code"} />
-      <p className="text-xs text-center text-charcoal-black">We sent 6 digit code to your email address please check & enter your code</p>
+      <p className="text-xs md:text-base lg:text-xs text-center text-charcoal-black">We sent 6 digit code to your email address please check & enter your code</p>
       <Formik 
         initialValues={{ otp: "" }} 
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -101,11 +101,11 @@ export default function PasswordCodeVerification() {
               {errors.otp && touched.otp && <p className="text-xs text-red-500 self-center">{errors.otp}</p>}
             </div>
 
-            <input type="submit" value={"Verify"} className="border-none outline-none bg-black text-white rounded-md md:rounded-xl lg:rounded-lg py-3 md:py-4 lg:py-3 text-xs md:text-xl lg:text-sm cursor-pointer" />
+            <input type="submit" value={"Verify"} className="border-none outline-none bg-black text-white rounded-md md:rounded-xl lg:rounded-lg py-3 md:py-5 lg:py-4 text-xs md:text-2xl lg:text-sm cursor-pointer" />
           </AuthPasswordOTPForm>
         )}
       </Formik>
-      <p className="text-sm text-charcoal-black">Didn&#39;t receive the code? <span className="font-bold cursor-pointer" onClick={() => navigate("/sign-in")}>Resend</span></p>
+      <p className="text-sm md:text-xl lg:text-xs text-charcoal-black">Didn&#39;t receive the code? <span className="font-bold cursor-pointer" onClick={() => navigate("/sign-in")}>Resend</span></p>
     </>
   );
 }

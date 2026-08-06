@@ -1,12 +1,15 @@
 import display_picture from "../../assets/display-picture.jpg";
 import {ChevronRight, HelpCircle, Languages, LogOut, Settings, User, Users} from "lucide-react";
-import PropTypes from "prop-types";
+import {useDispatch} from "react-redux";
+import {updateUserProfileModal} from "../../store/store.js";
 
-export default function MessageProfileModal({ setProfile }) {
+export default function MessageMobileProfileModal() {
+  const dispatch = useDispatch();
+
   return (
-    <section className="md:hidden flex items-end fixed h-dvh left-0 top-0 z-50 px-1 w-full bg-white/20">
+    <section id={"mobile-user-profile-section"} aria-labelledby={"mobile-user-profile-button"} role={"dialog"} className="md:hidden flex items-end fixed h-dvh left-0 top-0 z-50 px-1 w-full bg-white/20">
       <div className="relative bg-background-gray rounded-t-3xl self-end w-full h-[90%] flex flex-col gap-y-4 divide-y divide-soft-lavender px-4 py-6">
-        <div className={"absolute top-2 left-0 right-0 mx-auto w-15 h-1 bg-white"} onClick={() => setProfile(false)} />
+        <div className={"absolute top-2 left-0 right-0 mx-auto w-15 h-1 bg-white"} onClick={() => dispatch(updateUserProfileModal(false))} />
         <main className="flex flex-col gap-y-2.5 pb-2">
           <img src={`${display_picture}`} alt={"Profile Picture"} className="w-12 h-12 rounded-lg" />
           <div className="flex flex-col gap-y-1">
@@ -71,8 +74,4 @@ export default function MessageProfileModal({ setProfile }) {
       </div>
     </section>
   )
-}
-
-MessageProfileModal.propTypes = {
-  setProfile: PropTypes.func.isRequired,
 }

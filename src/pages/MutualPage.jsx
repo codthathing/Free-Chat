@@ -1,5 +1,5 @@
 import { ArrowLeft, PhoneCall, Video } from "lucide-react";
-import MessageIcons from "../components/messages/MessageIcons";
+import MutualMessagesIcons from "../components/mutuals/MutualMessagesIcons.jsx";
 import MutualProfile from "../components/mutuals/MutualProfile";
 import MutualMessagesDate from "../components/mutuals/MutualMessagesDate";
 import { useModifiedMessageObjects } from "../hooks/useModifiedMessageObjects";
@@ -27,7 +27,7 @@ export default function MutualPage({ className }) {
           <ArrowLeft size={20} className="text-heading-black md:hidden cursor-pointer" onClick={() => navigate("/messages")} />
           <MutualProfile />
         </div>
-        <MessageIcons messageIconDetails={mutualIcons} />
+        <MutualMessagesIcons messageIconDetails={mutualIcons} />
       </header>
       <main className="bg-background-gray flex-1 relative overflow-hidden">
         <MutualMessagesDate />

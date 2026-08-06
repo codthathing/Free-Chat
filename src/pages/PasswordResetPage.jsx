@@ -23,7 +23,7 @@ export default function PasswordResetPage() {
   return (
     <>
       <AuthHeadText text={"Reset Password"} />
-      <p className="text-xs text-center text-charcoal-black">At least 8 characters with uppercase and lowercase letters</p>
+      <p className="text-xs md:text-base lg:text-xs text-center text-charcoal-black">At least 8 characters with uppercase and lowercase letters</p>
       <Formik
         initialValues={{
           auth: {

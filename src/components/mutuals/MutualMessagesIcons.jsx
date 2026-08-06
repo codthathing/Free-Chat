@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 /*** @param {{ messageIconDetails: { id: number, Icon: $ElementType }[], className: string }} props */
 
-export default function MessageIcons({ messageIconDetails, className }) {
+export default function MutualMessagesIcons({ messageIconDetails, className }) {
   return (
     <div className={`flex gap-x-4 ${className}`}>
       {messageIconDetails.map(({ id, Icon }) => {
@@ -16,7 +16,7 @@ export default function MessageIcons({ messageIconDetails, className }) {
   );
 }
 
-MessageIcons.propTypes = {
+MutualMessagesIcons.propTypes = {
   messageIconDetails: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

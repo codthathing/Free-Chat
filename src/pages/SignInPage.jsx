@@ -55,7 +55,7 @@ export default function SigInPage() {
         )}
       </Formik>
       <AuthDivider text={"Or sign in with"} array={optArray} />
-      <p className="text-sm text-charcoal-black">Don&#39;t have an account? <span className="font-bold text-heading-black cursor-pointer" onClick={() => navigate("/sign-up")}>Sign Up</span></p>
+      <p className="text-sm md:text-xl lg:text-sm text-charcoal-black">Don&#39;t have an account? <span className="font-bold text-heading-black cursor-pointer" onClick={() => navigate("/sign-up")}>Sign Up</span></p>
     </>
   );
 };

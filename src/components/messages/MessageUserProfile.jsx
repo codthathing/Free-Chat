@@ -1,9 +1,13 @@
 import { Bell, ChevronDown } from "lucide-react";
 import display_picture from "../../assets/display-picture.jpg";
-import PropTypes from "prop-types";
 import MessageDesktopProfileModal from "./MessageDesktopProfileModal.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {toggleUserProfileModal} from "../../store/store.js";
 
-export default function MessageUserProfile({ profile, setProfile }) {
+export default function MessageUserProfile() {
+  const { showUserProfileModal } = useSelector((state) => state.messageUI);
+  const dispatch = useDispatch();
+
   return (
     <>
       <div className="flex gap-x-6 items-center">
@@ -12,7 +16,7 @@ export default function MessageUserProfile({ profile, setProfile }) {
         </span>
         <div className="flex flex-col gap-y-1 items-center">
           <img src={`${display_picture}`} alt={"Profile Picture"} className="w-8 h-8 rounded-full" />
-          <div className="hidden md:flex gap-x-1 items-center cursor-pointer" onClick={() => setProfile(!profile)}>
+          <div className="hidden md:flex gap-x-1 items-center cursor-pointer" onClick={() => dispatch(toggleUserProfileModal())}>
             <span className="text-xs text-charcoal-black">Me</span>
             <span className="bg-input-gray p-0.5 rounded-md cursor-pointer">
               <ChevronDown size={10} className="text-medium-gray" />
@@ -20,12 +24,7 @@ export default function MessageUserProfile({ profile, setProfile }) {
           </div>
         </div>
       </div>
-      {profile && <MessageDesktopProfileModal />}
+      {showUserProfileModal && <MessageDesktopProfileModal />}
     </>
   );
-}
-
-MessageUserProfile.propTypes = {
-  profile: PropTypes.bool.isRequired,
-  setProfile: PropTypes.func.isRequired,
 }

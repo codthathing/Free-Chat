@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 export default function AuthDivider({ text, array }) {
   return (
     <>
-      <span className="text-xs md:text-base lg:text-xs text-nowrap text-charcoal-black">{text}</span>
-      <div className="flex gap-x-4">
+      <span className="text-xs md:text-xl lg:text-xs text-nowrap text-charcoal-black">{text}</span>
+      <div className="flex gap-x-4 md:gap-x-12 lg:gap-x-4">
         {array.map(({ id, icon }) => {
           return (
             <div key={id} className="w-8 h-8 flex justify-center items-center rounded-md bg-input-gray cursor-pointer">

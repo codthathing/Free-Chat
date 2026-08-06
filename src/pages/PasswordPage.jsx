@@ -16,7 +16,7 @@ export default function PasswordPage() {
   return (
     <>
       <AuthHeadText text={"Verification Code"} />
-      <p className="text-xs text-center text-charcoal-black">We sent 6 digit code to your email address please check & enter your code</p>
+      <p className="text-xs md:text-base lg:text-xs text-center text-charcoal-black">We sent 6 digit code to your email address please check & enter your code</p>
       <Formik
         initialValues={{ email: "" }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
