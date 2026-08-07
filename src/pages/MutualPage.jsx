@@ -5,7 +5,7 @@ import MutualMessagesDate from "../components/mutuals/MutualMessagesDate";
 import { useModifiedMessageObjects } from "../hooks/useModifiedMessageObjects";
 import MutualMessageSection from "../components/mutuals/MutualMessageSection";
 import MutualFooter from "../components/mutuals/MutualFooter";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -14,10 +14,17 @@ const mutualIcons = [
   { id: 1, Icon: PhoneCall },
 ];
 
-export default function MutualPage({ className }) {
-  const messageState = useSelector((state) => state.messages);
+const EMPTY_MESSAGES = [];
 
+export default function MutualPage({ className }) {
+  const { uid } = useParams();
+
+  const messageState = useSelector((state) => state.messages[uid]) ?? EMPTY_MESSAGES;
   const { array } = useModifiedMessageObjects(messageState);
+
+  const roomDetails = useSelector((state) => state.rooms["rooms"][uid]);
+  const { uid: roomId, roomType, profile, name } = {...roomDetails, name: roomDetails["roomType"] === "user" ? `${roomDetails["fullName"]["firstname"]} ${roomDetails["fullName"]["lastname"]}` : roomDetails["groupName"]};
+
   const navigate = useNavigate();
 
   return (
@@ -25,7 +32,7 @@ export default function MutualPage({ className }) {
       <header className="flex justify-between items-center p-4 md:bg-white">
         <div className="flex gap-x-5 items-center">
           <ArrowLeft size={20} className="text-heading-black md:hidden cursor-pointer" onClick={() => navigate("/messages")} />
-          <MutualProfile />
+          <MutualProfile name={name} profile={profile} />
         </div>
         <MutualMessagesIcons messageIconDetails={mutualIcons} />
       </header>
@@ -33,7 +40,7 @@ export default function MutualPage({ className }) {
         <MutualMessagesDate />
         <MutualMessageSection messageDetailsArray={array} />
       </main>
-      <MutualFooter />
+      <MutualFooter roomId={roomId} roomType={roomType} />
     </section>
   );
 }

@@ -1,18 +1,21 @@
 import { Plus, SendHorizonal, Mic } from "lucide-react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { addMessage } from "../../store/store.js";
+import PropTypes from "prop-types";
 
-export default function MutualFooter() {
+export default function MutualFooter({ roomId, roomType }) {
   const [messageInput, setMessageInput] = useState("");
+
   const dispatch = useDispatch();
+  const { uid } = useSelector((state) => state.user.uid);
 
   const messageSendButton = () => {
     if (!messageInput.trim()) return;
 
     const presentTime = `${new Date().getHours() >= 12 ? new Date().getHours() % 12 : new Date().getHours()}:${new Date().getMinutes().toString().padStart(2, "0")} ${new Date().getHours() >= 12 ? "PM" : "AM"}`;
 
-    dispatch(addMessage({ id: Date.now(), type: "user", text: messageInput, time: presentTime }));
+    dispatch(addMessage({ uid: roomId, message: {id: Date.now(), type: "user", ...(roomType === "group" && { uid }), text: messageInput, time: presentTime, seen: true}}));
     setMessageInput("");
   };
 
@@ -41,4 +44,9 @@ export default function MutualFooter() {
       </div>
     </footer>
   );
+}
+
+MutualFooter.propTypes = {
+  roomId: PropTypes.string.isRequired,
+  roomType: PropTypes.string.isRequired,
 }

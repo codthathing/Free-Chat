@@ -10,17 +10,13 @@ export default function MessageUserProfile() {
 
   return (
     <>
-      <div className="flex gap-x-6 items-center">
-        <span className="bg-input-gray p-1.5 rounded-full cursor-pointer hidden md:block">
-          <Bell size={16} className="text-medium-gray" />
-        </span>
-        <div className="flex flex-col gap-y-1 items-center">
-          <img src={`${display_picture}`} alt={"Profile Picture"} className="w-8 h-8 rounded-full" />
-          <div className="hidden md:flex gap-x-1 items-center cursor-pointer" onClick={() => dispatch(toggleUserProfileModal())}>
+      <div className="flex gap-x-6 md:gap-x-5 lg:gap-x-4 items-center">
+        <Bell size={20} className="text-medium-gray cursor-pointer hidden md:block" />
+        <div className="flex gap-x-1.5 items-center">
+          <img src={`${display_picture}`} alt={"Profile Picture"} className="w-8 h-8 md:w-10 md:h-10 lg:w-8 lg:h-8 rounded-full" />
+          <div className="hidden lg:flex gap-x-1 items-center cursor-pointer" onClick={() => dispatch(toggleUserProfileModal())}>
             <span className="text-xs text-charcoal-black">Me</span>
-            <span className="bg-input-gray p-0.5 rounded-md cursor-pointer">
-              <ChevronDown size={10} className="text-medium-gray" />
-            </span>
+            <ChevronDown size={10} className="text-medium-gray" />
           </div>
         </div>
       </div>

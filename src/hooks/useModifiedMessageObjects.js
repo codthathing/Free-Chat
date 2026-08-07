@@ -4,6 +4,11 @@ export const useModifiedMessageObjects = (details) => {
   const [modifiedMessageDetails, setModifiedMessageDetails] = useState([]);
 
   useEffect(() => {
+    if (details.length === 0) {
+      setModifiedMessageDetails([]);
+      return;
+    }
+
     let mockMessageDetails = { array: [], object: {} };
 
     details.forEach((detail, index) => {

@@ -9,10 +9,9 @@ import SplashPage from "./pages/SplashPage";
 import AuthLayout from "./components/layout/AuthLayout";
 import PasswordCodeVerificationPage from "./pages/PasswordCodeVerificationPage";
 import PasswordResetPage from "./pages/PasswordResetPage";
-import {useSelector} from "react-redux";
 
 export default function App() {
-  const { mobile } = useSelector((state) => state.messageUI);
+  const mobile = navigator.userAgentData ? navigator.userAgentData.mobile : /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
   return (
     <BrowserRouter>
@@ -26,8 +25,8 @@ export default function App() {
             <Route path="/otp-verification" element={<PasswordCodeVerificationPage />} />
             <Route path="/reset-password" element={<PasswordResetPage />} />
           </Route>
-          <Route path="/messages/*" element={<MessagePage />} />
-          {mobile && <Route path="/messages/:mutual" element={<MutualPage className={"h-dvh"} />} />}
+          <Route path="/messages/*" element={<MessagePage mobile={mobile} />} />
+          {mobile && <Route path="/messages/:uid" element={<MutualPage className={"h-dvh"} />} />}
         </Route>
       </Routes>
     </BrowserRouter>
