@@ -9,7 +9,7 @@ export default function MessageSection() {
   const getUnreadMessagesDetails = useGetLastMessages();
 
   return (
-    <section id={"message-user-group-filter-section"} aria-labelledby={tablist.find(({ id }) => id === currentTabId).tabId} role={"tabpanel"} tabIndex={0} className="flex flex-col pt-4 mt-1 pb-6 md:mt-0 md:p-0 gap-y-4 md:gap-y-5 lg:gap-y-6 overflow-y-auto no-scrollbar">
+    <section id={"message-user-group-filter-section"} aria-labelledby={tablist.find(({ id }) => id === currentTabId).tabId} role={"tabpanel"} tabIndex={0} className="flex flex-col pt-4 pb-6 px-3 md:mt-0 md:p-0 gap-y-4 md:gap-y-5 lg:gap-y-6 overflow-y-auto no-scrollbar">
       {roomsCreated.uids.map((uid) => {
         const { uid: userId, profile, name, unreadMessages } = { ...(roomsCreated["rooms"][uid]), name: roomsCreated["rooms"][uid]["roomType"] === "user" ? `${roomsCreated["rooms"][uid]["fullName"]["firstname"]} ${roomsCreated["rooms"][uid]["fullName"]["lastname"]}` : roomsCreated["rooms"][uid]["groupName"], unreadMessages: getUnreadMessagesDetails(uid) }
 

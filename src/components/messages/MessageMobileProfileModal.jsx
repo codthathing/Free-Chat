@@ -1,5 +1,5 @@
 import display_picture from "../../assets/display-picture.jpg";
-import {ChevronRight, HelpCircle, Languages, LogOut, Settings, User, Users} from "lucide-react";
+import {ChevronRight, HelpCircle, Languages, LogOut, Settings, User} from "lucide-react";
 import {useDispatch} from "react-redux";
 import {updateUserProfileModal} from "../../store/store.js";
 
@@ -7,8 +7,8 @@ export default function MessageMobileProfileModal() {
   const dispatch = useDispatch();
 
   return (
-    <section id={"mobile-user-profile-section"} aria-labelledby={"mobile-user-profile-button"} role={"dialog"} className="md:hidden flex items-end fixed h-dvh left-0 top-0 z-50 px-1 w-full bg-white/20">
-      <div className="relative bg-background-gray rounded-t-3xl self-end w-full h-[90%] flex flex-col gap-y-4 divide-y divide-soft-lavender px-4 py-6">
+    <section id={"mobile-user-profile-section"} aria-labelledby={"mobile-user-profile-button"} role={"dialog"} className="md:hidden flex items-end fixed h-dvh left-0 top-0 z-50 w-full bg-white/20">
+      <div className="relative bg-background-gray rounded-t-3xl self-end w-full h-[92.5%] flex flex-col gap-y-4 divide-y divide-soft-lavender px-4 py-6">
         <div className={"absolute top-2 left-0 right-0 mx-auto w-15 h-1 bg-white"} onClick={() => dispatch(updateUserProfileModal(false))} />
         <main className="flex flex-col gap-y-2.5 pb-2">
           <img src={`${display_picture}`} alt={"Profile Picture"} className="w-12 h-12 rounded-lg" />
@@ -26,20 +26,12 @@ export default function MessageMobileProfileModal() {
           </div>
         </main>
         <section className="flex flex-col gap-y-7">
-          <main className={"flex items-center gap-x-8 justify-center"}>
-            <div className="flex flex-col items-center gap-y-1.5">
-                  <span className="bg-input-gray p-3 rounded-full cursor-pointer">
-                    <User size={20} className="text-medium-gray" />
-                  </span>
-              <p className="text-[10px] capitalize text-charcoal-black">add friend</p>
-            </div>
-            <div className="flex flex-col items-center gap-y-1.5">
-                  <span className="bg-input-gray p-3 rounded-full cursor-pointer">
-                    <Users size={20} className="text-medium-gray" />
-                  </span>
-              <p className="text-[10px] capitalize text-charcoal-black">create group</p>
-            </div>
-          </main>
+          <div className="flex flex-col items-center gap-y-1.5">
+            <span className="bg-input-gray p-3 rounded-full cursor-pointer">
+              <User size={20} className="text-medium-gray" />
+            </span>
+            <p className="text-[10px] capitalize text-charcoal-black">add friend</p>
+          </div>
           <div className="flex flex-col gap-y-2.5">
             <h3 className="font-bold text-xs capitalize text-heading-black">account</h3>
             <main className="w-full flex flex-col gap-y-3.5 p-3.5 rounded-2xl bg-input-gray">

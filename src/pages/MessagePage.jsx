@@ -29,7 +29,7 @@ export default function MessagePage({ mobile }) {
       <section className="flex-1 overflow-hidden md:flex md:gap-x-0.5">
         <MessageNavigationMenu menuClassName={"hidden md:flex bg-white py-8 flex-col gap-y-8 px-2"} menuIconArray={menuIconDetails.slice(0, 3)} />
         <div className="h-full md:w-full md:flex md:gap-x-0.5">
-          <main className="relative px-3 md:bg-white h-full flex flex-col md:p-4 md:gap-y-4 md:w-2/5 lg:w-[30%] md:shrink-0 overflow-y-hidden">
+          <main className="relative md:bg-white h-full flex flex-col md:p-4 md:gap-y-4 md:w-2/5 lg:w-[30%] md:shrink-0 overflow-y-hidden">
             <MessageMobileStatus />
             <div className="hidden md:flex flex-col gap-y-4 pb-4 border-b-2 border-background-gray">
               <section className="flex justify-between items-center gap-x-4">

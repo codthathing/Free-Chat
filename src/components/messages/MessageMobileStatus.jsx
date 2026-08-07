@@ -7,7 +7,7 @@ export default function MessageMobileStatus() {
   const { uid: currentUserId, profile: currentUserProfile } = useSelector((state) => state.user);
 
   return (
-    <section className="border-b border-input-gray pb-4 md:hidden">
+    <section className="px-3 pb-4 border-b border-input-gray md:hidden">
       <h3 className="text-medium-gray text-sm mb-3">Recent Update</h3>
       <main className="flex gap-x-3">
         {statusUpdates.uids.map((uid) => {
