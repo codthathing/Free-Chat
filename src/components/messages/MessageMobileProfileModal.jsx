@@ -8,7 +8,7 @@ export default function MessageMobileProfileModal() {
 
   return (
     <section id={"mobile-user-profile-section"} aria-labelledby={"mobile-user-profile-button"} role={"dialog"} className="md:hidden flex items-end fixed h-dvh left-0 top-0 z-50 w-full bg-white/20">
-      <div className="relative bg-background-gray rounded-t-3xl self-end w-full h-[92.5%] flex flex-col gap-y-4 divide-y divide-soft-lavender px-4 py-6">
+      <div className="relative bg-background-gray rounded-t-3xl self-end w-full h-[91%] flex flex-col gap-y-4 divide-y divide-soft-lavender px-4 py-6">
         <div className={"absolute top-2 left-0 right-0 mx-auto w-15 h-1 bg-white"} onClick={() => dispatch(updateUserProfileModal(false))} />
         <main className="flex flex-col gap-y-2.5 pb-2">
           <img src={`${display_picture}`} alt={"Profile Picture"} className="w-12 h-12 rounded-lg" />

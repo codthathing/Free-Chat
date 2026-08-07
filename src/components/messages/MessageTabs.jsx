@@ -9,7 +9,7 @@ export default function MessageTabs({ tabContainerId="", tabContainerClassName, 
 
   return (
     <div id={tabContainerId} className={`${tabContainerClassName} flex items-center`}>
-      <div role={"tablist"} className={`flex snap-x scroll-smooth overflow-x-auto no-scrollbar ${tablistClassName}`}>{tablist.map(({ id, text, tabId }) => <div key={id} role={"tab"} tabIndex={currentTabId === id ? 0 : -1} id={tabId} aria-controls={"message-user-group-filter-section"} aria-selected={currentTabId === id} onClick={() => dispatch(updateCurrentTabId(id))} className={`${currentTabId === id ? activeTabClassName : inActiveTabClassName} ${tabClassName}`}>{text}</div>)}</div>
+      <div role={"tablist"} className={`flex snap-x snap-mandatory scroll-smooth overflow-x-auto no-scrollbar ${tablistClassName}`}>{tablist.map(({ id, text, tabId }) => <div key={id} role={"tab"} tabIndex={currentTabId === id ? 0 : -1} id={tabId} aria-controls={"message-user-group-filter-section"} aria-selected={currentTabId === id} onClick={() => dispatch(updateCurrentTabId(id))} className={`${currentTabId === id ? activeTabClassName : inActiveTabClassName} ${tabClassName} snap-center shrink-0`}>{text}</div>)}</div>
       <div role={"button"} aria-label={"Create User/Group Filter"} tabIndex={0} className={plusIconClassName}><Plus size={16} /></div>
     </div>
   );

@@ -40,7 +40,7 @@ export const { toggleTabContainer, toggleUserProfileModal, updateUserProfileModa
 
 
 const roomsCreated = {
-  uids: ["224", "435", "532", "746", "667", "137"],
+  uids: ["224", "435", "532", "746", "667", "137", "642"],
   rooms: {
     "224": {
       uid: "224",
@@ -77,24 +77,33 @@ const roomsCreated = {
       roomType: "group",
       profile: display_picture,
       groupName: "Unexpected Odds",
+    },
+    "642": {
+      uid: "642",
+      roomType: "user",
+      profile: display_picture,
+      username: "pheezy"
     }
   }
 }
 
 const roomsSlice = createSlice({
   name: "rooms",
-  initialState: roomsCreated,
+  initialState : roomsCreated,
   reducers: {}
 })
 
 
 
 const statusUpdates = {
-  uids: ["125", "435", "224"],
+  uids: ["125", "435", "224", "642", "746", "667"],
   status: {
     "435": {uid: "435", status: [{content: "", seen: false}]},
     "125": {uid: "125", status: [{content: "", seen: true}]},
     "224": {uid: "224", status: [{content: "", seen: true}]},
+    "642": {uid: "642", status: [{content: "", seen: false}]},
+    "746": {uid: "746", status: [{content: "", seen: true}]},
+    "667": {uid: "667", status: [{content: "", seen: true}]},
   }
 };
 
@@ -159,7 +168,7 @@ export const { addMessage } = messagesSlice.actions;
 
 const userSlice = createSlice({
   name: "user",
-  initialState: { uid: "125", username: "", email: "", profile: display_picture, firstname: "", lastname: "", rooms: { friends: ["224", "532", "667"], groups: ["435", "746", "137"] } },
+  initialState: { uid: "125", username: "", email: "", profile: display_picture, firstname: "", lastname: "", rooms: { friends: ["224", "532", "667", "642"], groups: ["435", "746", "137"] } },
   reducers: {
     updateDetails: (state, action) => ({ ...state, ...action.payload }),
   }

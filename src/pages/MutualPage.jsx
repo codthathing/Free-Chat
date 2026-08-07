@@ -23,7 +23,7 @@ export default function MutualPage({ className }) {
   const { array } = useModifiedMessageObjects(messageState);
 
   const roomDetails = useSelector((state) => state.rooms["rooms"][uid]);
-  const { uid: roomId, roomType, profile, name } = {...roomDetails, name: roomDetails["roomType"] === "user" ? `${roomDetails["fullName"]["firstname"]} ${roomDetails["fullName"]["lastname"]}` : roomDetails["groupName"]};
+  const { uid: roomId, roomType, profile, name, saved } = {...roomDetails, saved: Boolean(roomDetails["username"]), name: roomDetails["username"] ? `@${roomDetails["username"]}` : (roomDetails["roomType"] === "user" ? `${roomDetails["fullName"]["firstname"]} ${roomDetails["fullName"]["lastname"]}` : roomDetails["groupName"])};
 
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export default function MutualPage({ className }) {
       <header className="flex justify-between items-center p-4 md:bg-white">
         <div className="flex gap-x-5 items-center">
           <ArrowLeft size={20} className="text-heading-black md:hidden cursor-pointer" onClick={() => navigate("/messages")} />
-          <MutualProfile name={name} profile={profile} />
+          <MutualProfile name={name} profile={profile} saved={saved} />
         </div>
         <MutualMessagesIcons messageIconDetails={mutualIcons} />
       </header>

@@ -23,7 +23,7 @@ export default function MessagePage({ mobile }) {
         </div>
         <section className="flex flex-col gap-y-2 md:hidden">
           <MessageChatSearch />
-          {showTabOptions && <MessageTabs tabContainerClassName={"gap-x-3.5"} tablistClassName={"gap-x-3.5"} tabClassName={"rounded-2xl w-24 flex-none py-1 flex items-center justify-center cursor-pointer capitalize"} activeTabClassName={"bg-charcoal-black text-white"}  inActiveTabClassName={"border border-light-gray"} plusIconClassName={`border border-light-gray w-7 h-7 flex-none shrink-0 rounded-full flex items-center justify-center capitalize`} />}
+          {showTabOptions && <MessageTabs tabContainerClassName={"gap-x-3.5"} tablistClassName={"gap-x-3.5"} tabClassName={"rounded-2xl flex-none py-1 px-6 flex items-center justify-center cursor-pointer capitalize"} activeTabClassName={"bg-charcoal-black text-white"}  inActiveTabClassName={"border border-light-gray"} plusIconClassName={`border border-light-gray w-7 h-7 flex-none shrink-0 rounded-full flex items-center justify-center capitalize`} />}
         </section>
       </header>
       <section className="flex-1 overflow-hidden md:flex md:gap-x-0.5">
@@ -36,7 +36,7 @@ export default function MessagePage({ mobile }) {
                 <h1 className="text-heading-black">Chats</h1>
                 <MessageChatSearch/>
               </section>
-              <MessageTabs tabContainerClassName={"gap-x-2"} tablistClassName={"p-1.5 bg-background-gray text-charcoal-black gap-x-2 rounded-md"} tabClassName={"w-17.5 flex-none py-1.5 text-center rounded-md font-medium text-xs tracking-wider cursor-pointer capitalize"} activeTabClassName={"bg-white"} plusIconClassName={`w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shrink-0`} />
+              <MessageTabs tabContainerClassName={"gap-x-2"} tablistClassName={"p-1.5 bg-background-gray text-charcoal-black gap-x-2 rounded-md"} tabClassName={"flex-none py-1.5 px-5 text-center rounded-md font-medium text-xs tracking-wider cursor-pointer capitalize"} activeTabClassName={"bg-white"} plusIconClassName={`w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shrink-0`} />
             </div>
             <MessageSection />
             {currentTabId === 2 && <div className={"absolute bottom-4 right-4 cursor-pointer shadow-lg p-4 bg-periwinkle-purple rounded-full w-16 h-16 flex justify-center items-center"}><Users size={24} className={"text-white"}/></div>}
