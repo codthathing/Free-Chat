@@ -1,5 +1,5 @@
 import display_picture from "../../assets/display-picture.jpg";
-import {ChevronRight, HelpCircle, Languages, LogOut, Settings, User} from "lucide-react";
+import {ChevronRight, HelpCircle, Languages, LogOut, Settings, UserPlus} from "lucide-react";
 import {useDispatch} from "react-redux";
 import {updateUserProfileModal} from "../../store/store.js";
 
@@ -17,24 +17,22 @@ export default function MessageMobileProfileModal() {
             <p className="leading-none text-[8px] text-medium-gray">@alexander</p>
           </div>
           <p className="text-xs mt-1 text-charcoal-black">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos error autem sit.</p>
-          <div className="flex justify-between items-center p-1.5 border border-soft-lavender rounde-md">
+          <div className="flex justify-between items-center p-3 bg-white rounded-xl">
             <section className="flex gap-x-2 items-center">
               <img src={`${display_picture}`} className="w-7 h-7 rounded-full" alt="UNKNOWN PROFILE" />
               <span className="text-xs capitalize text-charcoal-black">profile</span>
             </section>
-            <button type="button" className="capitalize text-xs border-none text-white bg-charcoal-black px-3 py-1">edit</button>
+            <button type="button" className="capitalize text-xs border-none text-white bg-charcoal-black px-3 py-1 rounded-lg">edit</button>
           </div>
         </main>
         <section className="flex flex-col gap-y-7">
           <div className="flex flex-col items-center gap-y-1.5">
-            <span className="bg-input-gray p-3 rounded-full cursor-pointer">
-              <User size={20} className="text-medium-gray" />
-            </span>
+            <UserPlus size={20} className="text-medium-gray cursor-pointer" />
             <p className="text-[10px] capitalize text-charcoal-black">add friend</p>
           </div>
           <div className="flex flex-col gap-y-2.5">
             <h3 className="font-bold text-xs capitalize text-heading-black">account</h3>
-            <main className="w-full flex flex-col gap-y-3.5 p-3.5 rounded-2xl bg-input-gray">
+            <main className="w-full flex flex-col gap-y-3.5 p-3.5 rounded-2xl bg-white">
               <div className="flex items-center gap-x-4">
                 <Settings size={16} className="text-medium-gray" />
                 <main className="flex justify-between items-center pb-1 w-full">

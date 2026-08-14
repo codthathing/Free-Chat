@@ -8,6 +8,7 @@ import MutualFooter from "../components/mutuals/MutualFooter";
 import {useNavigate, useParams} from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import {useEffect} from "react";
 
 const mutualIcons = [
   { id: 0, Icon: Video },

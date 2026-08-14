@@ -10,9 +10,11 @@ import MessageMobileProfileModal from "../components/messages/MessageMobileProfi
 import MessageChatSearch from "../components/messages/MessageChatSearch.jsx";
 import MessageTabs from "../components/messages/MessageTabs.jsx";
 import PropTypes from "prop-types";
+import MessageParallelSections from "../components/messages/MessageParallelSections.jsx";
+import MessageTabletParallelSections from "../components/messages/MessageTabletParallelSections.jsx";
 
-export default function MessagePage({ mobile }) {
-  const { currentTabId, showUserProfileModal, menuIconDetails, showTabOptions } = useSelector((state) => state.messageUI);
+export default function MessagePage({ width }) {
+  const { showUserProfileModal, menuIconDetails, showTabOptions } = useSelector((state) => state.messageUI);
 
   return (
     <section className="h-dvh flex flex-col md:gap-y-0.5 md:bg-background-gray md:p-1">
@@ -28,28 +30,14 @@ export default function MessagePage({ mobile }) {
       </header>
       <section className="flex-1 overflow-hidden md:flex md:gap-x-0.5">
         <MessageNavigationMenu menuClassName={"hidden md:flex bg-white py-8 flex-col gap-y-8 px-2"} menuIconArray={menuIconDetails.slice(0, 3)} />
-        <div className="h-full md:w-full md:flex md:gap-x-0.5">
-          <main className="relative md:bg-white h-full flex flex-col md:p-4 md:gap-y-4 md:w-2/5 lg:w-[30%] md:shrink-0 overflow-y-hidden">
-            <MessageMobileStatus />
-            <div className="hidden md:flex flex-col gap-y-4 pb-4 border-b-2 border-background-gray">
-              <section className="flex justify-between items-center gap-x-4">
-                <h1 className="text-heading-black">Chats</h1>
-                <MessageChatSearch/>
-              </section>
-              <MessageTabs tabContainerClassName={"gap-x-2"} tablistClassName={"p-1.5 bg-background-gray text-charcoal-black gap-x-2 rounded-md"} tabClassName={"flex-none py-1.5 px-5 text-center rounded-md font-medium text-xs tracking-wider cursor-pointer capitalize"} activeTabClassName={"bg-white"} plusIconClassName={`w-6 h-6 rounded-full flex items-center justify-center cursor-pointer shrink-0`} />
-            </div>
-            <MessageSection />
-            {currentTabId === 2 && <div className={"absolute bottom-4 right-4 cursor-pointer shadow-lg p-4 bg-periwinkle-purple rounded-full w-16 h-16 flex justify-center items-center"}><Users size={24} className={"text-white"}/></div>}
-          </main>
+        <MessageParallelSections sections={width > 767} />
+        <MessageTabletParallelSections width={width} />
+        <MessageParallelSections sections={width < 1024}>
           <Routes>
-            <Route path="/" element={
-              <div className="hidden md:flex items-center justify-center w-full h-full">
-                <p className="text-charcoal-black md:text-2xl lg:text-4xl">Hello, welcome to FreeChat</p>
-              </div>
-            }/>
-            {!mobile && <Route path=":uid" element={<MutualPage />} />}
+            <Route path="/" element={<div className="hidden md:flex items-center justify-center w-full h-full"><p className="text-charcoal-black md:text-2xl lg:text-4xl">Hello, welcome to FreeChat</p></div>}/>
+            <Route path=":uid" element={<MutualPage />} />
           </Routes>
-        </div>
+        </MessageParallelSections>
       </section>
       {showUserProfileModal && <MessageMobileProfileModal />}
       <footer className="w-full md:hidden">
@@ -60,5 +48,5 @@ export default function MessagePage({ mobile }) {
 }
 
 MessagePage.propTypes = {
-  mobile: PropTypes.bool.isRequired,
+  width: PropTypes.number.isRequired,
 }

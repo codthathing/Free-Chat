@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Bell, MessageCircle, PhoneCall, Target, User} from "lucide-react";
 import {updateUserProfileModal} from "../../store/store.js";
 import PropTypes from "prop-types";
+import {useNavigate} from "react-router-dom";
 
 /*** @param {{ menuClassName: string, menuIconnNotShownId: number, menuIconArray: { id: number, iconKey: string, iconText: string }[] }} props */
 
@@ -10,6 +11,7 @@ const ICON_MAP = { "message-circle": MessageCircle,  "phone-call": PhoneCall,  t
 export default function MessageNavigationMenu({ menuClassName, menuIconNotShownId, menuIconArray }) {
   const dispatch = useDispatch();
   const { showUserProfileModal } = useSelector((state) => state.messageUI);
+  const navigate = useNavigate();
 
   return (
     <div role={"menu"} className={menuClassName}>
@@ -19,7 +21,7 @@ export default function MessageNavigationMenu({ menuClassName, menuIconNotShownI
         const Icon = ICON_MAP[iconKey];
 
         return (
-          <div key={`${id}`} role={"menuitem"} className={`${"messages" === iconText ? "text-periwinkle-purple" : "text-medium-gray"} cursor-pointer flex flex-col items-center gap-y-0.5`} {...(iconText === "profile" && { onClick: () => dispatch(updateUserProfileModal(true)), role: "button", "aria-controls": "mobile-user-profile-section", tabIndex: 0, "aria-expanded": showUserProfileModal, id: "mobile-user-profile-button" })}>
+          <div key={`${id}`} role={"menuitem"} {...(iconText === "messages" && { onClick: () => navigate(-1), role: "link" })} className={`${"messages" === iconText ? "text-periwinkle-purple" : "text-medium-gray"} cursor-pointer flex flex-col items-center gap-y-0.5`} {...(iconText === "profile" && { onClick: () => dispatch(updateUserProfileModal(true)), role: "button", "aria-controls": "mobile-user-profile-section", tabIndex: 0, "aria-expanded": showUserProfileModal, id: "mobile-user-profile-button" })}>
             <Icon size={20} />
             <p className={`capitalize text-xs`}>{iconText}</p>
           </div>

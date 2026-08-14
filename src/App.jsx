@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import PageLayout from "./components/layout/PageLayout";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -9,9 +9,10 @@ import SplashPage from "./pages/SplashPage";
 import AuthLayout from "./components/layout/AuthLayout";
 import PasswordCodeVerificationPage from "./pages/PasswordCodeVerificationPage";
 import PasswordResetPage from "./pages/PasswordResetPage";
+import {useWindowWidth} from "./hooks/useWindowWidth.js";
 
 export default function App() {
-  const mobile = navigator.userAgentData ? navigator.userAgentData.mobile : /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  const width = useWindowWidth();
 
   return (
     <BrowserRouter>
@@ -25,8 +26,8 @@ export default function App() {
             <Route path="/otp-verification" element={<PasswordCodeVerificationPage />} />
             <Route path="/reset-password" element={<PasswordResetPage />} />
           </Route>
-          <Route path="/messages/*" element={<MessagePage mobile={mobile} />} />
-          {mobile && <Route path="/messages/:uid" element={<MutualPage className={"h-dvh"} />} />}
+          <Route path="/messages/*" element={<MessagePage width={width} />} />
+          {Boolean(width < 768) && <Route path="/messages/:uid" element={<MutualPage className={"h-dvh"} />} />}
         </Route>
       </Routes>
     </BrowserRouter>
