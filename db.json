@@ -1,0 +1,24 @@
+{
+  "users": [
+    { "id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "username": "pheezy", "email": "akinwunmiolusegun277@gmail.com", "profile": null, "firstname": null, "lastname": null },
+    { "id": "36cf61e1-2107-411d-8828-4346188df1c0", "username": "chiamaka_dev", "email": "chiamaka.okafor91@gmail.com", "profile": null, "firstname": null, "lastname": null },
+    { "id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "username": "tunde_codes", "email": "tunde.balogun.dev@gmail.com", "profile": null, "firstname": null, "lastname": null }
+  ],
+  "rooms": [
+    { "id": "8495fe15-0b48-445b-8564-aace14e52130", "room_name": "lousy sponsors", "created_by": "7ea480f8-81dc-431c-8c51-a2ea2c611351" },
+    { "id": "b2b8e4e4-2559-4554-9d11-539217b108b7", "room_name": null, "created_by": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb" }
+  ],
+  "friends": [
+    { "id": 1, "room_id": "b2b8e4e4-2559-4554-9d11-539217b108b7", "friend_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "u_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "friend_firstname": null, "friend_lastname": null, "status": "accepted" },
+    { "id": 2, "room_id": "b2b8e4e4-2559-4554-9d11-539217b108b7", "friend_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "friend_firstname": null, "friend_lastname": null, "status":  "accepted" }
+  ],
+  "room_members": [
+    { "room_id": "8495fe15-0b48-445b-8564-aace14e52130", "u_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "status": "admin" },
+    { "room_id": "8495fe15-0b48-445b-8564-aace14e52130", "u_id": "36cf61e1-2107-411d-8828-4346188df1c0", "status": "user" },
+    { "room_id": "8495fe15-0b48-445b-8564-aace14e52130", "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "status": "user" }
+  ],
+  "messages": [
+    { "room_id": "8495fe15-0b48-445b-8564-aace14e52130", "u_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "text": "Hello world", "time_stamp": "" },
+    { "room_id": "b2b8e4e4-2559-4554-9d11-539217b108b7", "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "text": "How far nau!!\n\n you added me, how you doing", "time_stamp": "" }
+  ]
+}
