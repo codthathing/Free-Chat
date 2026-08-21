@@ -1,5 +1,10 @@
-import {configureStore, createSlice} from "@reduxjs/toolkit";
+import {
+  configureStore,
+  createAsyncThunk,
+  createSlice,
+} from "@reduxjs/toolkit";
 import display_picture from "../assets/display-picture.jpg";
+import {getUser} from "../utils/api.js";
 
 const menuIconDetails = [
   { id: 0, iconKey: "message-circle", iconText: "messages" },
@@ -166,16 +171,28 @@ export const { addMessage } = messagesSlice.actions;
 
 
 
-const userSlice = createSlice({
-  name: "user",
-  initialState: { uid: "125", username: "", email: "", profile: display_picture, firstname: "", lastname: "", rooms: { friends: ["224", "532", "667", "642"], groups: ["435", "746", "137"] } },
-  reducers: {
-    updateDetails: (state, action) => ({ ...state, ...action.payload }),
-  }
+export const fetchUser = createAsyncThunk("user/details", async (username) => {
+  const users = await getUser();
+  const user = users.find(user => user.username === username);
+
+  if (!user) throw new Error("User not found");
+
+  return user;
 });
 
-export const  { updateDetails } = userSlice.actions;
-
+const userSlice = createSlice({
+  name: "user",
+  initialState: {
+    user: {},
+    error: { status: false, message: "" },
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+    })
+  }
+});
 
 
 export const store = configureStore({

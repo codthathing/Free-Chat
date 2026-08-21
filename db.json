@@ -1,8 +1,8 @@
 {
   "users": [
-    { "id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "username": "pheezy", "email": "akinwunmiolusegun277@gmail.com", "profile": null, "firstname": null, "lastname": null },
-    { "id": "36cf61e1-2107-411d-8828-4346188df1c0", "username": "chiamaka_dev", "email": "chiamaka.okafor91@gmail.com", "profile": null, "firstname": null, "lastname": null },
-    { "id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "username": "tunde_codes", "email": "tunde.balogun.dev@gmail.com", "profile": null, "firstname": null, "lastname": null }
+    { "id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "username": "pheezy", "email": "akinwunmiolusegun277@gmail.com", "password": "#Pheezy123", "profile": null, "firstname": null, "lastname": null },
+    { "id": "36cf61e1-2107-411d-8828-4346188df1c0", "username": "chiamaka_dev", "email": "chiamaka.okafor91@gmail.com", "password": "chimaka@24", "profile": null, "firstname": null, "lastname": null },
+    { "id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "username": "tunde_codes", "email": "tunde.balogun.dev@gmail.com", "password": "kunle#dev09", "profile": null, "firstname": null, "lastname": null }
   ],
   "rooms": [
     { "id": "8495fe15-0b48-445b-8564-aace14e52130", "room_name": "lousy sponsors", "created_by": "7ea480f8-81dc-431c-8c51-a2ea2c611351" },

@@ -8,7 +8,6 @@ import AuthForm from "../components/auth/AuthForm";
 import AuthInput from "../components/auth/AuthInput";
 import {useNavigate} from "react-router-dom";
 import {Lock, Mail, User} from "lucide-react";
-import {updateDetails} from "../store/store.js";
 
 const optArray = [
   {id: 0, icon: `${google}`},
@@ -34,7 +33,6 @@ export default function SignUpPage() {
           password: "",
         }}
         onSubmit={(values, {setSubmitting, resetForm}) => {
-          updateDetails({username: values.username, email: values.email});
           setSubmitting(false);
           resetForm();
         }}
