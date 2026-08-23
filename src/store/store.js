@@ -20,10 +20,9 @@ const tablist = [
   { id: 2, text: "groups", tabId: "groups-tab-button" },
 ];
 
-
 const messageUISlice = createSlice({
   name: "messageUI",
-  initialState: { menuIconDetails, tablist, showUserProfileModal: false, showTabOptions: false, currentTabId: 0 },
+  initialState: { menuIconDetails, tablist, errorState: { status: false, message: "" }, showUserProfileModal: false, showTabOptions: false, currentTabId: 0 },
   reducers: {
     toggleTabContainer: (state) => {
       state.showTabOptions = !state.showTabOptions
@@ -37,10 +36,13 @@ const messageUISlice = createSlice({
     updateCurrentTabId: (state, action) => {
       state.currentTabId = action.payload
     },
+    updateErrorState: (state, action) => {
+      state.errorState = action.payload
+    }
   }
 })
 
-export const { toggleTabContainer, toggleUserProfileModal, updateUserProfileModal, updateCurrentTabId } = messageUISlice.actions;
+export const { toggleTabContainer, toggleUserProfileModal, updateUserProfileModal, updateCurrentTabId, updateErrorState } = messageUISlice.actions;
 
 
 
@@ -190,6 +192,8 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.user = action.payload;
+    }).addCase(fetchUser.rejected, (state) => {
+      state.error = { status: true, message: "User account not found! Create an account" }
     })
   }
 });

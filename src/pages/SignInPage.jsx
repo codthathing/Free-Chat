@@ -8,8 +8,9 @@ import AuthForm from "../components/auth/AuthForm";
 import AuthInput from "../components/auth/AuthInput";
 import { useNavigate } from "react-router-dom";
 import { Lock, User } from "lucide-react";
-import {fetchUser} from "../store/store.js";
+import {fetchUser, updateErrorState} from "../store/store.js";
 import {useAppDispatch} from "../hooks/useAppDispatch.js";
+import {useSelector} from "react-redux";
 
 const optArray = [
   { id: 0, icon: `${google}` },
@@ -24,6 +25,7 @@ const validationSchema = Yup.object({
 export default function SigInPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = useSelector(state => state.user);
 
   return (
     <>
@@ -37,6 +39,7 @@ export default function SigInPage() {
             resetForm();
           } catch (e) {
             console.error(`Error: ${e.message}`);
+            dispatch(updateErrorState(user.error));
           } finally {
             setSubmitting(false);
           }
