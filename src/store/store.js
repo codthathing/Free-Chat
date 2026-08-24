@@ -1,10 +1,10 @@
 import {
   configureStore,
   createAsyncThunk,
-  createSlice,
+  createSlice, isAnyOf,
 } from "@reduxjs/toolkit";
 import display_picture from "../assets/display-picture.jpg";
-import {getUser} from "../utils/api.js";
+import {getUserWithEmail, getUserWithUsername, postUser, updateUserPassword} from "../utils/api.js";
 
 const menuIconDetails = [
   { id: 0, iconKey: "message-circle", iconText: "messages" },
@@ -22,7 +22,7 @@ const tablist = [
 
 const messageUISlice = createSlice({
   name: "messageUI",
-  initialState: { menuIconDetails, tablist, errorState: { status: false, message: "" }, showUserProfileModal: false, showTabOptions: false, currentTabId: 0 },
+  initialState: { menuIconDetails, tablist, actionState: { status: false, type: "", message: "" }, showUserProfileModal: false, showTabOptions: false, currentTabId: 0 },
   reducers: {
     toggleTabContainer: (state) => {
       state.showTabOptions = !state.showTabOptions
@@ -36,13 +36,13 @@ const messageUISlice = createSlice({
     updateCurrentTabId: (state, action) => {
       state.currentTabId = action.payload
     },
-    updateErrorState: (state, action) => {
-      state.errorState = action.payload
+    updateActionState: (state, action) => {
+      state.actionState = action.payload
     }
   }
 })
 
-export const { toggleTabContainer, toggleUserProfileModal, updateUserProfileModal, updateCurrentTabId, updateErrorState } = messageUISlice.actions;
+export const { toggleTabContainer, toggleUserProfileModal, updateUserProfileModal, updateCurrentTabId, updateActionState } = messageUISlice.actions;
 
 
 
@@ -103,10 +103,10 @@ const roomsSlice = createSlice({
 
 
 const statusUpdates = {
-  uids: ["125", "435", "224", "642", "746", "667"],
+  uids: ["7ea480f8-81dc-431c-8c51-a2ea2c611351", "435", "224", "642", "746", "667"],
   status: {
     "435": {uid: "435", status: [{content: "", seen: false}]},
-    "125": {uid: "125", status: [{content: "", seen: true}]},
+    "7ea480f8-81dc-431c-8c51-a2ea2c611351": {uid: "7ea480f8-81dc-431c-8c51-a2ea2c611351", status: [{content: "", seen: true}]},
     "224": {uid: "224", status: [{content: "", seen: true}]},
     "642": {uid: "642", status: [{content: "", seen: false}]},
     "746": {uid: "746", status: [{content: "", seen: true}]},
@@ -171,30 +171,52 @@ const messagesSlice = createSlice({
 
 export const { addMessage } = messagesSlice.actions;
 
+export const fetchUserId = createAsyncThunk("user/fetch/id", async (id) => {
+  const user = await fetch(`http://localhost:4000/users/${id}`);
 
+  return user.json();
+})
 
-export const fetchUser = createAsyncThunk("user/details", async (username) => {
-  const users = await getUser();
-  const user = users.find(user => user.username === username);
+export const fetchUserUsername = createAsyncThunk("user/fetch/username", async ({username, password}) => {
+  const user = await getUserWithUsername(username, password);
 
-  if (!user) throw new Error("User not found");
+  if (!user) throw new Error("Wrong login information! Try again.");
+
+  return user;
+})
+
+export const fetchUserEmail = createAsyncThunk("user/fetch/email", async (email) => {
+  const user = await getUserWithEmail(email);
+
+  if (!user) throw new Error("Unable to fetch user account!");
 
   return user;
 });
 
+export const createUser = createAsyncThunk("user/create", async ({username, email, password}) => {
+  const user = await postUser(username, email, password);
+
+  if (!user) throw new Error("Unable to create user account! Try again.");
+
+  return user;
+})
+
+export const updatePassword = createAsyncThunk("user/update/password", async ({ id, password }) => {
+  const user = await updateUserPassword(id, password);
+
+  if (!user) throw new Error("Unable to update user password!");
+
+  return user;
+})
+
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    user: {},
-    error: { status: false, message: "" },
-  },
+  initialState: null,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchUser.fulfilled, (state, action) => {
-      state.user = action.payload;
-    }).addCase(fetchUser.rejected, (state) => {
-      state.error = { status: true, message: "User account not found! Create an account" }
-    })
+    builder.addMatcher(isAnyOf(fetchUserId.fulfilled, fetchUserUsername.fulfilled, fetchUserEmail.fulfilled, createUser.fulfilled, updatePassword.fulfilled), (state, action) => {
+      return action.payload;
+    });
   }
 });
 

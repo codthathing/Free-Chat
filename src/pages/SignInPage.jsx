@@ -8,9 +8,8 @@ import AuthForm from "../components/auth/AuthForm";
 import AuthInput from "../components/auth/AuthInput";
 import { useNavigate } from "react-router-dom";
 import { Lock, User } from "lucide-react";
-import {fetchUser, updateErrorState} from "../store/store.js";
-import {useAppDispatch} from "../hooks/useAppDispatch.js";
-import {useSelector} from "react-redux";
+import {fetchUserUsername} from "../store/store.js";
+import {useFormSubmitAction} from "../hooks/useFormSubmitAction.js";
 
 const optArray = [
   { id: 0, icon: `${google}` },
@@ -24,26 +23,14 @@ const validationSchema = Yup.object({
 
 export default function SigInPage() {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const user = useSelector(state => state.user);
+  const submitAction = useFormSubmitAction();
 
   return (
     <>
       <AuthHeadText text={"Sign in Your Account"} />
       <Formik
         initialValues={{ username: "", password: "" }}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
-          try {
-            await dispatch(fetchUser(values.username)).unwrap();
-            navigate("/messages");
-            resetForm();
-          } catch (e) {
-            console.error(`Error: ${e.message}`);
-            dispatch(updateErrorState(user.error));
-          } finally {
-            setSubmitting(false);
-          }
-        }}
+        onSubmit={async (values, { setSubmitting, resetForm }) => await submitAction(setSubmitting, resetForm, fetchUserUsername({username: values.username, password: values.password}), "/messages")}
         validationSchema={validationSchema}
         enableReinitialize={false}
         validateOnChange={false}

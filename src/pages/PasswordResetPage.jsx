@@ -4,7 +4,9 @@ import AuthHeadText from "../components/auth/AuthHeadText";
 import AuthInput from "../components/auth/AuthInput";
 import { Formik } from "formik";
 import { Lock } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import {updatePassword} from "../store/store.js";
+import {useSelector} from "react-redux";
+import {useFormSubmitAction} from "../hooks/useFormSubmitAction.js";
 
 const validationSchema = Yup.object({
   auth: Yup.object().shape({
@@ -18,7 +20,8 @@ const validationSchema = Yup.object({
 });
 
 export default function PasswordResetPage() {
-  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const submitAction = useFormSubmitAction();
 
   return (
     <>
@@ -31,12 +34,7 @@ export default function PasswordResetPage() {
             confirmPassword: "",
           },
         }}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          console.log(values)
-          navigate("/sign-in");
-          setSubmitting(false);
-          resetForm();
-        }}
+        onSubmit={async (values, { setSubmitting, resetForm }) => await submitAction(setSubmitting, resetForm, updatePassword({id: user.id, password: values.auth.password}), "/sign-in")}
         validationSchema={validationSchema}
         enableReinitialize={false}
         validateOnChange={false}

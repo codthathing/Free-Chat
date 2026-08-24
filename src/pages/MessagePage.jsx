@@ -1,6 +1,3 @@
-import { Users } from "lucide-react";
-import MessageSection from "../components/messages/MessageSection.jsx";
-import MessageMobileStatus from "../components/messages/MessageMobileStatus.jsx";
 import MessageUserProfile from "../components/messages/MessageUserProfile.jsx";
 import { Route, Routes } from "react-router-dom";
 import MutualPage from "./MutualPage";

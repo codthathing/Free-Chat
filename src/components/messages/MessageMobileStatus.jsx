@@ -3,10 +3,14 @@ import {useSelector} from "react-redux";
 import {useGetRoomName} from "../../hooks/useGetRoomName.js";
 
 export default function MessageMobileStatus() {
+  const user = useSelector((state) => state?.user);
   const statusUpdates = useSelector((state) => state.status);
   const roomsCreated = useSelector((state) => state.rooms);
-  const { uid: currentUserId, profile: currentUserProfile } = useSelector((state) => state.user);
   const getRoomName = useGetRoomName();
+
+  if (!user) return;
+
+  const { id: currentUserId, profile: currentUserProfile } = user;
 
   return (
     <section className="px-3 pb-4 border-b border-input-gray md:hidden">

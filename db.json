@@ -1,29 +1,133 @@
 {
   "users": [
-    { "id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "username": "pheezy", "email": "akinwunmiolusegun277@gmail.com", "password": "#Pheezy123", "profile": null, "firstname": null, "lastname": null },
-    { "id": "36cf61e1-2107-411d-8828-4346188df1c0", "username": "chiamaka_dev", "email": "chiamaka.okafor91@gmail.com", "password": "chimaka@24", "profile": null, "firstname": null, "lastname": null },
-    { "id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "username": "tunde_codes", "email": "tunde.balogun.dev@gmail.com", "password": "kunle#dev09", "profile": null, "firstname": null, "lastname": null }
+    {
+      "id": "7ea480f8-81dc-431c-8c51-a2ea2c611351",
+      "username": "pheezy",
+      "email": "akinwunmiolusegun277@gmail.com",
+      "password": "#Pheezy123",
+      "profile": null,
+      "firstname": null,
+      "lastname": null
+    },
+    {
+      "id": "36cf61e1-2107-411d-8828-4346188df1c0",
+      "username": "chiamaka_dev",
+      "email": "chiamaka.okafor91@gmail.com",
+      "password": "chimaka@24",
+      "profile": null,
+      "firstname": null,
+      "lastname": null
+    },
+    {
+      "id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb",
+      "username": "tunde_codes",
+      "email": "tunde.balogun.dev@gmail.com",
+      "password": "kunle#dev09",
+      "profile": null,
+      "firstname": null,
+      "lastname": null
+    },
+    {
+      "id": "3fddf49b-f4d4-47c1-869f-aec784fa4df5",
+      "username": "bumzie",
+      "email": "oluwabunmi.omoehin@gmail.com",
+      "password": "#bunehin@zie",
+      "profile": null,
+      "firstname": null,
+      "lastname": null
+    }
   ],
   "rooms": [
-    { "id": "8495fe15-0b48-445b-8564-aace14e52130", "room_name": "lousy sponsors", "created_by": "7ea480f8-81dc-431c-8c51-a2ea2c611351" },
-    { "id": "b2b8e4e4-2559-4554-9d11-539217b108b7", "room_name": null, "created_by": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb" }
+    {
+      "id": "8495fe15-0b48-445b-8564-aace14e52130",
+      "created_by": "7ea480f8-81dc-431c-8c51-a2ea2c611351",
+      "type": "group"
+    },
+    {
+      "id": "b2b8e4e4-2559-4554-9d11-539217b108b7",
+      "created_by": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb",
+      "type": "user"
+    }
+  ],
+  "groups": [
+    {
+      "room_id": "8495fe15-0b48-445b-8564-aace14e52130",
+      "room_profile": null,
+      "room_name": "lousy sponsors"
+    }
   ],
   "friends": [
-    { "id": 1, "room_id": "b2b8e4e4-2559-4554-9d11-539217b108b7", "friend_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "u_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "friend_firstname": null, "friend_lastname": null, "status": "accepted" },
-    { "id": 2, "room_id": "b2b8e4e4-2559-4554-9d11-539217b108b7", "friend_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "friend_firstname": null, "friend_lastname": null, "status":  "accepted" }
+    {
+      "room_id": "b2b8e4e4-2559-4554-9d11-539217b108b7",
+      "friend_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb",
+      "u_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351",
+      "friend_firstname": null,
+      "friend_lastname": null,
+      "status": "accepted"
+    },
+    {
+      "room_id": "b2b8e4e4-2559-4554-9d11-539217b108b7",
+      "friend_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351",
+      "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb",
+      "friend_firstname": null,
+      "friend_lastname": null,
+      "status": "accepted"
+    }
   ],
   "room_members": [
-    { "room_id": "8495fe15-0b48-445b-8564-aace14e52130", "u_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "status": "admin" },
-    { "room_id": "8495fe15-0b48-445b-8564-aace14e52130", "u_id": "36cf61e1-2107-411d-8828-4346188df1c0", "status": "user" },
-    { "room_id": "8495fe15-0b48-445b-8564-aace14e52130", "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "status": "user" }
+    {
+      "room_id": "8495fe15-0b48-445b-8564-aace14e52130",
+      "u_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351",
+      "status": "admin"
+    },
+    {
+      "room_id": "8495fe15-0b48-445b-8564-aace14e52130",
+      "u_id": "36cf61e1-2107-411d-8828-4346188df1c0",
+      "status": "user"
+    },
+    {
+      "room_id": "8495fe15-0b48-445b-8564-aace14e52130",
+      "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb",
+      "status": "user"
+    }
   ],
   "messages": [
-    { "id": 1, "room_id": "8495fe15-0b48-445b-8564-aace14e52130", "u_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351", "text": "Hello world", "time_stamp": "" },
-    { "id": 2, "room_id": "b2b8e4e4-2559-4554-9d11-539217b108b7", "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "text": "How far nau!!\n\n you added me, how you doing", "time_stamp": "" }
+    {
+      "id": 1,
+      "room_id": "8495fe15-0b48-445b-8564-aace14e52130",
+      "u_id": "7ea480f8-81dc-431c-8c51-a2ea2c611351",
+      "text": "Hello world",
+      "time_stamp": ""
+    },
+    {
+      "id": 2,
+      "room_id": "b2b8e4e4-2559-4554-9d11-539217b108b7",
+      "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb",
+      "text": "How far nau!!\n\n you added me, how you doing",
+      "time_stamp": ""
+    }
   ],
   "status_contents": [
-    { "id": 1, "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "mime_type": "", "size": 29303, "storage_key": "" },
-    { "id": 2, "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb", "mime_type": "", "size": 29303, "storage_key": "" },
-    { "id": 3, "u_id": "36cf61e1-2107-411d-8828-4346188df1c0", "mime_type":  "", "size": 10238, "storage_key":  "" }
+    {
+      "id": 1,
+      "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb",
+      "mime_type": "",
+      "size": 29303,
+      "storage_key": ""
+    },
+    {
+      "id": 2,
+      "u_id": "efdfb9e9-d129-4aac-8944-9da8eb1aaccb",
+      "mime_type": "",
+      "size": 29303,
+      "storage_key": ""
+    },
+    {
+      "id": 3,
+      "u_id": "36cf61e1-2107-411d-8828-4346188df1c0",
+      "mime_type": "",
+      "size": 10238,
+      "storage_key": ""
+    }
   ]
 }

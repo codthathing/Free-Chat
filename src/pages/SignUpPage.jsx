@@ -8,6 +8,8 @@ import AuthForm from "../components/auth/AuthForm";
 import AuthInput from "../components/auth/AuthInput";
 import {useNavigate} from "react-router-dom";
 import {Lock, Mail, User} from "lucide-react";
+import {createUser, updateActionState} from "../store/store.js";
+import {useFormSubmitAction} from "../hooks/useFormSubmitAction.js";
 
 const optArray = [
   {id: 0, icon: `${google}`},
@@ -22,6 +24,7 @@ const validationSchema = Yup.object({
 
 export default function SignUpPage() {
   const navigate = useNavigate();
+  const submitAction = useFormSubmitAction();
 
   return (
     <>
@@ -32,10 +35,7 @@ export default function SignUpPage() {
           email: "",
           password: "",
         }}
-        onSubmit={(values, {setSubmitting, resetForm}) => {
-          setSubmitting(false);
-          resetForm();
-        }}
+        onSubmit={async (values, {setSubmitting, resetForm}) => await submitAction(setSubmitting, resetForm, createUser({username: values.username, email: values.email, password: values.password}), "/sign-in", updateActionState({ status: true, type: "success", message: "Account created successfully." }))}
         validationSchema={validationSchema}
         enableReinitialize={false}
         validateOnChange={false}
