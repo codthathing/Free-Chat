@@ -8,14 +8,24 @@ export default function MutualFooter({ roomId, roomType }) {
   const [messageInput, setMessageInput] = useState("");
 
   const dispatch = useDispatch();
-  const { uid: currentUserId } = useSelector((state) => state.user);
+  const { id: currentUserId } = useSelector((state) => state.user.user);
 
   const messageSendButton = () => {
     if (!messageInput.trim()) return;
 
     const presentTime = `${new Date().getHours() >= 12 ? new Date().getHours() % 12 : new Date().getHours()}:${new Date().getMinutes().toString().padStart(2, "0")} ${new Date().getHours() >= 12 ? "PM" : "AM"}`;
 
-    dispatch(addMessage({ uid: roomId, message: {id: Date.now(), type: "user", ...(roomType === "group" && { uid: currentUserId }), text: messageInput, time: presentTime, seen: true}}));
+    dispatch(addMessage({
+      roomId,
+      roomType,
+      messageObj: {
+        id: crypto.randomUUID(),
+        room_id: roomId,
+        u_id: currentUserId,
+        text: messageInput,
+        time_stamp: presentTime
+      }
+    }));
     setMessageInput("");
   };
 

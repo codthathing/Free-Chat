@@ -1,21 +1,50 @@
 import {useSelector} from "react-redux";
+import {selectEntitiesFriends, selectEntitiesMessages} from "../store/store.js";
 
-const getUnreadCount = (messages) => {
-  let count = 0;
+// const getUnreadCount = (messages) => {
+//   let count = 0;
+//
+//   for (let i = messages.length - 1; i >= 0; i--) {
+//     if (messages[i].seen) break;
+//
+//     count++;
+//   }
+//
+//   return count;
+// };
 
-  for (let i = messages.length - 1; i >= 0; i--) {
-    if (messages[i].seen) break;
+const getFriendName = (room) => {
+  if (!room) return "~ @Unknown";
 
-    count++;
-  }
+  const saved = Boolean(room["fullName"]["firstname"] || room["fullName"]["lastname"]);
 
-  return count;
-};
+  return saved ? `${room["fullName"]["firstname"]} ${room["fullName"]["lastname"]}` : `~ @${room["username"]}`;
+}
 
 export const useGetLastMessages = () => {
-  const messages = useSelector((state) => state.messages);
-  const roomsCreated = useSelector((state) => state.rooms);
-  const { id: currentUserId } = useSelector((state) => state.user) || { id: undefined };
+  const messagesEntities = useSelector(selectEntitiesMessages);
+  const friendsEntities = useSelector(selectEntitiesFriends);
+  const { user } = useSelector(state => state.user);
 
-  return (uid) => messages[uid] ? { ...(messages[uid].at(-1).uid ? { name: roomsCreated["rooms"][messages[uid].at(-1).uid] ? (roomsCreated["rooms"][messages[uid].at(-1).uid]["username"] ? `~ @${roomsCreated["rooms"][messages[uid].at(-1).uid]["username"]}` : `${roomsCreated["rooms"][messages[uid].at(-1).uid]["fullName"]["firstname"]} ${roomsCreated["rooms"][messages[uid].at(-1).uid]["fullName"]["lastname"]}`) : (messages[uid].at(-1).uid === currentUserId ? "You" : "~ @unknown") } : { seen: messages[uid].at(-1)["type"] === "user" ? "check-check" : "" }), lastMessage: messages[uid].at(-1).text, time: messages[uid].at(-1).time, unreadCount: getUnreadCount(messages[uid]) } : { lastMessage: "", time: "", unreadCount: 0 };
+  if (!user) return null;
+
+  return (roomId, roomType) => {
+    if (!messagesEntities[roomId]) return {lastMessage: "", time: "", unreadCount: 0};
+
+    const lastMessageObject = messagesEntities[roomId]["messages"].at(-1);
+
+    return ({
+      ...(roomType === "group"
+        ? {
+          name: lastMessageObject["u_id"] === user.id
+            ? "You"
+            : getFriendName(friendsEntities[lastMessageObject["u_id"]]),
+        }
+        : {seen: lastMessageObject["type"] === "user" ? "check-check" : ""}
+      ),
+      lastMessage: lastMessageObject["text"],
+      time: lastMessageObject["time"],
+      // unreadCount: getUnreadCount(messages[uid]),
+    })
+  }
 }

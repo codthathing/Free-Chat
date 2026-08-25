@@ -1,6 +1,9 @@
 import {updateActionState} from "../store/store.js";
-import {useAppDispatch} from "./useAppDispatch.js";
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+
+/** @returns {import("@reduxjs/toolkit").ThunkDispatch<any, any, any>} */
+const useAppDispatch = () => useDispatch();
 
 export const useFormSubmitAction = () => {
   const dispatch = useAppDispatch();

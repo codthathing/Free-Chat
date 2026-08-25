@@ -60,7 +60,7 @@ MutualMessageSection.propTypes = {
       status: PropTypes.string.isRequired,
       array: PropTypes.arrayOf(
         PropTypes.shape({
-          id: PropTypes.number.isRequired,
+          id: PropTypes.string.isRequired,
           type: PropTypes.string.isRequired,
           text: PropTypes.string.isRequired,
           time: PropTypes.string.isRequired,

@@ -8,7 +8,7 @@ import MutualFooter from "../components/mutuals/MutualFooter";
 import {useNavigate, useParams} from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import {useEffect} from "react";
+import {selectByIdMessages, selectByIdRooms} from "../store/store.js";
 
 const mutualIcons = [
   { id: 0, Icon: Video },
@@ -19,14 +19,18 @@ const EMPTY_MESSAGES = [];
 
 export default function MutualPage({ className }) {
   const { uid } = useParams();
-
-  const messageState = useSelector((state) => state.messages[uid]) ?? EMPTY_MESSAGES;
-  const { array } = useModifiedMessageObjects(messageState);
-
-  const roomDetails = useSelector((state) => state.rooms["rooms"][uid]);
-  const { uid: roomId, roomType, profile, name, saved } = {...roomDetails, saved: Boolean(roomDetails["username"]), name: roomDetails["username"] ? `@${roomDetails["username"]}` : (roomDetails["roomType"] === "user" ? `${roomDetails["fullName"]["firstname"]} ${roomDetails["fullName"]["lastname"]}` : roomDetails["groupName"])};
-
   const navigate = useNavigate();
+
+  const { messages } = useSelector(state => selectByIdMessages(state, uid)) ?? {messages: EMPTY_MESSAGES};
+  const { array } = useModifiedMessageObjects(messages);
+
+  const room = useSelector((state) => selectByIdRooms(state, uid));
+
+  if (!room || !messages) return;
+
+  const { id: roomId, roomType, profile } = room;
+  const saved = roomType === "user" ? Boolean(room["fullName"]["firstname"] || room["fullName"]["firstname"]) : true;
+  const name = (roomType === "user" ? (saved ? `${room["fullName"]["firstname"]} ${room["fullName"]["lastname"]}` : `~ @${room["username"]}`) : `${room["groupName"]}`);
 
   return (
     <section className={`${className} flex flex-col md:w-full`}>

@@ -1,10 +1,17 @@
 import {
   configureStore,
-  createAsyncThunk,
+  createAsyncThunk, createEntityAdapter,
   createSlice, isAnyOf,
 } from "@reduxjs/toolkit";
-import display_picture from "../assets/display-picture.jpg";
-import {getUserWithEmail, getUserWithUsername, postUser, updateUserPassword} from "../utils/api.js";
+import {
+  getFriends,
+  getRoomMessages,
+  getRooms, getStatusUpdates,
+  getUserWithEmail,
+  getUserWithUsername, postMessageToRoom,
+  postUser,
+  updateUserPassword
+} from "../utils/api.js";
 
 const menuIconDetails = [
   { id: 0, iconKey: "message-circle", iconText: "messages" },
@@ -46,130 +53,130 @@ export const { toggleTabContainer, toggleUserProfileModal, updateUserProfileModa
 
 
 
-const roomsCreated = {
-  uids: ["224", "435", "532", "746", "667", "137", "642"],
-  rooms: {
-    "224": {
-      uid: "224",
-      roomType: "user",
-      profile: display_picture,
-      fullName: {firstname: "John", lastname: "Doe"},
-    },
-    "435": {
-      uid: "435",
-      roomType: "group",
-      profile: display_picture,
-      groupName: "Lousy Sponsors",
-    },
-    "532": {
-      uid: "532",
-      roomType: "user",
-      profile: display_picture,
-      fullName: {firstname: "Afolabi", lastname: "Akinwunmi"},
-    },
-    "746": {
-      uid: "746",
-      roomType: "group",
-      profile: display_picture,
-      groupName: "Cracked Devs",
-    },
-    "667": {
-      uid: "667",
-      roomType: "user",
-      profile: display_picture,
-      fullName: { firstname: "Boluwatife", lastname: "Olaleye" },
-    },
-    "137": {
-      uid: "137",
-      roomType: "group",
-      profile: display_picture,
-      groupName: "Unexpected Odds",
-    },
-    "642": {
-      uid: "642",
-      roomType: "user",
-      profile: display_picture,
-      username: "pheezy"
-    }
-  }
-}
+const friendsAdapter = createEntityAdapter();
+
+export const fetchFriends = createAsyncThunk("fetch/friends", async (userId) => {
+  const friends = await getFriends(userId);
+
+  if (!friends) throw new Error("Unable to fetch friends");
+
+  return friends;
+})
+
+const friendsSlice = createSlice({
+  name: "friends",
+  initialState: friendsAdapter.getInitialState({
+    loading: false,
+  }),
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchFriends.fulfilled, (state, action) => {
+      friendsAdapter.setAll(state, action.payload);
+    })
+  },
+})
+
+export const { selectEntities: selectEntitiesFriends } = friendsAdapter.getSelectors(state => state.friends);
+
+
+
+const roomsAdapter = createEntityAdapter();
+
+export const fetchRooms = createAsyncThunk("fetch/rooms", async (id) => {
+  const rooms = await getRooms(id);
+
+  if (!rooms) throw new Error("Unable to fetch rooms");
+
+  return rooms;
+})
 
 const roomsSlice = createSlice({
   name: "rooms",
-  initialState : roomsCreated,
-  reducers: {}
+  initialState : roomsAdapter.getInitialState({
+    loading: false,
+  }),
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchRooms.fulfilled, (state, action) => {
+      roomsAdapter.setAll(state, action.payload);
+    })
+  }
 })
 
+export const { selectAll: selectAllRooms, selectIds: selectIdsRooms, selectById: selectByIdRooms, selectEntities: selectEntitiesRooms } = roomsAdapter.getSelectors(state => state.rooms);
 
 
-const statusUpdates = {
-  uids: ["7ea480f8-81dc-431c-8c51-a2ea2c611351", "435", "224", "642", "746", "667"],
-  status: {
-    "435": {uid: "435", status: [{content: "", seen: false}]},
-    "7ea480f8-81dc-431c-8c51-a2ea2c611351": {uid: "7ea480f8-81dc-431c-8c51-a2ea2c611351", status: [{content: "", seen: true}]},
-    "224": {uid: "224", status: [{content: "", seen: true}]},
-    "642": {uid: "642", status: [{content: "", seen: false}]},
-    "746": {uid: "746", status: [{content: "", seen: true}]},
-    "667": {uid: "667", status: [{content: "", seen: true}]},
-  }
-};
+
+const statusAdapter = createEntityAdapter();
+
+export const fetchStatus = createAsyncThunk("fetch/status", async ({roomIds, u_id}) => {
+  const status = await getStatusUpdates(roomIds, u_id);
+
+  if (!status) throw new Error("Unable to fetch status");
+
+  return status;
+})
 
 const roomStatusSlice = createSlice({
-  name: "roomStatus",
-  initialState: statusUpdates,
-  reducers: {}
+  name: "status",
+  initialState: statusAdapter.getInitialState({
+    loading: false,
+  }),
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchStatus.fulfilled, (state, action) => {
+      statusAdapter.setAll(state, action.payload);
+    })
+  }
 })
 
+export const {selectAll: selectAllStatus} = statusAdapter.getSelectors(state => state.status);
 
 
-const roomMessages = {
-  "224": [
-    {id: 0, type: "other", text: "Wassup Segun 👋", time: "7:20 PM", seen: true,},
-    {id: 1, type: "user", text: "Wagwan dude 😂\n\nWhat have you been up to? How have you been?", time: "7:22 PM", seen: true,},
-    {id: 2, type: "other", text: "Nothing much bro, just work and sleep these days 😅", time: "7:24 PM", seen: false,},
-    {id: 3, type: "other", text: "We should catch up this weekend if you're free.", time: "7:25 PM", seen: false,}, // Chat friend replied last
-  ],
 
-  "435": [
-    {id: 0, type: "other", uid: "224", text: "Who's coming for football tomorrow?", time: "9:10 AM", seen: true,},
-    {id: 1, type: "user", uid: "125", text: "I'm in 🙌", time: "9:12 AM", seen: true,},
-    {id: 2, type: "other", uid: "437", text: "Great! Let's meet at the usual pitch by 4.", time: "9:15 AM", seen: false,}, // Group unknown user replied last
-  ],
+const messagesAdapter = createEntityAdapter();
 
-  "746": [
-    {id: 0, type: "user", uid: "125", text: "Has anyone finished the UI designs?", time: "2:40 PM", seen: true,},
-    {id: 1, type: "other", uid: "532", text: "Almost done. Just fixing responsiveness.", time: "2:45 PM", seen: false,},
-    {id: 2, type: "other", uid: "224", text: "I'll push everything to GitHub tonight.", time: "2:47 PM", seen: false,}, // Group friend replied last
-  ],
+export const fetchMessages = createAsyncThunk("fetch/messages", async ({room_ids, id}) => {
+  const messages = await getRoomMessages(room_ids, id);
 
-  "667": [
-    {id: 0, type: "other", text: "Happy birthday! 🎉", time: "8:30 AM", seen: true,},
-    {id: 1, type: "other", text: "Hope you have an amazing day!", time: "8:31 AM", seen: true,},
-    {id: 2, type: "user", text: "Thank you so much! I really appreciate it ❤️", time: "8:35 AM", seen: true,}, // Chat I replied last
-  ],
+  if (!messages) throw new Error("Unable to fetch messages");
 
-  "137": [
-    {id: 0, type: "other", uid: "224", text: "Should we deploy today?", time: "11:50 AM", seen: true,},
-    {id: 1, type: "other", uid: "532", text: "Everything looks good from my end.", time: "11:53 AM", seen: true,},
-    {id: 2, type: "user", uid: "125", text: "Perfect. I'll handle the deployment after lunch.", time: "11:55 AM", seen: true,}, // Group I replied last
-  ],
-};
+  return messages;
+})
+
+export const addMessage = createAsyncThunk("post/messages", async ({roomId, roomType, messageObj}) => {
+  const message = await postMessageToRoom(roomType, messageObj);
+
+  if (!message) throw new Error("Unable to post message");
+
+  return {roomId, message};
+})
 
 const messagesSlice = createSlice({
   name: "messages",
-  initialState: roomMessages,
-  reducers: {
-    addMessage: (state, action) => {
-      if (!state[action.payload.uid]) {
-        state[action.payload.uid] = [action.payload.message];
+  initialState: messagesAdapter.getInitialState({
+    loading: false,
+  }),
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchMessages.fulfilled, (state, action) => {
+      messagesAdapter.setAll(state, action.payload);
+    }).addCase(addMessage.fulfilled, (state, action) => {
+      const { roomId, message } = action.payload;
+      const room = state.entities[roomId];
+
+      if (room) {
+        room.messages.push(message);
       } else {
-        state[action.payload.uid].push(action.payload.message);
+        messagesAdapter.addOne(state, { id: roomId, messages: [message] });
       }
-    },
-  },
+    })
+  }
 });
 
-export const { addMessage } = messagesSlice.actions;
+export const { selectEntities: selectEntitiesMessages, selectById: selectByIdMessages } = messagesAdapter.getSelectors(state => state.messages);
+
+
 
 export const fetchUserId = createAsyncThunk("user/fetch/id", async (id) => {
   const user = await fetch(`http://localhost:4000/users/${id}`);
@@ -211,11 +218,14 @@ export const updatePassword = createAsyncThunk("user/update/password", async ({ 
 
 const userSlice = createSlice({
   name: "user",
-  initialState: null,
+  initialState: {
+    user: null,
+    loading: false
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder.addMatcher(isAnyOf(fetchUserId.fulfilled, fetchUserUsername.fulfilled, fetchUserEmail.fulfilled, createUser.fulfilled, updatePassword.fulfilled), (state, action) => {
-      return action.payload;
+      state.user = action.payload;
     });
   }
 });
@@ -228,6 +238,7 @@ export const store = configureStore({
     status: roomStatusSlice.reducer,
     messages: messagesSlice.reducer,
     user: userSlice.reducer,
+    friends: friendsSlice.reducer,
   },
   devTools: process.env.NODE_ENV !== "production",
 })
