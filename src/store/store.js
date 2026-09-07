@@ -14,10 +14,10 @@ import {
 } from "../utils/api.js";
 
 const menuIconDetails = [
-  { id: 0, iconKey: "message-circle", iconText: "messages" },
-  { id: 1, iconKey: "phone-call", iconText: "calls" },
-  { id: 2, iconKey: "target", iconText: "status" },
-  { id: 4, iconKey: "bell", iconText: "notifications" },
+  { id: 0, iconKey: "message-circle", iconText: "chats", path: "/" },
+  { id: 1, iconKey: "phone-call", iconText: "calls", path: "/calls" },
+  { id: 2, iconKey: "target", iconText: "status", path: "/status" },
+  { id: 4, iconKey: "bell", iconText: "notifications", path: "/notifications" },
   { id: 5, iconKey: "user", iconText: "profile" },
 ];
 
@@ -136,15 +136,15 @@ export const {selectAll: selectAllStatus} = statusAdapter.getSelectors(state => 
 
 const messagesAdapter = createEntityAdapter();
 
-export const fetchMessages = createAsyncThunk("fetch/messages", async ({room_ids, id}) => {
+export const fetchMessages = createAsyncThunk("fetch/home", async ({room_ids, id}) => {
   const messages = await getRoomMessages(room_ids, id);
 
-  if (!messages) throw new Error("Unable to fetch messages");
+  if (!messages) throw new Error("Unable to fetch home");
 
   return messages;
 })
 
-export const addMessage = createAsyncThunk("post/messages", async ({roomId, roomType, messageObj}) => {
+export const addMessage = createAsyncThunk("post/home", async ({roomId, roomType, messageObj}) => {
   const message = await postMessageToRoom(roomType, messageObj);
 
   if (!message) throw new Error("Unable to post message");

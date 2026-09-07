@@ -1,10 +1,10 @@
 import { ArrowLeft, PhoneCall, Video } from "lucide-react";
-import MutualMessagesIcons from "../components/mutuals/MutualMessagesIcons.jsx";
-import MutualProfile from "../components/mutuals/MutualProfile";
-import MutualMessagesDate from "../components/mutuals/MutualMessagesDate";
+import RoomMessagesIcons from "../components/room/RoomMessagesIcons.jsx";
+import RoomProfile from "../components/room/RoomProfile.jsx";
+import RoomMessagesDate from "../components/room/RoomMessagesDate.jsx";
 import { useModifiedMessageObjects } from "../hooks/useModifiedMessageObjects";
-import MutualMessageSection from "../components/mutuals/MutualMessageSection";
-import MutualFooter from "../components/mutuals/MutualFooter";
+import RoomMessageSection from "../components/room/RoomMessageSection.jsx";
+import RoomFooter from "../components/room/RoomFooter.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
@@ -17,14 +17,14 @@ const mutualIcons = [
 
 const EMPTY_MESSAGES = [];
 
-export default function MutualPage({ className }) {
-  const { uid } = useParams();
+export default function RoomPage({ className }) {
+  const { room_id } = useParams();
   const navigate = useNavigate();
 
-  const { messages } = useSelector(state => selectByIdMessages(state, uid)) ?? {messages: EMPTY_MESSAGES};
+  const { messages } = useSelector(state => selectByIdMessages(state, room_id)) ?? {messages: EMPTY_MESSAGES};
   const { array } = useModifiedMessageObjects(messages);
 
-  const room = useSelector((state) => selectByIdRooms(state, uid));
+  const room = useSelector((state) => selectByIdRooms(state, room_id));
 
   if (!room || !messages) return;
 
@@ -36,20 +36,20 @@ export default function MutualPage({ className }) {
     <section className={`${className} flex flex-col md:w-full`}>
       <header className="flex justify-between items-center p-4 md:bg-white">
         <div className="flex gap-x-5 items-center">
-          <ArrowLeft size={20} className="text-heading-black md:hidden cursor-pointer" onClick={() => navigate("/messages")} />
-          <MutualProfile name={name} profile={profile} saved={saved} />
+          <ArrowLeft size={20} className="text-heading-black md:hidden cursor-pointer" onClick={() => navigate(-1)} />
+          <RoomProfile name={name} profile={profile} saved={saved} />
         </div>
-        <MutualMessagesIcons messageIconDetails={mutualIcons} />
+        <RoomMessagesIcons messageIconDetails={mutualIcons} />
       </header>
       <main className="bg-background-gray flex-1 relative overflow-hidden">
-        <MutualMessagesDate />
-        <MutualMessageSection messageDetailsArray={array} />
+        <RoomMessagesDate />
+        <RoomMessageSection messageDetailsArray={array} />
       </main>
-      <MutualFooter roomId={roomId} roomType={roomType} />
+      <RoomFooter roomId={roomId} roomType={roomType} />
     </section>
   );
 }
 
-MutualPage.propTypes = {
+RoomPage.propTypes = {
     className: PropTypes.string,
 }

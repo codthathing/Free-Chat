@@ -1,7 +1,7 @@
 import {Formik} from "formik";
 import * as Yup from "yup";
-import google from "../assets/google.svg";
-import apple from "../assets/apple.svg";
+import google from "../../public/google.svg";
+import apple from "../../public/apple.svg";
 import AuthHeadText from "../components/auth/AuthHeadText";
 import AuthDivider from "../components/auth/AuthDivider";
 import AuthForm from "../components/auth/AuthForm";

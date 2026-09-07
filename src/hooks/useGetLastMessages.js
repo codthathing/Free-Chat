@@ -1,11 +1,11 @@
 import {useSelector} from "react-redux";
 import {selectEntitiesFriends, selectEntitiesMessages} from "../store/store.js";
 
-// const getUnreadCount = (messages) => {
+// const getUnreadCount = (home) => {
 //   let count = 0;
 //
-//   for (let i = messages.length - 1; i >= 0; i--) {
-//     if (messages[i].seen) break;
+//   for (let i = home.length - 1; i >= 0; i--) {
+//     if (home[i].seen) break;
 //
 //     count++;
 //   }
@@ -44,7 +44,7 @@ export const useGetLastMessages = () => {
       ),
       lastMessage: lastMessageObject["text"],
       time: lastMessageObject["time"],
-      // unreadCount: getUnreadCount(messages[uid]),
+      // unreadCount: getUnreadCount(home[uid]),
     })
   }
 }

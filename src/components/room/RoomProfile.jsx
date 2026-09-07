@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default function MutualProfile({ name, profile, saved }) {
+export default function RoomProfile({ name, profile, saved }) {
   return (
     <nav className="flex gap-x-3 items-center">
       <img className="w-10 h-10 rounded-full" src={`${profile}`} alt="" />
@@ -12,7 +12,7 @@ export default function MutualProfile({ name, profile, saved }) {
   );
 }
 
-MutualProfile.propTypes = {
+RoomProfile.propTypes = {
   name: PropTypes.string.isRequired,
   profile: PropTypes.string,
   saved: PropTypes.bool.isRequired,

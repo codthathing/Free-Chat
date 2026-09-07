@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import {useGetRoomDetails} from "../../hooks/useGetRoomDetails.js";
 import {selectAllStatus, selectEntitiesRooms} from "../../store/store.js";
 
-export default function MessageMobileStatus() {
+export default function HomeMobileStatus() {
   const {user} = useSelector((state) => state.user);
   const statusUpdates = useSelector(selectAllStatus);
   const roomsEntities = useSelector(selectEntitiesRooms);

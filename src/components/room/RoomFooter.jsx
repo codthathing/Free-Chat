@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { addMessage } from "../../store/store.js";
 import PropTypes from "prop-types";
 
-export default function MutualFooter({ roomId, roomType }) {
+export default function RoomFooter({ roomId, roomType }) {
   const [messageInput, setMessageInput] = useState("");
 
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ export default function MutualFooter({ roomId, roomType }) {
   );
 }
 
-MutualFooter.propTypes = {
+RoomFooter.propTypes = {
   roomId: PropTypes.string.isRequired,
   roomType: PropTypes.string.isRequired,
 }

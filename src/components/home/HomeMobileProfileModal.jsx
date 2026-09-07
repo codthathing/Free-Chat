@@ -1,9 +1,9 @@
-import display_picture from "../../assets/display-picture.jpg";
+import display_picture from "../../../public/display-picture.jpg";
 import {ChevronRight, HelpCircle, Languages, LogOut, Settings, UserPlus} from "lucide-react";
 import {useDispatch} from "react-redux";
 import {updateUserProfileModal} from "../../store/store.js";
 
-export default function MessageMobileProfileModal() {
+export default function HomeMobileProfileModal() {
   const dispatch = useDispatch();
 
   return (

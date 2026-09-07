@@ -4,7 +4,7 @@ import {useGetRoomDetails} from "../../hooks/useGetRoomDetails.js";
 import {Users, CheckCheck} from "lucide-react";
 import {selectAllRooms} from "../../store/store.js";
 
-export default function MessageSection() {
+export default function HomeMessageSection() {
   const navigate = useNavigate();
   const { tablist, currentTabId } = useSelector((state) => state.messageUI);
   const getRoomDetails = useGetRoomDetails();
@@ -17,7 +17,7 @@ export default function MessageSection() {
 
 
         return (
-          <div key={roomId} role={"button"} tabIndex={0} className="flex gap-x-2 justify-between cursor-pointer" onClick={() => navigate(`/messages/${roomId}`)}>
+          <div key={roomId} role={"button"} tabIndex={0} className="flex gap-x-2 justify-between cursor-pointer" onClick={() => navigate(`/room/${roomId}`)}>
             <div className="flex gap-x-2 items-center">
               <img src={`${profile}`} className="w-10 h-10 md:w-11 md:h-11 rounded-full" alt="User Profile" />
               <div className="flex flex-col gap-y-0.5">

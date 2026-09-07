@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
  * }[]} props.messageDetailsArray
  */
 
-export default function MutualMessageSection({ messageDetailsArray: array }) {
+export default function RoomMessageSection({ messageDetailsArray: array }) {
   const messagesContainerRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -53,7 +53,7 @@ export default function MutualMessageSection({ messageDetailsArray: array }) {
   );
 }
 
-MutualMessageSection.propTypes = {
+RoomMessageSection.propTypes = {
   messageDetailsArray: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

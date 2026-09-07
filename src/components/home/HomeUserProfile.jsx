@@ -1,10 +1,10 @@
 import { Bell, ChevronDown } from "lucide-react";
-import display_picture from "../../assets/display-picture.jpg";
-import MessageDesktopProfileModal from "./MessageDesktopProfileModal.jsx";
+import display_picture from "../../../public/display-picture.jpg";
+import HomeDesktopProfileModal from "./HomeDesktopProfileModal.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {toggleUserProfileModal} from "../../store/store.js";
 
-export default function MessageUserProfile() {
+export default function HomeUserProfile() {
   const { showUserProfileModal } = useSelector((state) => state.messageUI);
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ export default function MessageUserProfile() {
           </div>
         </div>
       </div>
-      {showUserProfileModal && <MessageDesktopProfileModal />}
+      {showUserProfileModal && <HomeDesktopProfileModal />}
     </>
   );
 }

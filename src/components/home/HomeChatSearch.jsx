@@ -3,7 +3,7 @@ import { useState } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {toggleTabContainer} from "../../store/store.js";
 
-export default function MessageChatSearch() {
+export default function HomeChatSearch() {
   const [searchText, setSearchText] = useState("");
   const { showTabOptions } = useSelector((state) => state.messageUI);
   const dispatch = useDispatch();

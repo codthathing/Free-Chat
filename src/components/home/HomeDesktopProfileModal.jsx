@@ -1,7 +1,7 @@
-import display_picture from "../../assets/display-picture.jpg";
+import display_picture from "../../../public/display-picture.jpg";
 import {Pencil, UserPlus} from "lucide-react";
 
-export default function MessageDesktopProfileModal() {
+export default function HomeDesktopProfileModal() {
   return (
     <aside className="hidden z-10 md:flex absolute top-[107.5%] right-4 md:w-100 lg:w-70 bg-white md:p-6 md:rounded-xl lg:p-4 lg:rounded-lg flex-col md:gap-y-4 lg:gap-y-2 divide-y divide-soft-lavender">
       <main className="flex flex-col md:gap-y-3 lg:gap-y-2.5 md:pb-4 lg:pb-2">
