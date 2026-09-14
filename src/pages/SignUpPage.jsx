@@ -8,8 +8,9 @@ import AuthForm from "../components/auth/AuthForm";
 import AuthInput from "../components/auth/AuthInput";
 import {useNavigate} from "react-router-dom";
 import {Lock, Mail, User} from "lucide-react";
-import {createUser, updateActionState} from "../store/store.js";
+import {updateActionState} from "../store/store.js";
 import {useFormSubmitAction} from "../hooks/useFormSubmitAction.js";
+import {postUser} from "../utils/api.js";
 
 const optArray = [
   {id: 0, icon: `${google}`},
@@ -35,7 +36,7 @@ export default function SignUpPage() {
           email: "",
           password: "",
         }}
-        onSubmit={async (values, {setSubmitting, resetForm}) => await submitAction(setSubmitting, resetForm, createUser({username: values.username, email: values.email, password: values.password}), "/sign-in", updateActionState({ status: true, type: "success", message: "Account created successfully." }))}
+        onSubmit={async (values, {setSubmitting, resetForm}) => await submitAction(setSubmitting, resetForm, async () => await postUser(values.username, values.email, values.password), "/sign-in", updateActionState({ status: true, type: "success", message: "Account created successfully." }))}
         validationSchema={validationSchema}
         enableReinitialize={false}
         validateOnChange={false}

@@ -1,16 +1,12 @@
 import {
   configureStore,
   createAsyncThunk, createEntityAdapter,
-  createSlice, isAnyOf,
+  createSlice,
 } from "@reduxjs/toolkit";
 import {
   getFriends,
   getRoomMessages,
-  getRooms, getStatusUpdates,
-  getUserWithEmail,
-  getUserWithUsername, postMessageToRoom,
-  postUser,
-  updateUserPassword
+  getRooms, getUserWithUsername, postMessageToRoom,
 } from "../utils/api.js";
 
 const menuIconDetails = [
@@ -29,7 +25,7 @@ const tablist = [
 
 const messageUISlice = createSlice({
   name: "messageUI",
-  initialState: { menuIconDetails, tablist, actionState: { status: false, type: "", message: "" }, showUserProfileModal: false, showTabOptions: false, currentTabId: 0 },
+  initialState: { menuIconDetails, tablist, userId: sessionStorage.getItem("USER_ID"), actionState: { status: false, type: "", message: "" }, showUserProfileModal: false, showTabOptions: false, currentTabId: 0 },
   reducers: {
     toggleTabContainer: (state) => {
       state.showTabOptions = !state.showTabOptions
@@ -45,35 +41,46 @@ const messageUISlice = createSlice({
     },
     updateActionState: (state, action) => {
       state.actionState = action.payload
-    }
+    },
+    setUserId: (state, action) => {
+      state.userId = action.payload;
+      sessionStorage.setItem("USER_ID", action.payload);
+    },
+    logout: (state) => {
+      state.userId = null;
+      sessionStorage.removeItem("USER_ID");
+    },
   }
 })
 
-export const { toggleTabContainer, toggleUserProfileModal, updateUserProfileModal, updateCurrentTabId, updateActionState } = messageUISlice.actions;
+export const { toggleTabContainer, toggleUserProfileModal, setUserId, logout, updateUserProfileModal, updateCurrentTabId, updateActionState } = messageUISlice.actions;
+
+
+export const store = configureStore({
+  reducer: {
+    messageUI: messageUISlice.reducer,
+  },
+  devTools: process.env.NODE_ENV === "development",
+})
+
+
 
 
 
 const friendsAdapter = createEntityAdapter();
 
-export const fetchFriends = createAsyncThunk("fetch/friends", async (userId) => {
+export const fetchFriends = async (userId) => {
   const friends = await getFriends(userId);
 
   if (!friends) throw new Error("Unable to fetch friends");
 
   return friends;
-})
+}
 
 const friendsSlice = createSlice({
   name: "friends",
-  initialState: friendsAdapter.getInitialState({
-    loading: false,
-  }),
+  initialState: friendsAdapter.getInitialState(),
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(fetchFriends.fulfilled, (state, action) => {
-      friendsAdapter.setAll(state, action.payload);
-    })
-  },
 })
 
 export const { selectEntities: selectEntitiesFriends } = friendsAdapter.getSelectors(state => state.friends);
@@ -82,52 +89,30 @@ export const { selectEntities: selectEntitiesFriends } = friendsAdapter.getSelec
 
 const roomsAdapter = createEntityAdapter();
 
-export const fetchRooms = createAsyncThunk("fetch/rooms", async (id) => {
+export const fetchRooms = async (id) => {
   const rooms = await getRooms(id);
 
   if (!rooms) throw new Error("Unable to fetch rooms");
 
-  return rooms;
-})
+  return {roomDetails: rooms.roomDetails, roomIds: rooms.roomIds};
+}
 
 const roomsSlice = createSlice({
   name: "rooms",
-  initialState : roomsAdapter.getInitialState({
-    loading: false,
-  }),
+  initialState : roomsAdapter.getInitialState(),
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(fetchRooms.fulfilled, (state, action) => {
-      roomsAdapter.setAll(state, action.payload);
-    })
-  }
 })
 
-export const { selectAll: selectAllRooms, selectIds: selectIdsRooms, selectById: selectByIdRooms, selectEntities: selectEntitiesRooms } = roomsAdapter.getSelectors(state => state.rooms);
+export const { selectAll: selectAllRooms, selectById: selectByIdRooms, selectEntities: selectEntitiesRooms } = roomsAdapter.getSelectors(state => state.rooms);
 
 
 
 const statusAdapter = createEntityAdapter();
 
-export const fetchStatus = createAsyncThunk("fetch/status", async ({roomIds, u_id}) => {
-  const status = await getStatusUpdates(roomIds, u_id);
-
-  if (!status) throw new Error("Unable to fetch status");
-
-  return status;
-})
-
 const roomStatusSlice = createSlice({
   name: "status",
-  initialState: statusAdapter.getInitialState({
-    loading: false,
-  }),
+  initialState: statusAdapter.getInitialState(),
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(fetchStatus.fulfilled, (state, action) => {
-      statusAdapter.setAll(state, action.payload);
-    })
-  }
 })
 
 export const {selectAll: selectAllStatus} = statusAdapter.getSelectors(state => state.status);
@@ -136,13 +121,13 @@ export const {selectAll: selectAllStatus} = statusAdapter.getSelectors(state => 
 
 const messagesAdapter = createEntityAdapter();
 
-export const fetchMessages = createAsyncThunk("fetch/home", async ({room_ids, id}) => {
+export const fetchMessages = async (room_ids, id) => {
   const messages = await getRoomMessages(room_ids, id);
 
   if (!messages) throw new Error("Unable to fetch home");
 
   return messages;
-})
+}
 
 export const addMessage = createAsyncThunk("post/home", async ({roomId, roomType, messageObj}) => {
   const message = await postMessageToRoom(roomType, messageObj);
@@ -154,14 +139,10 @@ export const addMessage = createAsyncThunk("post/home", async ({roomId, roomType
 
 const messagesSlice = createSlice({
   name: "messages",
-  initialState: messagesAdapter.getInitialState({
-    loading: false,
-  }),
+  initialState: messagesAdapter.getInitialState(),
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchMessages.fulfilled, (state, action) => {
-      messagesAdapter.setAll(state, action.payload);
-    }).addCase(addMessage.fulfilled, (state, action) => {
+    builder.addCase(addMessage.fulfilled, (state, action) => {
       const { roomId, message } = action.payload;
       const room = state.entities[roomId];
 
@@ -178,67 +159,41 @@ export const { selectEntities: selectEntitiesMessages, selectById: selectByIdMes
 
 
 
-export const fetchUserId = createAsyncThunk("user/fetch/id", async (id) => {
+export const fetchUserId = async (id) => {
   const user = await fetch(`http://localhost:4000/users/${id}`);
 
   return user.json();
-})
+}
 
-export const fetchUserUsername = createAsyncThunk("user/fetch/username", async ({username, password}) => {
-  const user = await getUserWithUsername(username, password);
-
-  if (!user) throw new Error("Wrong login information! Try again.");
-
-  return user;
-})
-
-export const fetchUserEmail = createAsyncThunk("user/fetch/email", async (email) => {
-  const user = await getUserWithEmail(email);
-
-  if (!user) throw new Error("Unable to fetch user account!");
-
-  return user;
-});
-
-export const createUser = createAsyncThunk("user/create", async ({username, email, password}) => {
-  const user = await postUser(username, email, password);
-
-  if (!user) throw new Error("Unable to create user account! Try again.");
-
-  return user;
-})
-
-export const updatePassword = createAsyncThunk("user/update/password", async ({ id, password }) => {
-  const user = await updateUserPassword(id, password);
-
-  if (!user) throw new Error("Unable to update user password!");
-
-  return user;
-})
+export const fetchUserWithUsername = async (username, password, dispatch) => {
+  const { id } = await getUserWithUsername(username, password);
+  await dispatch(setUserId(id));
+}
 
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    user: null,
-    loading: false
-  },
+  initialState: null,
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addMatcher(isAnyOf(fetchUserId.fulfilled, fetchUserUsername.fulfilled, fetchUserEmail.fulfilled, createUser.fulfilled, updatePassword.fulfilled), (state, action) => {
-      state.user = action.payload;
-    });
-  }
 });
 
 
-export const store = configureStore({
-  reducer: {
-    messageUI: messageUISlice.reducer,
-    rooms: roomsSlice.reducer,
-    status: roomStatusSlice.reducer,
-    messages: messagesSlice.reducer,
-    user: userSlice.reducer,
-    friends: friendsSlice.reducer,
-  },
-  devTools: process.env.NODE_ENV !== "production",
-})
+export const makeStore = (userData, roomsData, friendsData, messagesData, statusData) => {
+  return configureStore({
+    reducer: {
+      messageUI: messageUISlice.reducer,
+      rooms: roomsSlice.reducer,
+      status: roomStatusSlice.reducer,
+      messages: messagesSlice.reducer,
+      user: userSlice.reducer,
+      friends: friendsSlice.reducer,
+    },
+    devTools: process.env.NODE_ENV !== "production",
+    preloadedState: {
+      user: userData,
+      rooms: roomsAdapter.setAll(roomsAdapter.getInitialState(), roomsData),
+      friends: friendsAdapter.setAll(friendsAdapter.getInitialState(), friendsData),
+      messages: messagesAdapter.setAll(messagesAdapter.getInitialState(), messagesData),
+      status: statusAdapter.setAll(statusAdapter.getInitialState(), statusData),
+    }
+  })
+}

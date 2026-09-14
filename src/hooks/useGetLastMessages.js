@@ -24,9 +24,7 @@ const getFriendName = (room) => {
 export const useGetLastMessages = () => {
   const messagesEntities = useSelector(selectEntitiesMessages);
   const friendsEntities = useSelector(selectEntitiesFriends);
-  const { user } = useSelector(state => state.user);
-
-  if (!user) return null;
+  const user = useSelector(state => state.user);
 
   return (roomId, roomType) => {
     if (!messagesEntities[roomId]) return {lastMessage: "", time: "", unreadCount: 0};

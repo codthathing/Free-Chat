@@ -1,56 +1,36 @@
-import {Route} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {fetchMessages, fetchStatus, selectIdsRooms} from "../../store/store.js";
-import HomeMobileSection from "../home/HomeMobileSection.jsx";
-import RoomPage from "../../pages/RoomPage.jsx";
-import FilterPage from "../../pages/FilterPage.jsx";
-import AppDesktopLayout from "./AppDesktopLayout.jsx";
-import HomeTabletSection from "../home/HomeTabletSection.jsx";
-import FilterSection from "../filter/FilterSection.jsx";
-import {useWindowWidth} from "../../hooks/useWindowWidth.js";
-import CallPage from "../../pages/CallPage.jsx";
-import CallSection from "../call/CallSection.jsx";
-import SplashPage from "../../pages/SplashPage.jsx";
-import StatusPage from "../../pages/StatusPage.jsx";
-import StatusSection from "../status/StatusSection.jsx";
+import {Outlet} from "react-router-dom";
+import {Provider, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {
+  fetchFriends,
+  fetchMessages,
+  fetchRooms,
+  fetchUserId,
+  makeStore,
+} from "../../store/store.js";
 
 export default function ProtectRoutesLayout() {
-  const roomIds = useSelector(selectIdsRooms);
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const USER_ID = useSelector(state => state.messageUI.userId);
 
-  const width = useWindowWidth();
-  const USER_ID = sessionStorage.getItem("USER_ID");
+  const [updateUserDetails, setUpdateUserDetails] = useState(null);
 
   useEffect(() => {
-    if (!user) return;
+    (async () => {
+      const user = await fetchUserId(USER_ID);
+      const {roomDetails, roomIds} = await fetchRooms(USER_ID);
+      const friends = await fetchFriends(USER_ID);
+      const messages = await fetchMessages(roomIds, user.id);
+      const status = await fetchMessages(roomIds, user.id);
 
-    dispatch(fetchMessages({room_ids: roomIds, id: user.id}));
-    dispatch(fetchStatus({roomIds: roomIds, u_id: user.id}));
-  }, [roomIds, user, dispatch]);
+      setUpdateUserDetails(makeStore(user, roomDetails, friends, messages, status));
+    })();
+  }, [USER_ID]);
+
+  if (!updateUserDetails) return null;
 
   return (
-    <>
-      {width < 768 ? (
-        <Route>
-          <Route index element={USER_ID ? <HomeMobileSection width={width} /> : <SplashPage />} />
-          <Route path="/room/:room_id" element={<RoomPage className={"h-dvh"} />} />
-          <Route path="/create-filter" element={<FilterPage />} />
-          <Route path="/calls" element={<CallPage />} />
-          <Route path={"/status"} element={<StatusPage />} />
-        </Route>
-      ) : (
-        <>
-          <Route index element={USER_ID ? <HomeTabletSection width={width} home={true} /> : <SplashPage />} />
-          <Route element={<AppDesktopLayout />}>
-            <Route path="/room/:room_id" element={<HomeTabletSection home={false} width={width}><RoomPage /></HomeTabletSection>} />
-            <Route path="/create-filter" element={<FilterSection />} />
-            <Route path="/calls" element={<CallSection />} />
-            <Route path="/status" element={<StatusSection />} />
-          </Route>
-        </>
-      )}
-    </>
+    <Provider store={updateUserDetails}>
+      <Outlet/>
+    </Provider>
   );
 }

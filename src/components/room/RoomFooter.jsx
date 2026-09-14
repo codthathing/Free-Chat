@@ -8,7 +8,7 @@ export default function RoomFooter({ roomId, roomType }) {
   const [messageInput, setMessageInput] = useState("");
 
   const dispatch = useDispatch();
-  const { id: currentUserId } = useSelector((state) => state.user.user);
+  const { id: currentUserId } = useSelector((state) => state.user);
 
   const messageSendButton = () => {
     if (!messageInput.trim()) return;

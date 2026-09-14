@@ -11,7 +11,7 @@ export const useFormSubmitAction = () => {
 
   return async (setSubmitting, resetForm, method, link, other_method = () => {}) => {
     try {
-      await dispatch(method).unwrap();
+      await method();
       navigate(link);
       dispatch(other_method);
       resetForm();

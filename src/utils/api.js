@@ -11,17 +11,21 @@ const getUser = async (response) => {
 export const getUserWithEmail = async (email) => {
   const users = await fetch(`http://localhost:4000/users?email=${encodeURIComponent(email)}`);
 
-  return await getUser(users);
+  const user = await getUser(users);
+
+  sessionStorage.setItem("PASSWORD_RESET_ID", JSON.stringify(user.id));
+
+  return {"success": "User confirmed!"};
 }
 
 export const getUserWithUsername = async (username, password) => {
-  const users = await fetch(`http://localhost:4000/users?username=${encodeURIComponent(username)}`);
+  const response = await fetch(`http://localhost:4000/users?username=${encodeURIComponent(username)}`);
 
-  const user = await getUser(users);
+  const user = await getUser(response);
 
   if (user.password !== password) throw new Error("Wrong password!");
 
-  return user;
+  return { id: user.id };
 }
 
 export const postUser = async (username, email, password) => {
@@ -35,7 +39,7 @@ export const postUser = async (username, email, password) => {
     lastname: null,
   }
 
-  const user = await fetch("http://localhost:4000/users", {
+  const response = await fetch("http://localhost:4000/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -43,11 +47,13 @@ export const postUser = async (username, email, password) => {
     body: JSON.stringify(userDetails)
   });
 
-  return user.json();
+  if (!response.ok) throw new Error("User already exists!");
+
+  return {"success": "User successfully registered!"};
 }
 
 export const updateUserPassword = async (id, password) => {
-  const user = await fetch(`http://localhost:4000/users/${id}`, {
+  const response = await fetch(`http://localhost:4000/users/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -57,7 +63,9 @@ export const updateUserPassword = async (id, password) => {
     })
   });
 
-  return user.json();
+  if (!response.ok) throw new Error("Unable to update user password!");
+
+  return {"success": "User password successfully updated!"};
 }
 
 export const getFriends = async (userId) => {
@@ -90,6 +98,8 @@ export const getRooms = async (userId) => {
   const friends = await friendsResponse.json();
   const groups = await groupsResponse.json();
 
+  const roomIds = [];
+
   const mappedFriends = await Promise.all(
     friends.map(async ({ room_id, friend_id, friend_firstname, friend_lastname }) => {
       const friendResponse = await fetch(`http://localhost:4000/users/${friend_id}`);
@@ -97,6 +107,8 @@ export const getRooms = async (userId) => {
 
       const profile = friend["profile"];
       const username = friend["username"];
+
+      roomIds.push(room_id);
 
       return { id: room_id, roomType: "user", profile, username, fullName: {firstname: friend_firstname,lastname: friend_lastname} };
     })
@@ -110,11 +122,13 @@ export const getRooms = async (userId) => {
       const groupName = group["room_name"];
       const profile = group["room_profile"];
 
+      roomIds.push(room_id);
+
       return { id: room_id, roomType: "group", profile, groupName };
     })
   )
 
-  return [...mappedFriends, ...mappedGroups];
+  return {roomDetails: [...mappedFriends, ...mappedGroups], roomIds};
 }
 
 export const getRoomMessages = async (room_ids, user_id) => {
