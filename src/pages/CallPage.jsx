@@ -1,5 +1,5 @@
 import HomeMobileFooter from "../components/home/HomeMobileFooter.jsx";
-import {ChevronLeftIcon, PhoneCall} from "lucide-react";
+import {ChevronLeftIcon, PhoneIcon} from "lucide-react";
 import CallSection from "../components/call/CallSection.jsx";
 import {useNavigate} from "react-router-dom";
 
@@ -13,7 +13,7 @@ export default function CallPage() {
           <ChevronLeftIcon className={"size-6 font-extrabold"} onClick={() => navigate(-1)} />
           <h1 className={"capitalize font-bold"}>calls</h1>
         </div>
-        <PhoneCall className={"size-4 text-periwinkle-purple"} />
+        <PhoneIcon className={"size-4 text-periwinkle-purple"} />
       </header>
       <CallSection />
       <HomeMobileFooter />

@@ -12,6 +12,8 @@ import {useWindowWidth} from "../../hooks/useWindowWidth.js";
 import CallPage from "../../pages/CallPage.jsx";
 import CallSection from "../call/CallSection.jsx";
 import SplashPage from "../../pages/SplashPage.jsx";
+import StatusPage from "../../pages/StatusPage.jsx";
+import StatusSection from "../status/StatusSection.jsx";
 
 export default function ProtectRoutesLayout() {
   const roomIds = useSelector(selectIdsRooms);
@@ -36,6 +38,7 @@ export default function ProtectRoutesLayout() {
           <Route path="/room/:room_id" element={<RoomPage className={"h-dvh"} />} />
           <Route path="/create-filter" element={<FilterPage />} />
           <Route path="/calls" element={<CallPage />} />
+          <Route path={"/status"} element={<StatusPage />} />
         </Route>
       ) : (
         <>
@@ -44,6 +47,7 @@ export default function ProtectRoutesLayout() {
             <Route path="/room/:room_id" element={<HomeTabletSection home={false} width={width}><RoomPage /></HomeTabletSection>} />
             <Route path="/create-filter" element={<FilterSection />} />
             <Route path="/calls" element={<CallSection />} />
+            <Route path="/status" element={<StatusSection />} />
           </Route>
         </>
       )}

@@ -4,7 +4,7 @@ import {updateUserProfileModal} from "../../store/store.js";
 import PropTypes from "prop-types";
 import {useLocation, useNavigate} from "react-router-dom";
 
-/*** @param {{ menuClassName: string, menuIconnNotShownId: number, menuIconArray: { id: number, iconKey: string, iconText: string }[] }} props */
+/*** @param {{ menuClassName: string, menuIconnNotShownId: number, menuIconArray: { id: number, iconKey: string, iconText: string, path: string, links: string[] }[] }} props */
 
 const ICON_MAP = { "message-circle": MessageCircle,  "phone-call": PhoneCall,  target: Target,  bell: Bell,  user: User };
 
@@ -12,11 +12,11 @@ export default function HomeNavigationMenu({ menuClassName, menuIconNotShownId, 
   const dispatch = useDispatch();
   const { showUserProfileModal } = useSelector((state) => state.messageUI);
   const navigate = useNavigate();
-  const pathname = useLocation().pathname;
+  const pathname = useLocation().pathname.split("/")[1];
 
   return (
     <div role={"menu"} className={menuClassName}>
-      {menuIconArray.map(({ id, iconKey, iconText, path }) => {
+      {menuIconArray.map(({ id, iconKey, iconText, path, links }) => {
         if (menuIconNotShownId && id === menuIconNotShownId) return;
 
         const Icon = ICON_MAP[iconKey];
@@ -25,7 +25,7 @@ export default function HomeNavigationMenu({ menuClassName, menuIconNotShownId, 
           <div
             key={`${id}`}
             role={"menuitem"}
-            className={`${pathname === path ? "text-periwinkle-purple" : "text-medium-gray"} cursor-pointer flex flex-col items-center gap-y-0.5`}
+            className={`${links?.includes(pathname || "/") ? "text-periwinkle-purple" : "text-medium-gray"} cursor-pointer flex flex-col items-center gap-y-0.5`}
             {...(iconText === "profile" ? { onClick: () => dispatch(updateUserProfileModal(true)),
               role: "button",
               "aria-controls": "mobile-user-profile-section",
@@ -52,6 +52,7 @@ HomeNavigationMenu.propTypes = {
       iconKey: PropTypes.string.isRequired,
       iconText: PropTypes.string.isRequired,
       path: PropTypes.string,
+      links: PropTypes.arrayOf(PropTypes.string),
     })
   ).isRequired,
 }

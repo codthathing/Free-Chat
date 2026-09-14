@@ -4,7 +4,7 @@ export default function FilterSection() {
   return (
     <section className={"flex-1 overflow-hidden flex p-8 md:pt-10 md:justify-center w-full bg-background-gray"}>
       <div className={"w-full h-fit max-h-full flex flex-col gap-y-5 lg:gap-y-4 md:w-[70%] lg:w-2/5 p-4 md:px-8 md:py-10 lg:py-7.5 lg:px-6 bg-white border border-light-gray rounded-2xl"}>
-        <h1 className={"hidden md:block capitalize font-bold text-xl lg:text-2xl text-heading-black"}>create custom filter</h1>
+        <h1 className={"hidden md:block capitalize font-bold md:text-xl text-heading-black"}>create custom filter</h1>
         <section className={"flex flex-col gap-y-2"}>
           <h3 className={"text-medium-gray text-sm first-letter:capitalize font-semibold md:text-base lg:text-sm"}>filter name</h3>
           <input type={"text"} className={"bg-input-gray outline-none p-2.5 md:py-3 md:px-4 md:text-lg lg:text-base rounded-xl capitalize text-charcoal-black"} name={"filter-name-input"} placeholder={"filter name"} />

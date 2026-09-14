@@ -1,13 +1,15 @@
-import {Plus, Users} from "lucide-react";
+import {ArrowRightIcon, Plus, Users} from "lucide-react";
 import {useSelector} from "react-redux";
 import {useGetRoomDetails} from "../../hooks/useGetRoomDetails.js";
 import {selectAllStatus, selectEntitiesRooms} from "../../store/store.js";
+import {useNavigate} from "react-router-dom";
 
 export default function HomeMobileStatus() {
   const {user} = useSelector((state) => state.user);
   const statusUpdates = useSelector(selectAllStatus);
   const roomsEntities = useSelector(selectEntitiesRooms);
   const getRoomDetails = useGetRoomDetails();
+  const navigate = useNavigate();
 
   if (!user) return null;
 
@@ -15,7 +17,10 @@ export default function HomeMobileStatus() {
 
   return (
     <section className="px-3 pb-4 border-b border-input-gray md:hidden">
-      <h3 className="text-medium-gray text-sm mb-3">Recent Update</h3>
+      <div className={"flex justify-between items-center"}>
+        <h3 className="text-medium-gray text-sm mb-3">Recent Update</h3>
+        <ArrowRightIcon onClick={() => navigate("/status")} className={"size-4 cursor-pointer text-charcoal-black md:hidden "} />
+      </div>
       <main className="flex gap-x-3 snap-x snap-mandatory scroll-smooth overflow-x-auto no-scrollbar">
         {statusUpdates.map(({ id }) => {
           const { id: userId, type, profile, saved, name } = (id === currentUserId) ? {id: currentUserId, type: "user", profile: currentUserProfile, saved: true, name: "My Status"} : getRoomDetails(roomsEntities[id], false);

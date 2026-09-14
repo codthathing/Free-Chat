@@ -14,10 +14,10 @@ import {
 } from "../utils/api.js";
 
 const menuIconDetails = [
-  { id: 0, iconKey: "message-circle", iconText: "chats", path: "/" },
-  { id: 1, iconKey: "phone-call", iconText: "calls", path: "/calls" },
-  { id: 2, iconKey: "target", iconText: "status", path: "/status" },
-  { id: 4, iconKey: "bell", iconText: "notifications", path: "/notifications" },
+  { id: 0, iconKey: "message-circle", iconText: "chats", path: "/", links: ["/", "room"] },
+  { id: 1, iconKey: "phone-call", iconText: "calls", path: "/calls", links: ["calls"] },
+  { id: 2, iconKey: "target", iconText: "status", path: "/status", links: ["status"] },
+  { id: 4, iconKey: "bell", iconText: "notifications", path: "/notifications", links: ["notifications"] },
   { id: 5, iconKey: "user", iconText: "profile" },
 ];
 
