@@ -14,7 +14,7 @@ export default function HomeChatSearch() {
         <Search role={"button"} tabIndex={0} aria-label={"Confirm Search"} aria-controls={"message-search-input"} size={16} className="text-medium-gray" />
         <input type="search" id={"message-search-input"} className="bg-inherit text-xs w-full placeholder:text-medium-gray text-charcoal-black outline-none" placeholder="Search chat" value={searchText} onChange={(e) => setSearchText(e.target.value)} />
       </search>
-      <SlidersHorizontal role={"button"} tabIndex={0} aria-label={"Toggle Filters"} aria-expanded={showTabOptions} aria-controls={"message-tab-container"} onClick={() => dispatch(toggleTabContainer())} size={16} className="text-medium-gray md:hidden" />
+      <SlidersHorizontal role={"button"} aria-label={"Toggle Filters"} aria-expanded={showTabOptions} aria-controls={"message-tab-container"} onClick={() => dispatch(toggleTabContainer())} size={16} className="text-medium-gray md:hidden" />
     </form>
   );
 }

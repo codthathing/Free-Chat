@@ -5,13 +5,11 @@ import {selectAllStatus, selectEntitiesRooms} from "../../store/store.js";
 import {useNavigate} from "react-router-dom";
 
 export default function HomeMobileStatus() {
-  const {user} = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const statusUpdates = useSelector(selectAllStatus);
   const roomsEntities = useSelector(selectEntitiesRooms);
   const getRoomDetails = useGetRoomDetails();
   const navigate = useNavigate();
-
-  if (!user) return null;
 
   const { id: currentUserId, profile: currentUserProfile } = user;
 

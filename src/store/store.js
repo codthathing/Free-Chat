@@ -6,7 +6,7 @@ import {
 import {
   getFriends,
   getRoomMessages,
-  getRooms, getUserWithUsername, postMessageToRoom,
+  getRooms, getStatusUpdates, getUserWithUsername, postMessageToRoom,
 } from "../utils/api.js";
 
 const menuIconDetails = [
@@ -23,9 +23,19 @@ const tablist = [
   { id: 2, text: "groups", tabId: "groups-tab-button" },
 ];
 
+const initialState = {
+  menuIconDetails,
+  tablist,
+  userId: sessionStorage.getItem("USER_ID"),
+  actionState: { status: false, type: "", message: "" },
+  showUserProfileModal: false,
+  showTabOptions: false,
+  currentTabId: 0,
+};
+
 const messageUISlice = createSlice({
   name: "messageUI",
-  initialState: { menuIconDetails, tablist, userId: sessionStorage.getItem("USER_ID"), actionState: { status: false, type: "", message: "" }, showUserProfileModal: false, showTabOptions: false, currentTabId: 0 },
+  initialState: initialState,
   reducers: {
     toggleTabContainer: (state) => {
       state.showTabOptions = !state.showTabOptions
@@ -61,6 +71,7 @@ export const store = configureStore({
     messageUI: messageUISlice.reducer,
   },
   devTools: process.env.NODE_ENV === "development",
+  preloadedState: { messageUI: { ...initialState } },
 })
 
 
@@ -108,6 +119,14 @@ export const { selectAll: selectAllRooms, selectById: selectByIdRooms, selectEnt
 
 
 const statusAdapter = createEntityAdapter();
+
+export const fetchStatus = async (room_ids, id) => {
+  const status = await getStatusUpdates(room_ids, id);
+
+  if (!status) throw new Error("Unable to fetch room statuses!");
+
+  return status;
+}
 
 const roomStatusSlice = createSlice({
   name: "status",

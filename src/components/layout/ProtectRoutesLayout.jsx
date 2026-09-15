@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {
   fetchFriends,
   fetchMessages,
-  fetchRooms,
+  fetchRooms, fetchStatus,
   fetchUserId,
   makeStore,
 } from "../../store/store.js";
@@ -16,11 +16,16 @@ export default function ProtectRoutesLayout() {
 
   useEffect(() => {
     (async () => {
-      const user = await fetchUserId(USER_ID);
-      const {roomDetails, roomIds} = await fetchRooms(USER_ID);
-      const friends = await fetchFriends(USER_ID);
-      const messages = await fetchMessages(roomIds, user.id);
-      const status = await fetchMessages(roomIds, user.id);
+      const [user, { roomDetails, roomIds }, friends] = await Promise.all([
+        fetchUserId(USER_ID),
+        fetchRooms(USER_ID),
+        fetchFriends(USER_ID),
+      ]);
+
+      const [messages, status] = await Promise.all([
+        fetchMessages(roomIds, user.id),
+        fetchStatus(roomIds, user.id),
+      ]);
 
       setUpdateUserDetails(makeStore(user, roomDetails, friends, messages, status));
     })();
