@@ -20,6 +20,8 @@ import StatusSection from "./components/status/StatusSection.jsx";
 import HomeMobileSection from "./components/home/HomeMobileSection.jsx";
 import RoomPage from "./pages/RoomPage.jsx";
 import {useSelector} from "react-redux";
+import NotificationPage from "./pages/NotificationPage.jsx";
+import NotificationSection from "./components/notification/NotificationSection.jsx";
 
 export default function App() {
   const USER_ID = useSelector(state => state.messageUI.userId);
@@ -37,7 +39,8 @@ export default function App() {
                 <Route path="/room/:room_id" element={<RoomPage className={"h-dvh"} />} />
                 <Route path="/create-filter" element={<FilterPage />} />
                 <Route path="/calls" element={<CallPage />} />
-                <Route path={"/status"} element={<StatusPage />} />
+                <Route path={"/status/*"} element={<StatusPage />} />
+                <Route path={"/notifications"} element={<NotificationPage />} />
               </Route>
             ) : (
               <>
@@ -46,7 +49,8 @@ export default function App() {
                   <Route path="/room/:room_id" element={<HomeTabletSection home={false} width={width}><RoomPage /></HomeTabletSection>} />
                   <Route path="/create-filter" element={<FilterSection />} />
                   <Route path="/calls" element={<CallSection />} />
-                  <Route path="/status" element={<StatusSection />} />
+                  <Route path="/status/*" element={<StatusSection />} />
+                  <Route path={"/notifications"} element={<NotificationSection />} />
                 </Route>
               </>
             )}

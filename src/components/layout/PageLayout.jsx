@@ -2,7 +2,7 @@ import {Navigate, Outlet, useLocation} from "react-router-dom";
 import PageUpdate from "../ui/PageUpdate";
 import {useSelector} from "react-redux";
 
-const PROTECTED_ROUTES = ["room", "create-filter", "calls", "status"];
+const PROTECTED_ROUTES = ["room", "create-filter", "calls", "status", "notifications"];
 
 export default function PageLayout() {
   const USER_ID = useSelector(state => state.messageUI.userId);
