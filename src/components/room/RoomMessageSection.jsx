@@ -60,7 +60,7 @@ RoomMessageSection.propTypes = {
       status: PropTypes.string.isRequired,
       array: PropTypes.arrayOf(
         PropTypes.shape({
-          id: PropTypes.string.isRequired,
+          id: PropTypes.number.isRequired,
           type: PropTypes.string.isRequired,
           text: PropTypes.string.isRequired,
           time: PropTypes.string.isRequired,

@@ -1,17 +1,37 @@
-const getUser = async (response) => {
-  const users = await response.json();
+const BASE_URL = import.meta.env.VITE_API_URL;
 
-  if (users.length === 0) throw new Error("User account not found! Create an account.");
+async function request(path, options = {}) {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    headers: { 'Content-Type': 'application/json' },
+    ...options,
+  })
 
-  const user = await fetch(`http://localhost:4000/users/${users[0].id}`);
+  if (!res.ok) throw new Error(`Request failed: ${res.status}`);
 
-  return user.json();
+  return res.json();
 }
 
-export const getUserWithEmail = async (email) => {
-  const users = await fetch(`http://localhost:4000/users?email=${encodeURIComponent(email)}`);
+const resource = (name) => ({
+  list: (query = '') => request(`/${name}${query}`),
+  get: (id) => request(`/${name}/${id}`),
+  create: (data) => request(`/${name}`, { method: 'POST', body: JSON.stringify(data) }),
+  replace: (id, data) => request(`/${name}/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  update: (id, data) => request(`/${name}/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
+  remove: (id) => request(`/${name}/${id}`, { method: 'DELETE' }),
+})
 
-  const user = await getUser(users);
+export const users = resource('users')
+export const rooms = resource('rooms')
+export const groups = resource('groups')
+export const friends = resource('friends')
+export const groupMembers = resource('group_members')
+export const messages = resource('messages')
+export const statusContents = resource('status_contents')
+
+export const getUserWithEmail = async (email) => {
+  const [user] = await users.list(`?email=${encodeURIComponent(email)}`);
+
+  if (!user) throw new Error("User not found!");
 
   sessionStorage.setItem("PASSWORD_RESET_ID", JSON.stringify(user.id));
 
@@ -19,9 +39,9 @@ export const getUserWithEmail = async (email) => {
 }
 
 export const getUserWithUsername = async (username, password) => {
-  const response = await fetch(`http://localhost:4000/users?username=${encodeURIComponent(username)}`);
+  const [user] = await users.list(`?username=${encodeURIComponent(username)}`);
 
-  const user = await getUser(response);
+  if (!user) throw new Error("User not found!");
 
   if (user.password !== password) throw new Error("Wrong password!");
 
@@ -39,43 +59,23 @@ export const postUser = async (username, email, password) => {
     lastname: null,
   }
 
-  const response = await fetch("http://localhost:4000/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userDetails)
-  });
-
-  if (!response.ok) throw new Error("User already exists!");
+  await users.create(userDetails);
 
   return {"success": "User successfully registered!"};
 }
 
 export const updateUserPassword = async (id, password) => {
-  const response = await fetch(`http://localhost:4000/users/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      password: password
-    })
-  });
-
-  if (!response.ok) throw new Error("Unable to update user password!");
+  await users.update(id, {password});
 
   return {"success": "User password successfully updated!"};
 }
 
 export const getFriends = async (userId) => {
-  const friendsResponse = await fetch(`http://localhost:4000/friends?u_id=${userId}`);
-  const friends = await friendsResponse.json();
+  const friendsData = await friends.list(`?u_id=${userId}`);
 
   return await Promise.all(
-    friends.map(async ({friend_id, friend_firstname, friend_lastname}) => {
-      const friendResponse = await fetch(`http://localhost:4000/users/${friend_id}`);
-      const friend = await friendResponse.json();
+    friendsData.map(async ({friend_id, friend_firstname, friend_lastname}) => {
+      const friend = await users.get(friend_id);
 
       const profile = friend["profile"];
       const username = friend["username"];
@@ -92,18 +92,14 @@ export const getFriends = async (userId) => {
 }
 
 export const getRooms = async (userId) => {
-  const friendsResponse = await fetch(`http://localhost:4000/friends?u_id=${userId}`);
-  const groupsResponse = await fetch(`http://localhost:4000/room_members?u_id=${userId}`);
-
-  const friends = await friendsResponse.json();
-  const groups = await groupsResponse.json();
+  const friendsData = await friends.list(`?u_id=${userId}`);
+  const groupsData = await groupMembers.list(`?u_id=${userId}`);
 
   const roomIds = [];
 
   const mappedFriends = await Promise.all(
-    friends.map(async ({ room_id, friend_id, friend_firstname, friend_lastname }) => {
-      const friendResponse = await fetch(`http://localhost:4000/users/${friend_id}`);
-      const friend = await friendResponse.json();
+    friendsData.map(async ({ room_id, friend_id, friend_firstname, friend_lastname }) => {
+      const friend = await users.get(friend_id);
 
       const profile = friend["profile"];
       const username = friend["username"];
@@ -115,16 +111,15 @@ export const getRooms = async (userId) => {
   );
 
   const mappedGroups = await Promise.all(
-    groups.map(async ({ room_id }) => {
-      const groupResponse = await fetch(`http://localhost:4000/groups/${room_id}`);
-      const group = await groupResponse.json();
+    groupsData.map(async ({ group_id }) => {
+      const group = await groups.get(group_id);
 
-      const groupName = group["room_name"];
-      const profile = group["room_profile"];
+      const groupName = group["group_name"];
+      const profile = group["group_profile"];
 
-      roomIds.push(room_id);
+      roomIds.push(group_id);
 
-      return { id: room_id, roomType: "group", profile, groupName };
+      return { id: group_id, roomType: "group", profile, groupName };
     })
   )
 
@@ -134,11 +129,8 @@ export const getRooms = async (userId) => {
 export const getRoomMessages = async (room_ids, user_id) => {
   return await Promise.all(
     room_ids.map(async (room_id) => {
-      const roomMessagesResponse = await fetch(`http://localhost:4000/messages?room_id=${room_id}`);
-      const roomMessages = await roomMessagesResponse.json();
-
-      const roomResponse = await fetch(`http://localhost:4000/rooms/${room_id}`);
-      const room = await roomResponse.json();
+      const roomMessages = await messages.list(`?room_id=${room_id}`);
+      const room = await rooms.get(room_id);
 
       const mappedRoomMessages = roomMessages.map(({id, u_id, text, time_stamp}) => {
         const type = u_id === user_id ? "user" : "other";
@@ -152,15 +144,7 @@ export const getRoomMessages = async (room_ids, user_id) => {
 }
 
 export const postMessageToRoom = async (roomType, messageObj) => {
-  const messageResponse = await fetch(`http://localhost:4000/messages`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(messageObj)
-  });
-
-  const { id, u_id, text, time_stamp } = await messageResponse.json();
+  const { id, u_id, text, time_stamp } = await messages.create(messageObj);
 
   return {id, type: "user", ...(roomType === "group" && {u_id}), text, time: time_stamp};
 }
@@ -170,8 +154,7 @@ export const getStatusUpdates = async (roomIds, u_id) => {
 
   return await Promise.all(
     totalStatusIds.map(async (id) => {
-       const statusResponse = await fetch(`http://localhost:4000/status_contents?id=${id}`);
-       const status = await statusResponse.json();
+       const status = await statusContents.list(`?id=${id}`);
 
        if (!status) return;
 

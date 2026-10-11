@@ -6,7 +6,7 @@ import {
 import {
   getFriends,
   getRoomMessages,
-  getRooms, getStatusUpdates, getUserWithUsername, postMessageToRoom,
+  getRooms, getStatusUpdates, getUserWithUsername, postMessageToRoom, users,
 } from "../utils/api.js";
 
 const menuIconDetails = [
@@ -179,9 +179,7 @@ export const { selectEntities: selectEntitiesMessages, selectById: selectByIdMes
 
 
 export const fetchUserId = async (id) => {
-  const user = await fetch(`http://localhost:4000/users/${id}`);
-
-  return user.json();
+  return await users.get(id);
 }
 
 export const fetchUserWithUsername = async (username, password, dispatch) => {
