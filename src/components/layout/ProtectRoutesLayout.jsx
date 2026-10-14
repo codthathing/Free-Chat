@@ -8,6 +8,7 @@ import {
   fetchUserId,
   makeStore,
 } from "../../store/store.js";
+import PageLoading from "../ui/PageLoading.jsx";
 
 export default function ProtectRoutesLayout() {
   const USER_ID = useSelector(state => state.messageUI.userId);
@@ -31,7 +32,7 @@ export default function ProtectRoutesLayout() {
     })();
   }, [USER_ID]);
 
-  if (!updateUserDetails) return null;
+  if (!updateUserDetails) return <PageLoading/>;
 
   return (
     <Provider store={updateUserDetails}>

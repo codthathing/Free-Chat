@@ -26,7 +26,7 @@ export default function StatusViewerSection() {
               <p className={`text-sm md:text-base lg:text-sm text-white ${saved ? "capitalize font-semibold" : "italic font-light"} flex items-center gap-x-1`}><span>{name}</span><span>{type === "group" && <Users size={10} />}</span></p>
               <span className={"text-light-gray/70 text-xs md:text-sm lg:text-xs"}>45m ago</span>
             </div>
-            <X onClick={() => navigate(-1)} className={"text-white cursor-pointer size-4 md:size-6 lg:size-5"} />
+            <X onClick={() => navigate(-1)} className={"text-white cursor-pointer size-7.5 font-extrabold md:size-8 lg:size-6"} />
           </div>
         </section>
         <div className={"py-0.5 px-3.5 md:px-5 lg:px-4.5 flex gap-x-2 items-center rounded-full border border-light-gray"}>
