@@ -143,7 +143,7 @@ const messagesAdapter = createEntityAdapter();
 export const fetchMessages = async (room_ids, id) => {
   const messages = await getRoomMessages(room_ids, id);
 
-  if (!messages) throw new Error("Unable to fetch home");
+  if (!messages) throw new Error("Unable to fetch room messages!");
 
   return messages;
 }
@@ -151,7 +151,7 @@ export const fetchMessages = async (room_ids, id) => {
 export const addMessage = createAsyncThunk("post/home", async ({roomId, roomType, messageObj}) => {
   const message = await postMessageToRoom(roomType, messageObj);
 
-  if (!message) throw new Error("Unable to post message");
+  if (!message) throw new Error("Unable to add message!");
 
   return {roomId, message};
 })

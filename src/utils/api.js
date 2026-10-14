@@ -6,7 +6,7 @@ async function request(path, options = {}) {
     ...options,
   })
 
-  if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+  if (!res.ok) throw new Error("Something went wrong. Please try again.");
 
   return res.json();
 }
@@ -31,7 +31,7 @@ export const statusContents = resource('status_contents')
 export const getUserWithEmail = async (email) => {
   const [user] = await users.list(`?email=${encodeURIComponent(email)}`);
 
-  if (!user) throw new Error("User not found!");
+  if (!user) throw new Error("Wrong email. Please, try again.");
 
   sessionStorage.setItem("PASSWORD_RESET_ID", JSON.stringify(user.id));
 
@@ -41,9 +41,9 @@ export const getUserWithEmail = async (email) => {
 export const getUserWithUsername = async (username, password) => {
   const [user] = await users.list(`?username=${encodeURIComponent(username)}`);
 
-  if (!user) throw new Error("User not found!");
+  if (!user) throw new Error("Wrong username or password!");
 
-  if (user.password !== password) throw new Error("Wrong password!");
+  if (user.password !== password) throw new Error("Wrong username or password!");
 
   return { id: user.id };
 }
